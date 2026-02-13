@@ -23,10 +23,10 @@ enum TOTPGenerator {
             hmac = Data(h.finalize())
         case .sha256:
             let key = SymmetricKey(data: secretData)
-            hmac = Data(HMAC<SHA256>.authentication(for: counterData, using: key))
+            hmac = Data(HMAC<SHA256>.authenticationCode(for: counterData, using: key))
         case .sha512:
             let key = SymmetricKey(data: secretData)
-            hmac = Data(HMAC<SHA512>.authentication(for: counterData, using: key))
+            hmac = Data(HMAC<SHA512>.authenticationCode(for: counterData, using: key))
         }
 
         let offset = Int(hmac[hmac.count - 1] & 0x0F)
