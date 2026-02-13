@@ -1,0 +1,471 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 77;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		1AE06B26374913022AF0B512 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 87A9BBBD6B10534CBFC5D62C /* Assets.xcassets */; };
+		1CFF59E7E32F6CF40F47BA84 /* thread.c in Sources */ = {isa = PBXBuildFile; fileRef = 4FD7989AF0273E164C427E14 /* thread.c */; settings = {COMPILER_FLAGS = "-DARGON2_NO_THREADS"; }; };
+		3638BD8048634C9D9DF10FCF /* KDBXCrypto.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC9D9D013823B73C45F84BF6 /* KDBXCrypto.swift */; };
+		46CDE7DF63D95E6308C20FBB /* blake2b.c in Sources */ = {isa = PBXBuildFile; fileRef = 3377E866435693A59D8E7E5D /* blake2b.c */; settings = {COMPILER_FLAGS = "-DARGON2_NO_THREADS"; }; };
+		5F9259019409ED1EF4BAC15F /* core.h in Sources */ = {isa = PBXBuildFile; fileRef = AC48ED14027FBFD10C497878 /* core.h */; settings = {COMPILER_FLAGS = "-DARGON2_NO_THREADS"; }; };
+		6BB187D584A430CA757E5841 /* TOTPGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98D53142E0E400EAFDFC0DB8 /* TOTPGenerator.swift */; };
+		6FBAFC562307C8B167E55950 /* KeeVaultApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5851D3E9580E70714F51B41 /* KeeVaultApp.swift */; };
+		72AD8F6FAAF50029223172C5 /* blake2.h in Sources */ = {isa = PBXBuildFile; fileRef = 79D44D96D45E5426A8CE40F4 /* blake2.h */; settings = {COMPILER_FLAGS = "-DARGON2_NO_THREADS"; }; };
+		7329566E7A94CA23C3023430 /* blamka-round-ref.h in Sources */ = {isa = PBXBuildFile; fileRef = 4375E4C8984992F1CF3464EA /* blamka-round-ref.h */; settings = {COMPILER_FLAGS = "-DARGON2_NO_THREADS"; }; };
+		7844FEA590BAD4372335C5DB /* Entry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89FE935F12B1213BF2AA4887 /* Entry.swift */; };
+		899653B778ED3609FB4AF0D5 /* Group.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FDAB0B2AA37625E26242E53 /* Group.swift */; };
+		95EB772CAA46B6B234931E04 /* argon2.h in Sources */ = {isa = PBXBuildFile; fileRef = 658FA92FDF42D22946461B26 /* argon2.h */; settings = {COMPILER_FLAGS = "-DARGON2_NO_THREADS"; }; };
+		999192E753BEECE07E434465 /* argon2.c in Sources */ = {isa = PBXBuildFile; fileRef = 9DD45B45F9FA3134A2B46DA3 /* argon2.c */; settings = {COMPILER_FLAGS = "-DARGON2_NO_THREADS"; }; };
+		A5889A3B87720660E19D73A1 /* blake2-impl.h in Sources */ = {isa = PBXBuildFile; fileRef = CB8CA57BCC9BB3348C50B665 /* blake2-impl.h */; settings = {COMPILER_FLAGS = "-DARGON2_NO_THREADS"; }; };
+		A73E58906E6BD20D6840D27C /* thread.h in Sources */ = {isa = PBXBuildFile; fileRef = C452E5A3B956464EF630257C /* thread.h */; settings = {COMPILER_FLAGS = "-DARGON2_NO_THREADS"; }; };
+		A852D88287F4A92FEF2AD5B9 /* encoding.c in Sources */ = {isa = PBXBuildFile; fileRef = 9ECFA82E9096A43DB1AF8027 /* encoding.c */; settings = {COMPILER_FLAGS = "-DARGON2_NO_THREADS"; }; };
+		ABF00C19DDB9FB0D543C50E3 /* core.c in Sources */ = {isa = PBXBuildFile; fileRef = B61CB00D954BF7F9725FCDDC /* core.c */; settings = {COMPILER_FLAGS = "-DARGON2_NO_THREADS"; }; };
+		BB138B22D3EAF701FBD1BB70 /* ref.c in Sources */ = {isa = PBXBuildFile; fileRef = 2FCAF3387FBFE90D9ED761A0 /* ref.c */; settings = {COMPILER_FLAGS = "-DARGON2_NO_THREADS"; }; };
+		DFE4172CD97B51357093526D /* KDBXParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04630AC02950D75B272D5927 /* KDBXParser.swift */; };
+		F77D33B3CE56151F3F4880B3 /* encoding.h in Sources */ = {isa = PBXBuildFile; fileRef = 4A74E616BDF70E76A1BF9C47 /* encoding.h */; settings = {COMPILER_FLAGS = "-DARGON2_NO_THREADS"; }; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		04630AC02950D75B272D5927 /* KDBXParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KDBXParser.swift; sourceTree = "<group>"; };
+		2FCAF3387FBFE90D9ED761A0 /* ref.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = ref.c; sourceTree = "<group>"; };
+		3377E866435693A59D8E7E5D /* blake2b.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = blake2b.c; sourceTree = "<group>"; };
+		3CD81FD786A947B544FE59B9 /* argon2_bridge.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = argon2_bridge.h; sourceTree = "<group>"; };
+		4375E4C8984992F1CF3464EA /* blamka-round-ref.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "blamka-round-ref.h"; sourceTree = "<group>"; };
+		4A74E616BDF70E76A1BF9C47 /* encoding.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = encoding.h; sourceTree = "<group>"; };
+		4FD7989AF0273E164C427E14 /* thread.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = thread.c; sourceTree = "<group>"; };
+		5FDAB0B2AA37625E26242E53 /* Group.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Group.swift; sourceTree = "<group>"; };
+		658FA92FDF42D22946461B26 /* argon2.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = argon2.h; sourceTree = "<group>"; };
+		79D44D96D45E5426A8CE40F4 /* blake2.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = blake2.h; sourceTree = "<group>"; };
+		87A9BBBD6B10534CBFC5D62C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		89FE935F12B1213BF2AA4887 /* Entry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Entry.swift; sourceTree = "<group>"; };
+		98D53142E0E400EAFDFC0DB8 /* TOTPGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TOTPGenerator.swift; sourceTree = "<group>"; };
+		9DD45B45F9FA3134A2B46DA3 /* argon2.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = argon2.c; sourceTree = "<group>"; };
+		9ECFA82E9096A43DB1AF8027 /* encoding.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = encoding.c; sourceTree = "<group>"; };
+		AC48ED14027FBFD10C497878 /* core.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = core.h; sourceTree = "<group>"; };
+		B61CB00D954BF7F9725FCDDC /* core.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = core.c; sourceTree = "<group>"; };
+		C452E5A3B956464EF630257C /* thread.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = thread.h; sourceTree = "<group>"; };
+		C5851D3E9580E70714F51B41 /* KeeVaultApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeeVaultApp.swift; sourceTree = "<group>"; };
+		CB8CA57BCC9BB3348C50B665 /* blake2-impl.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "blake2-impl.h"; sourceTree = "<group>"; };
+		EC9D9D013823B73C45F84BF6 /* KDBXCrypto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KDBXCrypto.swift; sourceTree = "<group>"; };
+		F55B3FE0C3221312F43C5814 /* KeeVault.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = KeeVault.app; sourceTree = BUILT_PRODUCTS_DIR; };
+/* End PBXFileReference section */
+
+/* Begin PBXGroup section */
+		0DDE644E447B42CFDB9726BE /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				F55B3FE0C3221312F43C5814 /* KeeVault.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		16B2CCEA2361BA396798AAC8 /* App */ = {
+			isa = PBXGroup;
+			children = (
+				C5851D3E9580E70714F51B41 /* KeeVaultApp.swift */,
+			);
+			name = App;
+			path = KeeVault/App;
+			sourceTree = "<group>";
+		};
+		283C2B000DC172016C407319 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Views;
+			path = KeeVault/Views;
+			sourceTree = "<group>";
+		};
+		397037C85461299C2611E3C5 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				89FE935F12B1213BF2AA4887 /* Entry.swift */,
+				5FDAB0B2AA37625E26242E53 /* Group.swift */,
+				EC9D9D013823B73C45F84BF6 /* KDBXCrypto.swift */,
+				04630AC02950D75B272D5927 /* KDBXParser.swift */,
+				98D53142E0E400EAFDFC0DB8 /* TOTPGenerator.swift */,
+			);
+			name = Models;
+			path = KeeVault/Models;
+			sourceTree = "<group>";
+		};
+		6545B9241493A8B1B0A7B476 /* CArgon2Bridge */ = {
+			isa = PBXGroup;
+			children = (
+				3CD81FD786A947B544FE59B9 /* argon2_bridge.h */,
+			);
+			name = CArgon2Bridge;
+			path = KeeVault/CArgon2Bridge;
+			sourceTree = "<group>";
+		};
+		A32A208F93C711849C1088B7 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Extensions;
+			path = KeeVault/Extensions;
+			sourceTree = "<group>";
+		};
+		A66661F79468890840F6F690 = {
+			isa = PBXGroup;
+			children = (
+				16B2CCEA2361BA396798AAC8 /* App */,
+				B02FF477B068A76E4E38F5FE /* argon2 */,
+				6545B9241493A8B1B0A7B476 /* CArgon2Bridge */,
+				A32A208F93C711849C1088B7 /* Extensions */,
+				397037C85461299C2611E3C5 /* Models */,
+				A73FF28784C9F31E425687CD /* Resources */,
+				CC966CEB9E3635D5C6BD5E35 /* Services */,
+				CBF4AC9A588E2592756A2901 /* ViewModels */,
+				283C2B000DC172016C407319 /* Views */,
+				0DDE644E447B42CFDB9726BE /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		A73FF28784C9F31E425687CD /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				87A9BBBD6B10534CBFC5D62C /* Assets.xcassets */,
+			);
+			name = Resources;
+			path = KeeVault/Resources;
+			sourceTree = "<group>";
+		};
+		B02FF477B068A76E4E38F5FE /* argon2 */ = {
+			isa = PBXGroup;
+			children = (
+				9DD45B45F9FA3134A2B46DA3 /* argon2.c */,
+				658FA92FDF42D22946461B26 /* argon2.h */,
+				CB8CA57BCC9BB3348C50B665 /* blake2-impl.h */,
+				79D44D96D45E5426A8CE40F4 /* blake2.h */,
+				3377E866435693A59D8E7E5D /* blake2b.c */,
+				4375E4C8984992F1CF3464EA /* blamka-round-ref.h */,
+				B61CB00D954BF7F9725FCDDC /* core.c */,
+				AC48ED14027FBFD10C497878 /* core.h */,
+				9ECFA82E9096A43DB1AF8027 /* encoding.c */,
+				4A74E616BDF70E76A1BF9C47 /* encoding.h */,
+				2FCAF3387FBFE90D9ED761A0 /* ref.c */,
+				4FD7989AF0273E164C427E14 /* thread.c */,
+				C452E5A3B956464EF630257C /* thread.h */,
+			);
+			name = argon2;
+			path = KeeVault/CArgon2Bridge/argon2;
+			sourceTree = "<group>";
+		};
+		CBF4AC9A588E2592756A2901 /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = ViewModels;
+			path = KeeVault/ViewModels;
+			sourceTree = "<group>";
+		};
+		CC966CEB9E3635D5C6BD5E35 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Services;
+			path = KeeVault/Services;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		F5CCCD17070E72A4B318C437 /* KeeVault */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = D23896FDDBD748D28015EB5F /* Build configuration list for PBXNativeTarget "KeeVault" */;
+			buildPhases = (
+				EEE50EDAAD3283691A32AD61 /* Sources */,
+				13AA7DCB75E9A4DBAF3144C2 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = KeeVault;
+			packageProductDependencies = (
+			);
+			productName = KeeVault;
+			productReference = F55B3FE0C3221312F43C5814 /* KeeVault.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		EEE3A8A0453C62287D515E40 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = YES;
+				LastUpgradeCheck = 1600;
+				TargetAttributes = {
+					F5CCCD17070E72A4B318C437 = {
+						ProvisioningStyle = Automatic;
+					};
+				};
+			};
+			buildConfigurationList = BD3C6BD1EAEBD78FBCBD25D5 /* Build configuration list for PBXProject "KeeVault" */;
+			compatibilityVersion = "Xcode 14.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				Base,
+				en,
+			);
+			mainGroup = A66661F79468890840F6F690;
+			minimizedProjectReferenceProxies = 1;
+			preferredProjectObjectVersion = 77;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				F5CCCD17070E72A4B318C437 /* KeeVault */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		13AA7DCB75E9A4DBAF3144C2 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1AE06B26374913022AF0B512 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		EEE50EDAAD3283691A32AD61 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				7844FEA590BAD4372335C5DB /* Entry.swift in Sources */,
+				899653B778ED3609FB4AF0D5 /* Group.swift in Sources */,
+				3638BD8048634C9D9DF10FCF /* KDBXCrypto.swift in Sources */,
+				DFE4172CD97B51357093526D /* KDBXParser.swift in Sources */,
+				6FBAFC562307C8B167E55950 /* KeeVaultApp.swift in Sources */,
+				6BB187D584A430CA757E5841 /* TOTPGenerator.swift in Sources */,
+				999192E753BEECE07E434465 /* argon2.c in Sources */,
+				95EB772CAA46B6B234931E04 /* argon2.h in Sources */,
+				A5889A3B87720660E19D73A1 /* blake2-impl.h in Sources */,
+				72AD8F6FAAF50029223172C5 /* blake2.h in Sources */,
+				46CDE7DF63D95E6308C20FBB /* blake2b.c in Sources */,
+				7329566E7A94CA23C3023430 /* blamka-round-ref.h in Sources */,
+				ABF00C19DDB9FB0D543C50E3 /* core.c in Sources */,
+				5F9259019409ED1EF4BAC15F /* core.h in Sources */,
+				A852D88287F4A92FEF2AD5B9 /* encoding.c in Sources */,
+				F77D33B3CE56151F3F4880B3 /* encoding.h in Sources */,
+				BB138B22D3EAF701FBD1BB70 /* ref.c in Sources */,
+				1CFF59E7E32F6CF40F47BA84 /* thread.c in Sources */,
+				A73E58906E6BD20D6840D27C /* thread.h in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		2B0F555ECC285AAD01BE6165 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"DEBUG=1",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_STRICT_CONCURRENCY = complete;
+				SWIFT_VERSION = 6.0;
+			};
+			name = Debug;
+		};
+		A4468E53A3115306CA5FDBE6 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = NO;
+				HEADER_SEARCH_PATHS = (
+					"$(SRCROOT)/KeeVault/CArgon2Bridge",
+					"$(SRCROOT)/KeeVault/CArgon2Bridge/argon2",
+				);
+				INFOPLIST_FILE = KeeVault/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0.0;
+				OTHER_CFLAGS = "-DARGON2_NO_THREADS";
+				PRODUCT_BUNDLE_IDENTIFIER = com.keevault.app;
+				PRODUCT_NAME = KeeVault;
+				SDKROOT = iphoneos;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = KeeVault/CArgon2Bridge/argon2_bridge.h;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		BEE1023E9E95110948A308DB /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_STRICT_CONCURRENCY = complete;
+				SWIFT_VERSION = 6.0;
+			};
+			name = Release;
+		};
+		C3DAB56AB0A0673047C91491 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = NO;
+				HEADER_SEARCH_PATHS = (
+					"$(SRCROOT)/KeeVault/CArgon2Bridge",
+					"$(SRCROOT)/KeeVault/CArgon2Bridge/argon2",
+				);
+				INFOPLIST_FILE = KeeVault/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0.0;
+				OTHER_CFLAGS = "-DARGON2_NO_THREADS";
+				PRODUCT_BUNDLE_IDENTIFIER = com.keevault.app;
+				PRODUCT_NAME = KeeVault;
+				SDKROOT = iphoneos;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = KeeVault/CArgon2Bridge/argon2_bridge.h;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		BD3C6BD1EAEBD78FBCBD25D5 /* Build configuration list for PBXProject "KeeVault" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				2B0F555ECC285AAD01BE6165 /* Debug */,
+				BEE1023E9E95110948A308DB /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		D23896FDDBD748D28015EB5F /* Build configuration list for PBXNativeTarget "KeeVault" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C3DAB56AB0A0673047C91491 /* Debug */,
+				A4468E53A3115306CA5FDBE6 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = EEE3A8A0453C62287D515E40 /* Project object */;
+}

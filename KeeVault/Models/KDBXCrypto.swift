@@ -36,7 +36,7 @@ enum Argon2 {
                         saltPtr.baseAddress, salt.count,
                         outPtr.baseAddress, hashLength,
                         nil, 0, // encoded output — not needed
-                        Int32(variant.rawValue),
+                        argon2_type(variant.rawValue),
                         UInt32(0x13) // ARGON2_VERSION_13
                     )
                 }
@@ -293,7 +293,7 @@ private class OutputFilter {
         self.operation = operation
         self.algorithm = algorithm
         self.callback = callback
-        self.stream = compression_stream()
+        self.stream = compression_stream(dst_ptr: UnsafeMutablePointer<UInt8>.allocate(capacity: 0), dst_size: 0, src_ptr: UnsafeMutablePointer<UInt8>.allocate(capacity: 0), src_size: 0, state: nil)
 
         let op: compression_stream_operation = operation == .compress ? COMPRESSION_STREAM_ENCODE : COMPRESSION_STREAM_DECODE
         let algo: compression_algorithm
