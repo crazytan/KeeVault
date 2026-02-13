@@ -1,7 +1,7 @@
 import Foundation
 import SwiftUI
 
-@Observable
+@MainActor @Observable
 final class DatabaseViewModel {
     enum State: Sendable {
         case locked
