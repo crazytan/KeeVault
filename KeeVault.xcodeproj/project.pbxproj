@@ -23,12 +23,14 @@
 		899653B778ED3609FB4AF0D5 /* Group.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FDAB0B2AA37625E26242E53 /* Group.swift */; };
 		95EB772CAA46B6B234931E04 /* argon2.h in Sources */ = {isa = PBXBuildFile; fileRef = 658FA92FDF42D22946461B26 /* argon2.h */; settings = {COMPILER_FLAGS = "-DARGON2_NO_THREADS"; }; };
 		999192E753BEECE07E434465 /* argon2.c in Sources */ = {isa = PBXBuildFile; fileRef = 9DD45B45F9FA3134A2B46DA3 /* argon2.c */; settings = {COMPILER_FLAGS = "-DARGON2_NO_THREADS"; }; };
+		9D80E85BC5136F4DB90FA0FB /* TOTPViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75C024C6B1529C887FACFC32 /* TOTPViewModel.swift */; };
 		A5889A3B87720660E19D73A1 /* blake2-impl.h in Sources */ = {isa = PBXBuildFile; fileRef = CB8CA57BCC9BB3348C50B665 /* blake2-impl.h */; settings = {COMPILER_FLAGS = "-DARGON2_NO_THREADS"; }; };
 		A73E58906E6BD20D6840D27C /* thread.h in Sources */ = {isa = PBXBuildFile; fileRef = C452E5A3B956464EF630257C /* thread.h */; settings = {COMPILER_FLAGS = "-DARGON2_NO_THREADS"; }; };
 		A852D88287F4A92FEF2AD5B9 /* encoding.c in Sources */ = {isa = PBXBuildFile; fileRef = 9ECFA82E9096A43DB1AF8027 /* encoding.c */; settings = {COMPILER_FLAGS = "-DARGON2_NO_THREADS"; }; };
 		ABF00C19DDB9FB0D543C50E3 /* core.c in Sources */ = {isa = PBXBuildFile; fileRef = B61CB00D954BF7F9725FCDDC /* core.c */; settings = {COMPILER_FLAGS = "-DARGON2_NO_THREADS"; }; };
 		B2E4536F8A4FB6AEAFBF1C0F /* ClipboardService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AA1BC781576F6FCF822CF5F /* ClipboardService.swift */; };
 		BB138B22D3EAF701FBD1BB70 /* ref.c in Sources */ = {isa = PBXBuildFile; fileRef = 2FCAF3387FBFE90D9ED761A0 /* ref.c */; settings = {COMPILER_FLAGS = "-DARGON2_NO_THREADS"; }; };
+		D64C0F898BA4FD7440AEC398 /* DatabaseViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF1680F80D263A4F12E1FD11 /* DatabaseViewModel.swift */; };
 		DFE4172CD97B51357093526D /* KDBXParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04630AC02950D75B272D5927 /* KDBXParser.swift */; };
 		F77D33B3CE56151F3F4880B3 /* encoding.h in Sources */ = {isa = PBXBuildFile; fileRef = 4A74E616BDF70E76A1BF9C47 /* encoding.h */; settings = {COMPILER_FLAGS = "-DARGON2_NO_THREADS"; }; };
 /* End PBXBuildFile section */
@@ -44,6 +46,7 @@
 		4FD7989AF0273E164C427E14 /* thread.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = thread.c; sourceTree = "<group>"; };
 		5FDAB0B2AA37625E26242E53 /* Group.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Group.swift; sourceTree = "<group>"; };
 		658FA92FDF42D22946461B26 /* argon2.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = argon2.h; sourceTree = "<group>"; };
+		75C024C6B1529C887FACFC32 /* TOTPViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TOTPViewModel.swift; sourceTree = "<group>"; };
 		79D44D96D45E5426A8CE40F4 /* blake2.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = blake2.h; sourceTree = "<group>"; };
 		857C0EBF8BB4D5443786B54C /* DocumentPickerService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentPickerService.swift; sourceTree = "<group>"; };
 		87A9BBBD6B10534CBFC5D62C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -59,6 +62,7 @@
 		CB8CA57BCC9BB3348C50B665 /* blake2-impl.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "blake2-impl.h"; sourceTree = "<group>"; };
 		EA801B7F5A40A25CA95BC6B9 /* BiometricService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BiometricService.swift; sourceTree = "<group>"; };
 		EC9D9D013823B73C45F84BF6 /* KDBXCrypto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KDBXCrypto.swift; sourceTree = "<group>"; };
+		EF1680F80D263A4F12E1FD11 /* DatabaseViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseViewModel.swift; sourceTree = "<group>"; };
 		F55B3FE0C3221312F43C5814 /* KeeVault.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = KeeVault.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -167,6 +171,8 @@
 		CBF4AC9A588E2592756A2901 /* ViewModels */ = {
 			isa = PBXGroup;
 			children = (
+				EF1680F80D263A4F12E1FD11 /* DatabaseViewModel.swift */,
+				75C024C6B1529C887FACFC32 /* TOTPViewModel.swift */,
 			);
 			name = ViewModels;
 			path = KeeVault/ViewModels;
@@ -256,6 +262,7 @@
 			files = (
 				4BBBC764F17ADC3EF8525DA8 /* BiometricService.swift in Sources */,
 				B2E4536F8A4FB6AEAFBF1C0F /* ClipboardService.swift in Sources */,
+				D64C0F898BA4FD7440AEC398 /* DatabaseViewModel.swift in Sources */,
 				7D54BB5FDFD2C5A69370AC6F /* DocumentPickerService.swift in Sources */,
 				7844FEA590BAD4372335C5DB /* Entry.swift in Sources */,
 				899653B778ED3609FB4AF0D5 /* Group.swift in Sources */,
@@ -264,6 +271,7 @@
 				6FBAFC562307C8B167E55950 /* KeeVaultApp.swift in Sources */,
 				0B7D322BDCD334BF2F20CE5D /* KeychainService.swift in Sources */,
 				6BB187D584A430CA757E5841 /* TOTPGenerator.swift in Sources */,
+				9D80E85BC5136F4DB90FA0FB /* TOTPViewModel.swift in Sources */,
 				999192E753BEECE07E434465 /* argon2.c in Sources */,
 				95EB772CAA46B6B234931E04 /* argon2.h in Sources */,
 				A5889A3B87720660E19D73A1 /* blake2-impl.h in Sources */,
