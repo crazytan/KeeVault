@@ -25,11 +25,16 @@ Free, native iOS KeePassXC-compatible password manager. Version 1 is read-only.
 
 ## Current State
 
-- Core parser/crypto/models/TOTP in `KeeVault/Models/`: implemented
-- App UI, view models, services, and AutoFill extension: in progress
+- ✅ Core parser/crypto/models/TOTP (`KeeVault/Models/`)
+- ✅ Services layer (Keychain, Biometric, Clipboard, DocumentPicker)
+- ✅ ViewModels (DatabaseViewModel, TOTPViewModel)
+- ✅ SwiftUI views (Unlock, GroupList, EntryList, EntryDetail, Search)
+- ✅ AutoFill extension
+- 🔧 UI tests (1/5 passing, debugging sandbox issue)
 
 ## Docs
 
+- `STATUS.md`: current project state + debugging notes
 - `AGENTS.md`: architecture + coding-agent guidance
 - `TODO.md`: roadmap and next implementation steps
 

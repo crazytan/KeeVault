@@ -1,8 +1,16 @@
 import Foundation
+import OSLog
 import SwiftUI
 
 @MainActor @Observable
 final class DatabaseViewModel {
+    private static let uiTestDBPathEnv = "UI_TEST_DB_PATH"
+    private static let uiTestDBBase64Env = "UI_TEST_DB_BASE64"
+    private static let uiTestDBFilenameEnv = "UI_TEST_DB_FILENAME"
+    private static let uiTestingLaunchArg = "-ui-testing"
+    private static let logger = Logger(subsystem: "KeeVault", category: "DatabaseViewModel")
+    private static let kdbxMagic: [UInt8] = [0x03, 0xD9, 0xA2, 0x9A, 0x67, 0xFB, 0x4B, 0xB5]
+
     enum State: Sendable {
         case locked
         case unlocking
@@ -17,9 +25,10 @@ final class DatabaseViewModel {
 
     private var databaseURL: URL?
     private var compositeKey: Data?
+    private let isUITesting: Bool
 
     var hasSavedFile: Bool {
-        databaseURL != nil || DocumentPickerService.loadBookmarkedURL() != nil
+        effectiveDatabaseURL != nil
     }
 
     var canUseBiometrics: Bool {
@@ -55,15 +64,40 @@ final class DatabaseViewModel {
     }
 
     private var databasePath: String? {
-        databaseURL?.path ?? DocumentPickerService.loadBookmarkedURL()?.path
+        effectiveDatabaseURL?.path
+    }
+
+    private var effectiveDatabaseURL: URL? {
+        if let databaseURL {
+            return databaseURL
+        }
+        if isUITesting {
+            return nil
+        }
+        return DocumentPickerService.loadBookmarkedURL()
     }
 
     init() {
-        if let uiTestPath = ProcessInfo.processInfo.environment["UI_TEST_DB_PATH"], !uiTestPath.isEmpty {
-            databaseURL = URL(fileURLWithPath: uiTestPath)
-        } else {
-            databaseURL = DocumentPickerService.loadBookmarkedURL()
+        let launchArgs = ProcessInfo.processInfo.arguments
+        isUITesting = launchArgs.contains(Self.uiTestingLaunchArg)
+
+        if isUITesting {
+            Self.diagnostic("init: running in UI test mode")
+            if let uiTestURL = Self.uiTestDatabaseURL() {
+                databaseURL = uiTestURL
+                Self.diagnostic("init: UI test DB URL resolved to \(uiTestURL.path)")
+            } else if let uiTestPath = ProcessInfo.processInfo.environment[Self.uiTestDBPathEnv], !uiTestPath.isEmpty {
+                let url = URL(fileURLWithPath: uiTestPath)
+                databaseURL = url
+                Self.diagnostic("init: using UI_TEST_DB_PATH \(url.path)")
+            } else {
+                databaseURL = nil
+                Self.diagnostic("init: no UI test DB env set; leaving databaseURL nil")
+            }
+            return
         }
+
+        databaseURL = DocumentPickerService.loadBookmarkedURL()
     }
 
     func selectFile(_ url: URL) {
@@ -81,15 +115,24 @@ final class DatabaseViewModel {
     }
 
     func unlock(password: String) async {
-        guard let url = databaseURL ?? DocumentPickerService.loadBookmarkedURL() else {
+        guard let url = effectiveDatabaseURL else {
             state = .error("No database file selected")
             return
+        }
+
+        if isUITesting {
+            let exists = FileManager.default.fileExists(atPath: url.path)
+            Self.diagnostic("unlock: using database URL \(url.path), exists=\(exists)")
         }
 
         state = .unlocking
 
         do {
             let data = try readSecurityScoped(url: url)
+            if isUITesting {
+                let hasMagic = data.starts(with: Self.kdbxMagic)
+                Self.diagnostic("unlock: read \(data.count) bytes, kdbxMagic=\(hasMagic)")
+            }
             let compositeKey = KDBXCrypto.compositeKey(password: password)
 
             let root = try await Task.detached {
@@ -105,12 +148,15 @@ final class DatabaseViewModel {
                 try? KeychainService.storeCompositeKey(compositeKey, for: url.path)
             }
         } catch {
+            if isUITesting {
+                Self.diagnostic("unlock: failed with error '\(error.localizedDescription)'")
+            }
             state = .error(error.localizedDescription)
         }
     }
 
     func unlockWithBiometrics() async {
-        guard let url = databaseURL ?? DocumentPickerService.loadBookmarkedURL() else {
+        guard let url = effectiveDatabaseURL else {
             state = .error("No database file selected")
             return
         }
@@ -151,5 +197,40 @@ final class DatabaseViewModel {
             }
         }
         return try Data(contentsOf: url)
+    }
+
+    private static func uiTestDatabaseURL() -> URL? {
+        let env = ProcessInfo.processInfo.environment
+        guard let base64 = env[uiTestDBBase64Env], !base64.isEmpty else {
+            diagnostic("uiTestDatabaseURL: \(uiTestDBBase64Env) missing or empty")
+            return nil
+        }
+        diagnostic("uiTestDatabaseURL: found base64 payload (\(base64.count) chars)")
+
+        guard let data = Data(base64Encoded: base64, options: .ignoreUnknownCharacters) else {
+            diagnostic("uiTestDatabaseURL: failed to decode base64")
+            return nil
+        }
+        diagnostic("uiTestDatabaseURL: decoded \(data.count) bytes")
+
+        let requestedFilename = env[uiTestDBFilenameEnv] ?? "ui-test.kdbx"
+        let safeFilename = (requestedFilename as NSString).lastPathComponent
+        let url = FileManager.default.temporaryDirectory.appendingPathComponent(safeFilename, isDirectory: false)
+
+        do {
+            try data.write(to: url, options: .atomic)
+            let readBack = try Data(contentsOf: url)
+            let hasMagic = readBack.starts(with: kdbxMagic)
+            diagnostic("uiTestDatabaseURL: wrote and re-read \(readBack.count) bytes to \(url.path), kdbxMagic=\(hasMagic)")
+            return url
+        } catch {
+            diagnostic("uiTestDatabaseURL: failed writing temp DB '\(error.localizedDescription)'")
+            return nil
+        }
+    }
+
+    private static func diagnostic(_ message: String) {
+        logger.notice("\(message, privacy: .public)")
+        print("[DatabaseViewModel] \(message)")
     }
 }
