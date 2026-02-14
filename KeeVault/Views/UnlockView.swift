@@ -41,6 +41,7 @@ struct UnlockView: View {
                 .submitLabel(.go)
                 .onSubmit(unlockWithPassword)
                 .padding(.horizontal)
+                .accessibilityIdentifier("unlock.password.field")
 
             Button(action: unlockWithPassword) {
                 Label("Unlock", systemImage: "lock.open.fill")
@@ -49,6 +50,7 @@ struct UnlockView: View {
             .buttonStyle(.borderedProminent)
             .disabled(password.isEmpty || isUnlocking)
             .padding(.horizontal)
+            .accessibilityIdentifier("unlock.button")
 
             if viewModel.canUseBiometrics {
                 Button(action: unlockWithBiometrics) {
@@ -74,6 +76,7 @@ struct UnlockView: View {
                     .foregroundStyle(.red)
                     .font(.caption)
                     .padding(.horizontal)
+                    .accessibilityIdentifier("unlock.error.label")
             }
         }
     }

@@ -12,6 +12,7 @@ struct GroupListView: View {
                         NavigationLink(value: subgroup) {
                             GroupRow(group: subgroup)
                         }
+                        .accessibilityIdentifier("group.navlink")
                     }
                 }
             }
@@ -22,6 +23,7 @@ struct GroupListView: View {
                         NavigationLink(value: entry) {
                             EntryRow(entry: entry)
                         }
+                        .accessibilityIdentifier("entry.navlink")
                     }
                 }
             }

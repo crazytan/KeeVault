@@ -22,9 +22,12 @@
 		3A102656CDDA7B949E107C09 /* thread.h in Sources */ = {isa = PBXBuildFile; fileRef = C452E5A3B956464EF630257C /* thread.h */; settings = {COMPILER_FLAGS = "-DARGON2_NO_THREADS"; }; };
 		3B0EBF48269D8DBFC7F5AA5E /* argon2.c in Sources */ = {isa = PBXBuildFile; fileRef = 9DD45B45F9FA3134A2B46DA3 /* argon2.c */; settings = {COMPILER_FLAGS = "-DARGON2_NO_THREADS"; }; };
 		433DCCF5BB49DC7EA348D9F6 /* SharedVaultStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D1CB28C4D8F04F4885EA61E /* SharedVaultStore.swift */; };
+		439D340BC0576CDC0A5724DA /* EntryDetailUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCA62AF00A42BCEE8691D62C /* EntryDetailUITests.swift */; };
 		46CDE7DF63D95E6308C20FBB /* blake2b.c in Sources */ = {isa = PBXBuildFile; fileRef = 3377E866435693A59D8E7E5D /* blake2b.c */; settings = {COMPILER_FLAGS = "-DARGON2_NO_THREADS"; }; };
 		49B3018A2B3EF12E93275D42 /* HapticService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74875E522F92348C08057696 /* HapticService.swift */; };
 		4BBBC764F17ADC3EF8525DA8 /* BiometricService.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA801B7F5A40A25CA95BC6B9 /* BiometricService.swift */; };
+		4BE5E85653CA857FEF6DB144 /* SearchUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F65F32F879F0C5EC8B81B446 /* SearchUITests.swift */; };
+		4F827D1E744FFF7C979DCB0C /* KeeVaultUITestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7CC215325715C988E238D34 /* KeeVaultUITestCase.swift */; };
 		5BF7D0FB59BFE39D3C6639A3 /* encoding.c in Sources */ = {isa = PBXBuildFile; fileRef = 9ECFA82E9096A43DB1AF8027 /* encoding.c */; settings = {COMPILER_FLAGS = "-DARGON2_NO_THREADS"; }; };
 		5F9259019409ED1EF4BAC15F /* core.h in Sources */ = {isa = PBXBuildFile; fileRef = AC48ED14027FBFD10C497878 /* core.h */; settings = {COMPILER_FLAGS = "-DARGON2_NO_THREADS"; }; };
 		6A3526E80012D79B9B675638 /* thread.c in Sources */ = {isa = PBXBuildFile; fileRef = 4FD7989AF0273E164C427E14 /* thread.c */; settings = {COMPILER_FLAGS = "-DARGON2_NO_THREADS"; }; };
@@ -48,6 +51,7 @@
 		997FA5C0DC53CE2731A37115 /* encoding.h in Sources */ = {isa = PBXBuildFile; fileRef = 4A74E616BDF70E76A1BF9C47 /* encoding.h */; settings = {COMPILER_FLAGS = "-DARGON2_NO_THREADS"; }; };
 		999192E753BEECE07E434465 /* argon2.c in Sources */ = {isa = PBXBuildFile; fileRef = 9DD45B45F9FA3134A2B46DA3 /* argon2.c */; settings = {COMPILER_FLAGS = "-DARGON2_NO_THREADS"; }; };
 		9D80E85BC5136F4DB90FA0FB /* TOTPViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75C024C6B1529C887FACFC32 /* TOTPViewModel.swift */; };
+		A418AE2AA3EE750952AF5C8D /* NavigationUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D4B55B0EA14F17F01BB82FE /* NavigationUITests.swift */; };
 		A5889A3B87720660E19D73A1 /* blake2-impl.h in Sources */ = {isa = PBXBuildFile; fileRef = CB8CA57BCC9BB3348C50B665 /* blake2-impl.h */; settings = {COMPILER_FLAGS = "-DARGON2_NO_THREADS"; }; };
 		A73E58906E6BD20D6840D27C /* thread.h in Sources */ = {isa = PBXBuildFile; fileRef = C452E5A3B956464EF630257C /* thread.h */; settings = {COMPILER_FLAGS = "-DARGON2_NO_THREADS"; }; };
 		A852D88287F4A92FEF2AD5B9 /* encoding.c in Sources */ = {isa = PBXBuildFile; fileRef = 9ECFA82E9096A43DB1AF8027 /* encoding.c */; settings = {COMPILER_FLAGS = "-DARGON2_NO_THREADS"; }; };
@@ -66,6 +70,7 @@
 		E108E33C1F878E4B638078F5 /* core.c in Sources */ = {isa = PBXBuildFile; fileRef = B61CB00D954BF7F9725FCDDC /* core.c */; settings = {COMPILER_FLAGS = "-DARGON2_NO_THREADS"; }; };
 		E722EA9764D5ED5B33586558 /* blake2-impl.h in Sources */ = {isa = PBXBuildFile; fileRef = CB8CA57BCC9BB3348C50B665 /* blake2-impl.h */; settings = {COMPILER_FLAGS = "-DARGON2_NO_THREADS"; }; };
 		F77D33B3CE56151F3F4880B3 /* encoding.h in Sources */ = {isa = PBXBuildFile; fileRef = 4A74E616BDF70E76A1BF9C47 /* encoding.h */; settings = {COMPILER_FLAGS = "-DARGON2_NO_THREADS"; }; };
+		FF5366CF37DD97415B6E62A8 /* UnlockFlowUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C21F92023642D6774A213759 /* UnlockFlowUITests.swift */; };
 		FFB6C5432D5BD90BCCB06184 /* ref.c in Sources */ = {isa = PBXBuildFile; fileRef = 2FCAF3387FBFE90D9ED761A0 /* ref.c */; settings = {COMPILER_FLAGS = "-DARGON2_NO_THREADS"; }; };
 /* End PBXBuildFile section */
 
@@ -76,6 +81,13 @@
 			proxyType = 1;
 			remoteGlobalIDString = 9A972012DBD6BE303E4EEDB5;
 			remoteInfo = AutoFillExtension;
+		};
+		F2DF6CC5DE8D16F0C9E45348 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = EEE3A8A0453C62287D515E40 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = F5CCCD17070E72A4B318C437;
+			remoteInfo = KeeVault;
 		};
 /* End PBXContainerItemProxy section */
 
@@ -96,6 +108,7 @@
 /* Begin PBXFileReference section */
 		0232E599B749066A550CD867 /* GroupListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupListView.swift; sourceTree = "<group>"; };
 		04630AC02950D75B272D5927 /* KDBXParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KDBXParser.swift; sourceTree = "<group>"; };
+		1D4B55B0EA14F17F01BB82FE /* NavigationUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationUITests.swift; sourceTree = "<group>"; };
 		1F0D3EBAABD59A7BD9FEFB5B /* CredentialProviderViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CredentialProviderViewController.swift; sourceTree = "<group>"; };
 		2FCAF3387FBFE90D9ED761A0 /* ref.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = ref.c; sourceTree = "<group>"; };
 		3377E866435693A59D8E7E5D /* blake2b.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = blake2b.c; sourceTree = "<group>"; };
@@ -114,6 +127,7 @@
 		75C024C6B1529C887FACFC32 /* TOTPViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TOTPViewModel.swift; sourceTree = "<group>"; };
 		79D44D96D45E5426A8CE40F4 /* blake2.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = blake2.h; sourceTree = "<group>"; };
 		7D1CB28C4D8F04F4885EA61E /* SharedVaultStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharedVaultStore.swift; sourceTree = "<group>"; };
+		821772BDC9C5D12C20DFE035 /* KeeVaultUITests.xctest */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.cfbundle; path = KeeVaultUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		857C0EBF8BB4D5443786B54C /* DocumentPickerService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentPickerService.swift; sourceTree = "<group>"; };
 		87A9BBBD6B10534CBFC5D62C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		89FE935F12B1213BF2AA4887 /* Entry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Entry.swift; sourceTree = "<group>"; };
@@ -123,11 +137,13 @@
 		9ECFA82E9096A43DB1AF8027 /* encoding.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = encoding.c; sourceTree = "<group>"; };
 		9FDDC37E863EB341697FC0AC /* KeychainService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainService.swift; sourceTree = "<group>"; };
 		A64C780766746F0A09D3F69E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		A7CC215325715C988E238D34 /* KeeVaultUITestCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeeVaultUITestCase.swift; sourceTree = "<group>"; };
 		AC48ED14027FBFD10C497878 /* core.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = core.h; sourceTree = "<group>"; };
 		B339F71610822D7A6BE8EA47 /* SearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchView.swift; sourceTree = "<group>"; };
 		B61CB00D954BF7F9725FCDDC /* core.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = core.c; sourceTree = "<group>"; };
 		B89BC0DD2296EA1CDD831E3C /* AutoFillExtension.appex */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = "wrapper.app-extension"; path = AutoFillExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		BB1D16EA7A4AAC7EE91A2FB7 /* AutoFillExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = AutoFillExtension.entitlements; sourceTree = "<group>"; };
+		C21F92023642D6774A213759 /* UnlockFlowUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnlockFlowUITests.swift; sourceTree = "<group>"; };
 		C452E5A3B956464EF630257C /* thread.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = thread.h; sourceTree = "<group>"; };
 		C5851D3E9580E70714F51B41 /* KeeVaultApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeeVaultApp.swift; sourceTree = "<group>"; };
 		CB8CA57BCC9BB3348C50B665 /* blake2-impl.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "blake2-impl.h"; sourceTree = "<group>"; };
@@ -136,6 +152,8 @@
 		EF1680F80D263A4F12E1FD11 /* DatabaseViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseViewModel.swift; sourceTree = "<group>"; };
 		F24A68304E05C5E4CCF32D33 /* ScreenProtectionService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenProtectionService.swift; sourceTree = "<group>"; };
 		F55B3FE0C3221312F43C5814 /* KeeVault.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = KeeVault.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		F65F32F879F0C5EC8B81B446 /* SearchUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchUITests.swift; sourceTree = "<group>"; };
+		FCA62AF00A42BCEE8691D62C /* EntryDetailUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EntryDetailUITests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXGroup section */
@@ -144,6 +162,7 @@
 			children = (
 				B89BC0DD2296EA1CDD831E3C /* AutoFillExtension.appex */,
 				F55B3FE0C3221312F43C5814 /* KeeVault.app */,
+				821772BDC9C5D12C20DFE035 /* KeeVaultUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -219,6 +238,7 @@
 				711A08224E4D4C5795F3E424 /* AutoFillExtension */,
 				6545B9241493A8B1B0A7B476 /* CArgon2Bridge */,
 				A32A208F93C711849C1088B7 /* Extensions */,
+				E395FCD1EB9C501BC350275C /* KeeVaultUITests */,
 				397037C85461299C2611E3C5 /* Models */,
 				A73FF28784C9F31E425687CD /* Resources */,
 				CC966CEB9E3635D5C6BD5E35 /* Services */,
@@ -284,9 +304,39 @@
 			path = KeeVault/Services;
 			sourceTree = "<group>";
 		};
+		E395FCD1EB9C501BC350275C /* KeeVaultUITests */ = {
+			isa = PBXGroup;
+			children = (
+				FCA62AF00A42BCEE8691D62C /* EntryDetailUITests.swift */,
+				A7CC215325715C988E238D34 /* KeeVaultUITestCase.swift */,
+				1D4B55B0EA14F17F01BB82FE /* NavigationUITests.swift */,
+				F65F32F879F0C5EC8B81B446 /* SearchUITests.swift */,
+				C21F92023642D6774A213759 /* UnlockFlowUITests.swift */,
+			);
+			path = KeeVaultUITests;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		6D9034EE3DACBB02919B9D37 /* KeeVaultUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 90FA865EE8F1C2741F01858F /* Build configuration list for PBXNativeTarget "KeeVaultUITests" */;
+			buildPhases = (
+				0481FCC930D944D5B7EA966A /* Sources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				2C37A23F30E137E9057B14E5 /* PBXTargetDependency */,
+			);
+			name = KeeVaultUITests;
+			packageProductDependencies = (
+			);
+			productName = KeeVaultUITests;
+			productReference = 821772BDC9C5D12C20DFE035 /* KeeVaultUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
 		9A972012DBD6BE303E4EEDB5 /* AutoFillExtension */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 308D04FDB60F1BB8D067A652 /* Build configuration list for PBXNativeTarget "AutoFillExtension" */;
@@ -333,6 +383,9 @@
 				BuildIndependentTargetsInParallel = YES;
 				LastUpgradeCheck = 1600;
 				TargetAttributes = {
+					6D9034EE3DACBB02919B9D37 = {
+						TestTargetID = F5CCCD17070E72A4B318C437;
+					};
 					9A972012DBD6BE303E4EEDB5 = {
 						ProvisioningStyle = Automatic;
 					};
@@ -357,6 +410,7 @@
 			targets = (
 				9A972012DBD6BE303E4EEDB5 /* AutoFillExtension */,
 				F5CCCD17070E72A4B318C437 /* KeeVault */,
+				6D9034EE3DACBB02919B9D37 /* KeeVaultUITests */,
 			);
 		};
 /* End PBXProject section */
@@ -374,6 +428,18 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		0481FCC930D944D5B7EA966A /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				439D340BC0576CDC0A5724DA /* EntryDetailUITests.swift in Sources */,
+				4F827D1E744FFF7C979DCB0C /* KeeVaultUITestCase.swift in Sources */,
+				A418AE2AA3EE750952AF5C8D /* NavigationUITests.swift in Sources */,
+				4BE5E85653CA857FEF6DB144 /* SearchUITests.swift in Sources */,
+				FF5366CF37DD97415B6E62A8 /* UnlockFlowUITests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		5027165D707ECCB7A71DC457 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -448,6 +514,11 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		2C37A23F30E137E9057B14E5 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = F5CCCD17070E72A4B318C437 /* KeeVault */;
+			targetProxy = F2DF6CC5DE8D16F0C9E45348 /* PBXContainerItemProxy */;
+		};
 		694EFAF0F8ADE07829C7FB88 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 9A972012DBD6BE303E4EEDB5 /* AutoFillExtension */;
@@ -546,6 +617,23 @@
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
+		};
+		872D25BC352D0EA44732FC6F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				GENERATE_INFOPLIST_FILE = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.keevault.app.uitests;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = KeeVault;
+			};
+			name = Release;
 		};
 		A4468E53A3115306CA5FDBE6 /* Release */ = {
 			isa = XCBuildConfiguration;
@@ -689,6 +777,23 @@
 			};
 			name = Release;
 		};
+		D91FAC1AE65E92A70BDDBC96 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				GENERATE_INFOPLIST_FILE = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.keevault.app.uitests;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = KeeVault;
+			};
+			name = Debug;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -697,6 +802,15 @@
 			buildConfigurations = (
 				64B37485476915410BA4AB44 /* Debug */,
 				C7C3CC980D6178B9A9D82AAB /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		90FA865EE8F1C2741F01858F /* Build configuration list for PBXNativeTarget "KeeVaultUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D91FAC1AE65E92A70BDDBC96 /* Debug */,
+				872D25BC352D0EA44732FC6F /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Debug;

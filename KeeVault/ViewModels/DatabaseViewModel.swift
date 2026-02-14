@@ -59,13 +59,23 @@ final class DatabaseViewModel {
     }
 
     init() {
-        databaseURL = DocumentPickerService.loadBookmarkedURL()
+        if let uiTestPath = ProcessInfo.processInfo.environment["UI_TEST_DB_PATH"], !uiTestPath.isEmpty {
+            databaseURL = URL(fileURLWithPath: uiTestPath)
+        } else {
+            databaseURL = DocumentPickerService.loadBookmarkedURL()
+        }
     }
 
     func selectFile(_ url: URL) {
-        guard url.startAccessingSecurityScopedResource() else { return }
-        defer { url.stopAccessingSecurityScopedResource() }
-        try? DocumentPickerService.saveBookmark(for: url)
+        let hasSecurityScope = url.startAccessingSecurityScopedResource()
+        defer {
+            if hasSecurityScope {
+                url.stopAccessingSecurityScopedResource()
+            }
+        }
+        if hasSecurityScope {
+            try? DocumentPickerService.saveBookmark(for: url)
+        }
         databaseURL = url
         state = .locked
     }
@@ -134,10 +144,12 @@ final class DatabaseViewModel {
     }
 
     private func readSecurityScoped(url: URL) throws -> Data {
-        guard url.startAccessingSecurityScopedResource() else {
-            throw CocoaError(.fileReadNoPermission)
+        let hasSecurityScope = url.startAccessingSecurityScopedResource()
+        defer {
+            if hasSecurityScope {
+                url.stopAccessingSecurityScopedResource()
+            }
         }
-        defer { url.stopAccessingSecurityScopedResource() }
         return try Data(contentsOf: url)
     }
 }
