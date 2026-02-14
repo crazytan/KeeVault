@@ -1,6 +1,9 @@
 import XCTest
 
 class KeeVaultUITestCase: XCTestCase {
+    private static let uiTestDBBase64Env = "UI_TEST_DB_BASE64"
+    private static let uiTestDBFilenameEnv = "UI_TEST_DB_FILENAME"
+
     var app: XCUIApplication!
 
     override func setUpWithError() throws {
@@ -12,8 +15,10 @@ class KeeVaultUITestCase: XCTestCase {
             throw NSError(domain: "KeeVaultUITests", code: 1, userInfo: [NSLocalizedDescriptionKey: "Missing test.kdbx fixture in test bundle"])
         }
 
+        let fixtureData = try Data(contentsOf: fixtureURL)
         app.launchArguments += ["-ui-testing"]
-        app.launchEnvironment["UI_TEST_DB_PATH"] = fixtureURL.path
+        app.launchEnvironment[Self.uiTestDBBase64Env] = fixtureData.base64EncodedString()
+        app.launchEnvironment[Self.uiTestDBFilenameEnv] = "test.kdbx"
         app.launch()
     }
 
