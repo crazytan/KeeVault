@@ -3,14 +3,23 @@ import SwiftUI
 @main
 struct KeeVaultApp: App {
     @State private var viewModel = DatabaseViewModel()
+    @State private var screenProtectionService = ScreenProtectionService()
     @Environment(\.scenePhase) private var scenePhase
 
     var body: some Scene {
         WindowGroup {
             ContentView(viewModel: viewModel)
                 .onChange(of: scenePhase) { _, newPhase in
-                    if newPhase == .background {
+                    switch newPhase {
+                    case .active:
+                        screenProtectionService.hideShield()
+                    case .inactive:
+                        screenProtectionService.showShield()
+                    case .background:
+                        screenProtectionService.showShield()
                         viewModel.lock()
+                    @unknown default:
+                        screenProtectionService.showShield()
                     }
                 }
         }
@@ -39,6 +48,12 @@ struct DatabaseNavigationView: View {
                 if viewModel.searchText.isEmpty {
                     if let root = viewModel.rootGroup {
                         GroupListView(group: root, viewModel: viewModel)
+                    } else {
+                        ContentUnavailableView(
+                            "Vault Not Loaded",
+                            systemImage: "lock.doc",
+                            description: Text("Unlock a database to view groups and entries.")
+                        )
                     }
                 } else {
                     SearchView(viewModel: viewModel)

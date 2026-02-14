@@ -108,6 +108,7 @@ struct PasswordFieldRow: View {
                 }
                 Spacer()
                 Button {
+                    HapticService.tap()
                     revealed.toggle()
                 } label: {
                     Image(systemName: revealed ? "eye.slash.fill" : "eye.fill")
@@ -120,6 +121,7 @@ struct PasswordFieldRow: View {
 
 struct URLFieldRow: View {
     let url: String
+    @Environment(\.openURL) private var openURL
 
     var body: some View {
         Section("URL") {
@@ -131,9 +133,13 @@ struct URLFieldRow: View {
                     .textSelection(.enabled)
                 Spacer()
                 if let link = URL(string: url) {
-                    Link(destination: link) {
+                    Button {
+                        HapticService.tap()
+                        openURL(link)
+                    } label: {
                         Image(systemName: "arrow.up.right.square")
                     }
+                    .buttonStyle(.borderless)
                 }
                 CopyButton(text: url)
             }
@@ -149,7 +155,7 @@ struct CopyButton: View {
         Button {
             ClipboardService.copy(text)
             copied = true
-            UIImpactFeedbackGenerator(style: .light).impactOccurred()
+            HapticService.success()
             Task {
                 try? await Task.sleep(for: .seconds(1.5))
                 copied = false

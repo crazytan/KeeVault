@@ -14,10 +14,6 @@ targets:
   KeeVault:
     type: application
     platform: iOS
-    sources:
-      - path: KeeVault
-        excludes:
-          - "CArgon2Bridge/argon2/**"
     settings:
       base:
         INFOPLIST_FILE: KeeVault/Info.plist
@@ -29,13 +25,16 @@ targets:
         OTHER_CFLAGS: "-DARGON2_NO_THREADS"
         ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
         CODE_SIGN_STYLE: Automatic
+        CODE_SIGN_ENTITLEMENTS: KeeVault/KeeVault.entitlements
         PRODUCT_NAME: KeeVault
         MARKETING_VERSION: "1.0.0"
         CURRENT_PROJECT_VERSION: "1"
         GENERATE_INFOPLIST_FILE: false
         SWIFT_EMIT_LOC_STRINGS: "YES"
-    dependencies: []
-    preBuildScripts: []
+    dependencies:
+      - target: AutoFillExtension
+        embed: true
+        codeSign: true
     sources:
       - path: KeeVault/App
       - path: KeeVault/Models
@@ -44,6 +43,37 @@ targets:
       - path: KeeVault/Views
       - path: KeeVault/Extensions
       - path: KeeVault/Resources
+      - path: KeeVault/CArgon2Bridge/argon2_bridge.h
+        buildPhase: headers
+      - path: KeeVault/CArgon2Bridge/argon2
+        compilerFlags: "-DARGON2_NO_THREADS"
+        buildPhase: sources
+
+  AutoFillExtension:
+    type: app-extension
+    platform: iOS
+    settings:
+      base:
+        INFOPLIST_FILE: AutoFillExtension/Info.plist
+        PRODUCT_BUNDLE_IDENTIFIER: com.keevault.app.autofill
+        CODE_SIGN_STYLE: Automatic
+        CODE_SIGN_ENTITLEMENTS: AutoFillExtension/AutoFillExtension.entitlements
+        PRODUCT_NAME: KeeVaultAutoFill
+        MARKETING_VERSION: "1.0.0"
+        CURRENT_PROJECT_VERSION: "1"
+        GENERATE_INFOPLIST_FILE: false
+        SWIFT_OBJC_BRIDGING_HEADER: KeeVault/CArgon2Bridge/argon2_bridge.h
+        HEADER_SEARCH_PATHS:
+          - "$(SRCROOT)/KeeVault/CArgon2Bridge"
+          - "$(SRCROOT)/KeeVault/CArgon2Bridge/argon2"
+        OTHER_CFLAGS: "-DARGON2_NO_THREADS"
+    sources:
+      - path: AutoFillExtension
+      - path: KeeVault/Models
+      - path: KeeVault/Services/BiometricService.swift
+      - path: KeeVault/Services/DocumentPickerService.swift
+      - path: KeeVault/Services/KeychainService.swift
+      - path: KeeVault/Services/SharedVaultStore.swift
       - path: KeeVault/CArgon2Bridge/argon2_bridge.h
         buildPhase: headers
       - path: KeeVault/CArgon2Bridge/argon2

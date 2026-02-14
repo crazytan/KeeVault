@@ -8,42 +8,95 @@
 
 /* Begin PBXBuildFile section */
 		0B7D322BDCD334BF2F20CE5D /* KeychainService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FDDC37E863EB341697FC0AC /* KeychainService.swift */; };
+		13EE88975D4DAB4A327D2791 /* KDBXCrypto.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC9D9D013823B73C45F84BF6 /* KDBXCrypto.swift */; };
 		157D8E7898E8CC395544235D /* GroupListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0232E599B749066A550CD867 /* GroupListView.swift */; };
+		15C9D9278F22C24F30EA8A23 /* core.h in Sources */ = {isa = PBXBuildFile; fileRef = AC48ED14027FBFD10C497878 /* core.h */; settings = {COMPILER_FLAGS = "-DARGON2_NO_THREADS"; }; };
+		19583614D1A2B6F4DF4E4E3B /* CredentialProviderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F0D3EBAABD59A7BD9FEFB5B /* CredentialProviderViewController.swift */; };
 		1AE06B26374913022AF0B512 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 87A9BBBD6B10534CBFC5D62C /* Assets.xcassets */; };
 		1CFF59E7E32F6CF40F47BA84 /* thread.c in Sources */ = {isa = PBXBuildFile; fileRef = 4FD7989AF0273E164C427E14 /* thread.c */; settings = {COMPILER_FLAGS = "-DARGON2_NO_THREADS"; }; };
+		2C7ED41E165C57037E5F6F06 /* Group.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FDAB0B2AA37625E26242E53 /* Group.swift */; };
 		3122E83D6DCA799E9DF4F0AF /* NavigationConformances.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EDAC24E05E1785E79D0F478 /* NavigationConformances.swift */; };
+		314EE1BF6F838D5F59FF776B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 72B36D86223AA2841F9F19D6 /* LaunchScreen.storyboard */; };
 		3638BD8048634C9D9DF10FCF /* KDBXCrypto.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC9D9D013823B73C45F84BF6 /* KDBXCrypto.swift */; };
+		37A167A5B11E79886AB768E3 /* BiometricService.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA801B7F5A40A25CA95BC6B9 /* BiometricService.swift */; };
+		3A102656CDDA7B949E107C09 /* thread.h in Sources */ = {isa = PBXBuildFile; fileRef = C452E5A3B956464EF630257C /* thread.h */; settings = {COMPILER_FLAGS = "-DARGON2_NO_THREADS"; }; };
+		3B0EBF48269D8DBFC7F5AA5E /* argon2.c in Sources */ = {isa = PBXBuildFile; fileRef = 9DD45B45F9FA3134A2B46DA3 /* argon2.c */; settings = {COMPILER_FLAGS = "-DARGON2_NO_THREADS"; }; };
+		433DCCF5BB49DC7EA348D9F6 /* SharedVaultStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D1CB28C4D8F04F4885EA61E /* SharedVaultStore.swift */; };
 		46CDE7DF63D95E6308C20FBB /* blake2b.c in Sources */ = {isa = PBXBuildFile; fileRef = 3377E866435693A59D8E7E5D /* blake2b.c */; settings = {COMPILER_FLAGS = "-DARGON2_NO_THREADS"; }; };
+		49B3018A2B3EF12E93275D42 /* HapticService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74875E522F92348C08057696 /* HapticService.swift */; };
 		4BBBC764F17ADC3EF8525DA8 /* BiometricService.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA801B7F5A40A25CA95BC6B9 /* BiometricService.swift */; };
+		5BF7D0FB59BFE39D3C6639A3 /* encoding.c in Sources */ = {isa = PBXBuildFile; fileRef = 9ECFA82E9096A43DB1AF8027 /* encoding.c */; settings = {COMPILER_FLAGS = "-DARGON2_NO_THREADS"; }; };
 		5F9259019409ED1EF4BAC15F /* core.h in Sources */ = {isa = PBXBuildFile; fileRef = AC48ED14027FBFD10C497878 /* core.h */; settings = {COMPILER_FLAGS = "-DARGON2_NO_THREADS"; }; };
+		6A3526E80012D79B9B675638 /* thread.c in Sources */ = {isa = PBXBuildFile; fileRef = 4FD7989AF0273E164C427E14 /* thread.c */; settings = {COMPILER_FLAGS = "-DARGON2_NO_THREADS"; }; };
 		6BB187D584A430CA757E5841 /* TOTPGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98D53142E0E400EAFDFC0DB8 /* TOTPGenerator.swift */; };
 		6FBAFC562307C8B167E55950 /* KeeVaultApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5851D3E9580E70714F51B41 /* KeeVaultApp.swift */; };
 		705124D91DF00179DAC44510 /* EntryDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A63F67A487C7503A1647768 /* EntryDetailView.swift */; };
 		72AD8F6FAAF50029223172C5 /* blake2.h in Sources */ = {isa = PBXBuildFile; fileRef = 79D44D96D45E5426A8CE40F4 /* blake2.h */; settings = {COMPILER_FLAGS = "-DARGON2_NO_THREADS"; }; };
 		7329566E7A94CA23C3023430 /* blamka-round-ref.h in Sources */ = {isa = PBXBuildFile; fileRef = 4375E4C8984992F1CF3464EA /* blamka-round-ref.h */; settings = {COMPILER_FLAGS = "-DARGON2_NO_THREADS"; }; };
+		73848E88282C89559E3D205E /* argon2.h in Sources */ = {isa = PBXBuildFile; fileRef = 658FA92FDF42D22946461B26 /* argon2.h */; settings = {COMPILER_FLAGS = "-DARGON2_NO_THREADS"; }; };
 		7844FEA590BAD4372335C5DB /* Entry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89FE935F12B1213BF2AA4887 /* Entry.swift */; };
+		7B72CE7DCF627C940D2C6C44 /* blake2.h in Sources */ = {isa = PBXBuildFile; fileRef = 79D44D96D45E5426A8CE40F4 /* blake2.h */; settings = {COMPILER_FLAGS = "-DARGON2_NO_THREADS"; }; };
 		7BC70E4F773B35E41B4358EA /* UnlockView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BF81D6E9F454E1A0E39F806 /* UnlockView.swift */; };
 		7D54BB5FDFD2C5A69370AC6F /* DocumentPickerService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 857C0EBF8BB4D5443786B54C /* DocumentPickerService.swift */; };
+		830A764AB9F50D4F24C12E92 /* SharedVaultStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D1CB28C4D8F04F4885EA61E /* SharedVaultStore.swift */; };
 		899653B778ED3609FB4AF0D5 /* Group.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FDAB0B2AA37625E26242E53 /* Group.swift */; };
+		8A8250A8AA57751BB0E04F7B /* TOTPGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98D53142E0E400EAFDFC0DB8 /* TOTPGenerator.swift */; };
+		8B00B860FAEB7BD3498023A5 /* blamka-round-ref.h in Sources */ = {isa = PBXBuildFile; fileRef = 4375E4C8984992F1CF3464EA /* blamka-round-ref.h */; settings = {COMPILER_FLAGS = "-DARGON2_NO_THREADS"; }; };
 		915040E9F69EA94BECBED136 /* SearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B339F71610822D7A6BE8EA47 /* SearchView.swift */; };
+		95E05966437433A8DB789E6B /* Entry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89FE935F12B1213BF2AA4887 /* Entry.swift */; };
 		95EB772CAA46B6B234931E04 /* argon2.h in Sources */ = {isa = PBXBuildFile; fileRef = 658FA92FDF42D22946461B26 /* argon2.h */; settings = {COMPILER_FLAGS = "-DARGON2_NO_THREADS"; }; };
+		997FA5C0DC53CE2731A37115 /* encoding.h in Sources */ = {isa = PBXBuildFile; fileRef = 4A74E616BDF70E76A1BF9C47 /* encoding.h */; settings = {COMPILER_FLAGS = "-DARGON2_NO_THREADS"; }; };
 		999192E753BEECE07E434465 /* argon2.c in Sources */ = {isa = PBXBuildFile; fileRef = 9DD45B45F9FA3134A2B46DA3 /* argon2.c */; settings = {COMPILER_FLAGS = "-DARGON2_NO_THREADS"; }; };
 		9D80E85BC5136F4DB90FA0FB /* TOTPViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75C024C6B1529C887FACFC32 /* TOTPViewModel.swift */; };
 		A5889A3B87720660E19D73A1 /* blake2-impl.h in Sources */ = {isa = PBXBuildFile; fileRef = CB8CA57BCC9BB3348C50B665 /* blake2-impl.h */; settings = {COMPILER_FLAGS = "-DARGON2_NO_THREADS"; }; };
 		A73E58906E6BD20D6840D27C /* thread.h in Sources */ = {isa = PBXBuildFile; fileRef = C452E5A3B956464EF630257C /* thread.h */; settings = {COMPILER_FLAGS = "-DARGON2_NO_THREADS"; }; };
 		A852D88287F4A92FEF2AD5B9 /* encoding.c in Sources */ = {isa = PBXBuildFile; fileRef = 9ECFA82E9096A43DB1AF8027 /* encoding.c */; settings = {COMPILER_FLAGS = "-DARGON2_NO_THREADS"; }; };
+		AA80F4C50FE63B48FB700436 /* ScreenProtectionService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F24A68304E05C5E4CCF32D33 /* ScreenProtectionService.swift */; };
 		ABF00C19DDB9FB0D543C50E3 /* core.c in Sources */ = {isa = PBXBuildFile; fileRef = B61CB00D954BF7F9725FCDDC /* core.c */; settings = {COMPILER_FLAGS = "-DARGON2_NO_THREADS"; }; };
+		ACCD7EF9FAEE1E6747180461 /* blake2b.c in Sources */ = {isa = PBXBuildFile; fileRef = 3377E866435693A59D8E7E5D /* blake2b.c */; settings = {COMPILER_FLAGS = "-DARGON2_NO_THREADS"; }; };
+		AD43A5E642D77D3ED49677A3 /* KDBXParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04630AC02950D75B272D5927 /* KDBXParser.swift */; };
 		B2E4536F8A4FB6AEAFBF1C0F /* ClipboardService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AA1BC781576F6FCF822CF5F /* ClipboardService.swift */; };
 		BB138B22D3EAF701FBD1BB70 /* ref.c in Sources */ = {isa = PBXBuildFile; fileRef = 2FCAF3387FBFE90D9ED761A0 /* ref.c */; settings = {COMPILER_FLAGS = "-DARGON2_NO_THREADS"; }; };
+		BCAA797F0076C1D3E99CCFB4 /* KeychainService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FDDC37E863EB341697FC0AC /* KeychainService.swift */; };
+		BD0B5F9051C2C2A30561C0AC /* DocumentPickerService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 857C0EBF8BB4D5443786B54C /* DocumentPickerService.swift */; };
 		C060B8AF23B7362C2D7A4B1E /* EntryListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 520EE09EDA183240F2C4A150 /* EntryListView.swift */; };
+		CF81B0220CC557748D33862D /* AutoFillExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = B89BC0DD2296EA1CDD831E3C /* AutoFillExtension.appex */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		D64C0F898BA4FD7440AEC398 /* DatabaseViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF1680F80D263A4F12E1FD11 /* DatabaseViewModel.swift */; };
 		DFE4172CD97B51357093526D /* KDBXParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04630AC02950D75B272D5927 /* KDBXParser.swift */; };
+		E108E33C1F878E4B638078F5 /* core.c in Sources */ = {isa = PBXBuildFile; fileRef = B61CB00D954BF7F9725FCDDC /* core.c */; settings = {COMPILER_FLAGS = "-DARGON2_NO_THREADS"; }; };
+		E722EA9764D5ED5B33586558 /* blake2-impl.h in Sources */ = {isa = PBXBuildFile; fileRef = CB8CA57BCC9BB3348C50B665 /* blake2-impl.h */; settings = {COMPILER_FLAGS = "-DARGON2_NO_THREADS"; }; };
 		F77D33B3CE56151F3F4880B3 /* encoding.h in Sources */ = {isa = PBXBuildFile; fileRef = 4A74E616BDF70E76A1BF9C47 /* encoding.h */; settings = {COMPILER_FLAGS = "-DARGON2_NO_THREADS"; }; };
+		FFB6C5432D5BD90BCCB06184 /* ref.c in Sources */ = {isa = PBXBuildFile; fileRef = 2FCAF3387FBFE90D9ED761A0 /* ref.c */; settings = {COMPILER_FLAGS = "-DARGON2_NO_THREADS"; }; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		BB4626A5187223663F26C135 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = EEE3A8A0453C62287D515E40 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 9A972012DBD6BE303E4EEDB5;
+			remoteInfo = AutoFillExtension;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		72C4067F9AED5A62F5CB0CC3 /* Embed Foundation Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				CF81B0220CC557748D33862D /* AutoFillExtension.appex in Embed Foundation Extensions */,
+			);
+			name = "Embed Foundation Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		0232E599B749066A550CD867 /* GroupListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupListView.swift; sourceTree = "<group>"; };
 		04630AC02950D75B272D5927 /* KDBXParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KDBXParser.swift; sourceTree = "<group>"; };
+		1F0D3EBAABD59A7BD9FEFB5B /* CredentialProviderViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CredentialProviderViewController.swift; sourceTree = "<group>"; };
 		2FCAF3387FBFE90D9ED761A0 /* ref.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = ref.c; sourceTree = "<group>"; };
 		3377E866435693A59D8E7E5D /* blake2b.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = blake2b.c; sourceTree = "<group>"; };
 		3CD81FD786A947B544FE59B9 /* argon2_bridge.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = argon2_bridge.h; sourceTree = "<group>"; };
@@ -56,8 +109,11 @@
 		520EE09EDA183240F2C4A150 /* EntryListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EntryListView.swift; sourceTree = "<group>"; };
 		5FDAB0B2AA37625E26242E53 /* Group.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Group.swift; sourceTree = "<group>"; };
 		658FA92FDF42D22946461B26 /* argon2.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = argon2.h; sourceTree = "<group>"; };
+		72B36D86223AA2841F9F19D6 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
+		74875E522F92348C08057696 /* HapticService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HapticService.swift; sourceTree = "<group>"; };
 		75C024C6B1529C887FACFC32 /* TOTPViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TOTPViewModel.swift; sourceTree = "<group>"; };
 		79D44D96D45E5426A8CE40F4 /* blake2.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = blake2.h; sourceTree = "<group>"; };
+		7D1CB28C4D8F04F4885EA61E /* SharedVaultStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharedVaultStore.swift; sourceTree = "<group>"; };
 		857C0EBF8BB4D5443786B54C /* DocumentPickerService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentPickerService.swift; sourceTree = "<group>"; };
 		87A9BBBD6B10534CBFC5D62C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		89FE935F12B1213BF2AA4887 /* Entry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Entry.swift; sourceTree = "<group>"; };
@@ -66,15 +122,19 @@
 		9DD45B45F9FA3134A2B46DA3 /* argon2.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = argon2.c; sourceTree = "<group>"; };
 		9ECFA82E9096A43DB1AF8027 /* encoding.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = encoding.c; sourceTree = "<group>"; };
 		9FDDC37E863EB341697FC0AC /* KeychainService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainService.swift; sourceTree = "<group>"; };
+		A64C780766746F0A09D3F69E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		AC48ED14027FBFD10C497878 /* core.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = core.h; sourceTree = "<group>"; };
 		B339F71610822D7A6BE8EA47 /* SearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchView.swift; sourceTree = "<group>"; };
 		B61CB00D954BF7F9725FCDDC /* core.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = core.c; sourceTree = "<group>"; };
+		B89BC0DD2296EA1CDD831E3C /* AutoFillExtension.appex */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = "wrapper.app-extension"; path = AutoFillExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		BB1D16EA7A4AAC7EE91A2FB7 /* AutoFillExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = AutoFillExtension.entitlements; sourceTree = "<group>"; };
 		C452E5A3B956464EF630257C /* thread.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = thread.h; sourceTree = "<group>"; };
 		C5851D3E9580E70714F51B41 /* KeeVaultApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeeVaultApp.swift; sourceTree = "<group>"; };
 		CB8CA57BCC9BB3348C50B665 /* blake2-impl.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "blake2-impl.h"; sourceTree = "<group>"; };
 		EA801B7F5A40A25CA95BC6B9 /* BiometricService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BiometricService.swift; sourceTree = "<group>"; };
 		EC9D9D013823B73C45F84BF6 /* KDBXCrypto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KDBXCrypto.swift; sourceTree = "<group>"; };
 		EF1680F80D263A4F12E1FD11 /* DatabaseViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseViewModel.swift; sourceTree = "<group>"; };
+		F24A68304E05C5E4CCF32D33 /* ScreenProtectionService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenProtectionService.swift; sourceTree = "<group>"; };
 		F55B3FE0C3221312F43C5814 /* KeeVault.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = KeeVault.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -82,6 +142,7 @@
 		0DDE644E447B42CFDB9726BE /* Products */ = {
 			isa = PBXGroup;
 			children = (
+				B89BC0DD2296EA1CDD831E3C /* AutoFillExtension.appex */,
 				F55B3FE0C3221312F43C5814 /* KeeVault.app */,
 			);
 			name = Products;
@@ -131,6 +192,16 @@
 			path = KeeVault/CArgon2Bridge;
 			sourceTree = "<group>";
 		};
+		711A08224E4D4C5795F3E424 /* AutoFillExtension */ = {
+			isa = PBXGroup;
+			children = (
+				BB1D16EA7A4AAC7EE91A2FB7 /* AutoFillExtension.entitlements */,
+				1F0D3EBAABD59A7BD9FEFB5B /* CredentialProviderViewController.swift */,
+				A64C780766746F0A09D3F69E /* Info.plist */,
+			);
+			path = AutoFillExtension;
+			sourceTree = "<group>";
+		};
 		A32A208F93C711849C1088B7 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
@@ -145,6 +216,7 @@
 			children = (
 				16B2CCEA2361BA396798AAC8 /* App */,
 				B02FF477B068A76E4E38F5FE /* argon2 */,
+				711A08224E4D4C5795F3E424 /* AutoFillExtension */,
 				6545B9241493A8B1B0A7B476 /* CArgon2Bridge */,
 				A32A208F93C711849C1088B7 /* Extensions */,
 				397037C85461299C2611E3C5 /* Models */,
@@ -160,6 +232,7 @@
 			isa = PBXGroup;
 			children = (
 				87A9BBBD6B10534CBFC5D62C /* Assets.xcassets */,
+				72B36D86223AA2841F9F19D6 /* LaunchScreen.storyboard */,
 			);
 			name = Resources;
 			path = KeeVault/Resources;
@@ -202,7 +275,10 @@
 				EA801B7F5A40A25CA95BC6B9 /* BiometricService.swift */,
 				4AA1BC781576F6FCF822CF5F /* ClipboardService.swift */,
 				857C0EBF8BB4D5443786B54C /* DocumentPickerService.swift */,
+				74875E522F92348C08057696 /* HapticService.swift */,
 				9FDDC37E863EB341697FC0AC /* KeychainService.swift */,
+				F24A68304E05C5E4CCF32D33 /* ScreenProtectionService.swift */,
+				7D1CB28C4D8F04F4885EA61E /* SharedVaultStore.swift */,
 			);
 			name = Services;
 			path = KeeVault/Services;
@@ -211,16 +287,35 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		9A972012DBD6BE303E4EEDB5 /* AutoFillExtension */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 308D04FDB60F1BB8D067A652 /* Build configuration list for PBXNativeTarget "AutoFillExtension" */;
+			buildPhases = (
+				5027165D707ECCB7A71DC457 /* Sources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = AutoFillExtension;
+			packageProductDependencies = (
+			);
+			productName = AutoFillExtension;
+			productReference = B89BC0DD2296EA1CDD831E3C /* AutoFillExtension.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
 		F5CCCD17070E72A4B318C437 /* KeeVault */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = D23896FDDBD748D28015EB5F /* Build configuration list for PBXNativeTarget "KeeVault" */;
 			buildPhases = (
 				EEE50EDAAD3283691A32AD61 /* Sources */,
 				13AA7DCB75E9A4DBAF3144C2 /* Resources */,
+				72C4067F9AED5A62F5CB0CC3 /* Embed Foundation Extensions */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				694EFAF0F8ADE07829C7FB88 /* PBXTargetDependency */,
 			);
 			name = KeeVault;
 			packageProductDependencies = (
@@ -238,6 +333,9 @@
 				BuildIndependentTargetsInParallel = YES;
 				LastUpgradeCheck = 1600;
 				TargetAttributes = {
+					9A972012DBD6BE303E4EEDB5 = {
+						ProvisioningStyle = Automatic;
+					};
 					F5CCCD17070E72A4B318C437 = {
 						ProvisioningStyle = Automatic;
 					};
@@ -257,6 +355,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
+				9A972012DBD6BE303E4EEDB5 /* AutoFillExtension */,
 				F5CCCD17070E72A4B318C437 /* KeeVault */,
 			);
 		};
@@ -268,12 +367,43 @@
 			buildActionMask = 2147483647;
 			files = (
 				1AE06B26374913022AF0B512 /* Assets.xcassets in Resources */,
+				314EE1BF6F838D5F59FF776B /* LaunchScreen.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		5027165D707ECCB7A71DC457 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				37A167A5B11E79886AB768E3 /* BiometricService.swift in Sources */,
+				19583614D1A2B6F4DF4E4E3B /* CredentialProviderViewController.swift in Sources */,
+				BD0B5F9051C2C2A30561C0AC /* DocumentPickerService.swift in Sources */,
+				95E05966437433A8DB789E6B /* Entry.swift in Sources */,
+				2C7ED41E165C57037E5F6F06 /* Group.swift in Sources */,
+				13EE88975D4DAB4A327D2791 /* KDBXCrypto.swift in Sources */,
+				AD43A5E642D77D3ED49677A3 /* KDBXParser.swift in Sources */,
+				BCAA797F0076C1D3E99CCFB4 /* KeychainService.swift in Sources */,
+				433DCCF5BB49DC7EA348D9F6 /* SharedVaultStore.swift in Sources */,
+				8A8250A8AA57751BB0E04F7B /* TOTPGenerator.swift in Sources */,
+				3B0EBF48269D8DBFC7F5AA5E /* argon2.c in Sources */,
+				73848E88282C89559E3D205E /* argon2.h in Sources */,
+				E722EA9764D5ED5B33586558 /* blake2-impl.h in Sources */,
+				7B72CE7DCF627C940D2C6C44 /* blake2.h in Sources */,
+				ACCD7EF9FAEE1E6747180461 /* blake2b.c in Sources */,
+				8B00B860FAEB7BD3498023A5 /* blamka-round-ref.h in Sources */,
+				E108E33C1F878E4B638078F5 /* core.c in Sources */,
+				15C9D9278F22C24F30EA8A23 /* core.h in Sources */,
+				5BF7D0FB59BFE39D3C6639A3 /* encoding.c in Sources */,
+				997FA5C0DC53CE2731A37115 /* encoding.h in Sources */,
+				FFB6C5432D5BD90BCCB06184 /* ref.c in Sources */,
+				6A3526E80012D79B9B675638 /* thread.c in Sources */,
+				3A102656CDDA7B949E107C09 /* thread.h in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		EEE50EDAAD3283691A32AD61 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -287,12 +417,15 @@
 				C060B8AF23B7362C2D7A4B1E /* EntryListView.swift in Sources */,
 				899653B778ED3609FB4AF0D5 /* Group.swift in Sources */,
 				157D8E7898E8CC395544235D /* GroupListView.swift in Sources */,
+				49B3018A2B3EF12E93275D42 /* HapticService.swift in Sources */,
 				3638BD8048634C9D9DF10FCF /* KDBXCrypto.swift in Sources */,
 				DFE4172CD97B51357093526D /* KDBXParser.swift in Sources */,
 				6FBAFC562307C8B167E55950 /* KeeVaultApp.swift in Sources */,
 				0B7D322BDCD334BF2F20CE5D /* KeychainService.swift in Sources */,
 				3122E83D6DCA799E9DF4F0AF /* NavigationConformances.swift in Sources */,
+				AA80F4C50FE63B48FB700436 /* ScreenProtectionService.swift in Sources */,
 				915040E9F69EA94BECBED136 /* SearchView.swift in Sources */,
+				830A764AB9F50D4F24C12E92 /* SharedVaultStore.swift in Sources */,
 				6BB187D584A430CA757E5841 /* TOTPGenerator.swift in Sources */,
 				9D80E85BC5136F4DB90FA0FB /* TOTPViewModel.swift in Sources */,
 				7BC70E4F773B35E41B4358EA /* UnlockView.swift in Sources */,
@@ -313,6 +446,14 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		694EFAF0F8ADE07829C7FB88 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 9A972012DBD6BE303E4EEDB5 /* AutoFillExtension */;
+			targetProxy = BB4626A5187223663F26C135 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
 		2B0F555ECC285AAD01BE6165 /* Debug */ = {
@@ -379,10 +520,38 @@
 			};
 			name = Debug;
 		};
+		64B37485476915410BA4AB44 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = AutoFillExtension/AutoFillExtension.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = NO;
+				HEADER_SEARCH_PATHS = (
+					"$(SRCROOT)/KeeVault/CArgon2Bridge",
+					"$(SRCROOT)/KeeVault/CArgon2Bridge/argon2",
+				);
+				INFOPLIST_FILE = AutoFillExtension/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0.0;
+				OTHER_CFLAGS = "-DARGON2_NO_THREADS";
+				PRODUCT_BUNDLE_IDENTIFIER = com.keevault.app.autofill;
+				PRODUCT_NAME = KeeVaultAutoFill;
+				SDKROOT = iphoneos;
+				SWIFT_OBJC_BRIDGING_HEADER = KeeVault/CArgon2Bridge/argon2_bridge.h;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
 		A4468E53A3115306CA5FDBE6 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = KeeVault/KeeVault.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
@@ -468,6 +637,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = KeeVault/KeeVault.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
@@ -492,9 +662,45 @@
 			};
 			name = Debug;
 		};
+		C7C3CC980D6178B9A9D82AAB /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = AutoFillExtension/AutoFillExtension.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = NO;
+				HEADER_SEARCH_PATHS = (
+					"$(SRCROOT)/KeeVault/CArgon2Bridge",
+					"$(SRCROOT)/KeeVault/CArgon2Bridge/argon2",
+				);
+				INFOPLIST_FILE = AutoFillExtension/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0.0;
+				OTHER_CFLAGS = "-DARGON2_NO_THREADS";
+				PRODUCT_BUNDLE_IDENTIFIER = com.keevault.app.autofill;
+				PRODUCT_NAME = KeeVaultAutoFill;
+				SDKROOT = iphoneos;
+				SWIFT_OBJC_BRIDGING_HEADER = KeeVault/CArgon2Bridge/argon2_bridge.h;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		308D04FDB60F1BB8D067A652 /* Build configuration list for PBXNativeTarget "AutoFillExtension" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				64B37485476915410BA4AB44 /* Debug */,
+				C7C3CC980D6178B9A9D82AAB /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
 		BD3C6BD1EAEBD78FBCBD25D5 /* Build configuration list for PBXProject "KeeVault" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
