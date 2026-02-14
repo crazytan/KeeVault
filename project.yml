@@ -79,3 +79,18 @@ targets:
       - path: KeeVault/CArgon2Bridge/argon2
         compilerFlags: "-DARGON2_NO_THREADS"
         buildPhase: sources
+
+  KeeVaultUITests:
+    type: bundle.ui-testing
+    platform: iOS
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.keevault.app.uitests
+        GENERATE_INFOPLIST_FILE: true
+        TEST_TARGET_NAME: KeeVault
+    dependencies:
+      - target: KeeVault
+    sources:
+      - path: KeeVaultUITests
+    resources:
+      - path: TestFixtures/test.kdbx

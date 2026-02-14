@@ -11,6 +11,7 @@ struct EntryListView: View {
                 NavigationLink(value: entry) {
                     EntryRow(entry: entry)
                 }
+                .accessibilityIdentifier("search.entry.navlink")
             }
         }
     }

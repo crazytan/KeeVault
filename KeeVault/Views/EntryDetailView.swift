@@ -82,9 +82,13 @@ struct FieldRow: View {
                 Text(value)
                     .textSelection(.enabled)
                 Spacer()
-                CopyButton(text: value)
+                CopyButton(text: value, accessibilityID: "entry.copy.\(normalizedLabel)")
             }
         }
+    }
+
+    private var normalizedLabel: String {
+        label.lowercased().replacingOccurrences(of: " ", with: "_")
     }
 }
 
@@ -113,7 +117,8 @@ struct PasswordFieldRow: View {
                 } label: {
                     Image(systemName: revealed ? "eye.slash.fill" : "eye.fill")
                 }
-                CopyButton(text: password)
+                .accessibilityIdentifier("entry.password.reveal")
+                CopyButton(text: password, accessibilityID: "entry.copy.password")
             }
         }
     }
@@ -140,8 +145,9 @@ struct URLFieldRow: View {
                         Image(systemName: "arrow.up.right.square")
                     }
                     .buttonStyle(.borderless)
+                    .accessibilityIdentifier("entry.url.open")
                 }
-                CopyButton(text: url)
+                CopyButton(text: url, accessibilityID: "entry.copy.url")
             }
         }
     }
@@ -149,6 +155,7 @@ struct URLFieldRow: View {
 
 struct CopyButton: View {
     let text: String
+    let accessibilityID: String
     @State private var copied = false
 
     var body: some View {
@@ -165,6 +172,7 @@ struct CopyButton: View {
                 .foregroundStyle(copied ? Color.green : Color.accentColor)
         }
         .buttonStyle(.borderless)
+        .accessibilityIdentifier(accessibilityID)
     }
 }
 
@@ -191,7 +199,7 @@ struct TOTPSection: View {
 
                 Spacer()
 
-                CopyButton(text: totpVM.code)
+                CopyButton(text: totpVM.code, accessibilityID: "entry.copy.totp")
             }
         }
         .onAppear { totpVM.start() }
