@@ -1,13 +1,38 @@
 # STATUS.md — KeeVault Project Status
 
-**Last updated:** 2026-02-14 11:22pm PST
+**Last updated:** 2026-02-15 11:43am PST
 
 ## Current State
-- **Phase:** KDBX parser unit-test stabilization
+- **Phase:** unit-test coverage expansion (ViewModels + services + model utilities)
 - **Build:** ✅ Compiles and runs
-- **Unit tests:** ✅ 4/4 passing (`KeeVaultTests`)
+- **Unit tests:** 📈 25 tests defined in `KeeVaultTests` (was 4)
 - **UI tests:** unchanged from prior run (see historical results below)
-- **Blocker:** remaining failures are in UI flow, not parser unit coverage
+- **Blocker:** simulator runtime unavailable in sandbox, so test execution is blocked here
+
+## Unit Test Work (2026-02-15)
+- Added `PLAN.md` with discovery + coverage strategy before implementation
+- Added new unit test files:
+  - `KeeVaultTests/DatabaseViewModelTests.swift`
+  - `KeeVaultTests/TOTPViewModelTests.swift`
+  - `KeeVaultTests/TOTPGeneratorTests.swift`
+  - `KeeVaultTests/SharedVaultStoreTests.swift`
+  - `KeeVaultTests/ModelLogicTests.swift`
+- Coverage added for:
+  - `DatabaseViewModel`: state transitions, unlock success/error, search behavior, lock reset
+  - `TOTPViewModel`: initialization invariants, start/stop lifecycle safety
+  - `TOTPGenerator`: RFC vector, invalid secret handling, seconds remaining, base32 normalization/validation
+  - `SharedVaultStore` and `DocumentPickerService`: save/load/clear bookmark behavior
+  - `KPGroup`/`KPEntry` model utilities and hash/equality conformances
+
+## Unit Test Results (2026-02-15)
+Command requested:
+`xcodebuild -scheme KeeVault -destination 'platform=iOS Simulator,name=iPhone 17' -only-testing:KeeVaultTests test`
+
+Outcome in this environment:
+- ❌ Could not execute tests due to simulator service/runtime availability
+- Primary error: `No available simulator runtimes for platform iphonesimulator`
+- Additional constraint: CoreSimulator service connection invalid in sandbox
+- Build-for-testing with writable derived data (`/tmp/KeeVaultDerivedData`) reaches project build, but fails at asset catalog compile for the same simulator-runtime reason
 
 ## Unit Test Work (2026-02-14)
 - Verified fixture header: `TestFixtures/test.kdbx` exists, bytes `10-11` = `0x0004` (KDBX major version 4)

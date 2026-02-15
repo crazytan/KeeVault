@@ -22,6 +22,7 @@
 		37A167A5B11E79886AB768E3 /* BiometricService.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA801B7F5A40A25CA95BC6B9 /* BiometricService.swift */; };
 		3A102656CDDA7B949E107C09 /* thread.h in Sources */ = {isa = PBXBuildFile; fileRef = C452E5A3B956464EF630257C /* thread.h */; settings = {COMPILER_FLAGS = "-DARGON2_NO_THREADS"; }; };
 		3B0EBF48269D8DBFC7F5AA5E /* argon2.c in Sources */ = {isa = PBXBuildFile; fileRef = 9DD45B45F9FA3134A2B46DA3 /* argon2.c */; settings = {COMPILER_FLAGS = "-DARGON2_NO_THREADS"; }; };
+		3D9716BB3BF72310A4046471 /* TOTPGeneratorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87732690E19B56E5EFC4AA4F /* TOTPGeneratorTests.swift */; };
 		433DCCF5BB49DC7EA348D9F6 /* SharedVaultStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D1CB28C4D8F04F4885EA61E /* SharedVaultStore.swift */; };
 		439D340BC0576CDC0A5724DA /* EntryDetailUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCA62AF00A42BCEE8691D62C /* EntryDetailUITests.swift */; };
 		46CDE7DF63D95E6308C20FBB /* blake2b.c in Sources */ = {isa = PBXBuildFile; fileRef = 3377E866435693A59D8E7E5D /* blake2b.c */; settings = {COMPILER_FLAGS = "-DARGON2_NO_THREADS"; }; };
@@ -31,6 +32,7 @@
 		4F827D1E744FFF7C979DCB0C /* KeeVaultUITestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7CC215325715C988E238D34 /* KeeVaultUITestCase.swift */; };
 		5BF7D0FB59BFE39D3C6639A3 /* encoding.c in Sources */ = {isa = PBXBuildFile; fileRef = 9ECFA82E9096A43DB1AF8027 /* encoding.c */; settings = {COMPILER_FLAGS = "-DARGON2_NO_THREADS"; }; };
 		5F9259019409ED1EF4BAC15F /* core.h in Sources */ = {isa = PBXBuildFile; fileRef = AC48ED14027FBFD10C497878 /* core.h */; settings = {COMPILER_FLAGS = "-DARGON2_NO_THREADS"; }; };
+		64673414C1434500302E97E8 /* DatabaseViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 994B7822924FC4C783E5BF76 /* DatabaseViewModelTests.swift */; };
 		6A3526E80012D79B9B675638 /* thread.c in Sources */ = {isa = PBXBuildFile; fileRef = 4FD7989AF0273E164C427E14 /* thread.c */; settings = {COMPILER_FLAGS = "-DARGON2_NO_THREADS"; }; };
 		6BB187D584A430CA757E5841 /* TOTPGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98D53142E0E400EAFDFC0DB8 /* TOTPGenerator.swift */; };
 		6FBAFC562307C8B167E55950 /* KeeVaultApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5851D3E9580E70714F51B41 /* KeeVaultApp.swift */; };
@@ -56,6 +58,7 @@
 		A418AE2AA3EE750952AF5C8D /* NavigationUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D4B55B0EA14F17F01BB82FE /* NavigationUITests.swift */; };
 		A5889A3B87720660E19D73A1 /* blake2-impl.h in Sources */ = {isa = PBXBuildFile; fileRef = CB8CA57BCC9BB3348C50B665 /* blake2-impl.h */; settings = {COMPILER_FLAGS = "-DARGON2_NO_THREADS"; }; };
 		A73E58906E6BD20D6840D27C /* thread.h in Sources */ = {isa = PBXBuildFile; fileRef = C452E5A3B956464EF630257C /* thread.h */; settings = {COMPILER_FLAGS = "-DARGON2_NO_THREADS"; }; };
+		A773061608F431A27D942FE9 /* SharedVaultStoreTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 765A581F2449D279DC9F00F8 /* SharedVaultStoreTests.swift */; };
 		A852D88287F4A92FEF2AD5B9 /* encoding.c in Sources */ = {isa = PBXBuildFile; fileRef = 9ECFA82E9096A43DB1AF8027 /* encoding.c */; settings = {COMPILER_FLAGS = "-DARGON2_NO_THREADS"; }; };
 		AA80F4C50FE63B48FB700436 /* ScreenProtectionService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F24A68304E05C5E4CCF32D33 /* ScreenProtectionService.swift */; };
 		ABF00C19DDB9FB0D543C50E3 /* core.c in Sources */ = {isa = PBXBuildFile; fileRef = B61CB00D954BF7F9725FCDDC /* core.c */; settings = {COMPILER_FLAGS = "-DARGON2_NO_THREADS"; }; };
@@ -66,10 +69,12 @@
 		BCAA797F0076C1D3E99CCFB4 /* KeychainService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FDDC37E863EB341697FC0AC /* KeychainService.swift */; };
 		BD0B5F9051C2C2A30561C0AC /* DocumentPickerService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 857C0EBF8BB4D5443786B54C /* DocumentPickerService.swift */; };
 		C060B8AF23B7362C2D7A4B1E /* EntryListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 520EE09EDA183240F2C4A150 /* EntryListView.swift */; };
+		C1E95CA4A0681735A4B9E962 /* TOTPViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1E82D92CFD9B903490902A7 /* TOTPViewModelTests.swift */; };
 		CF81B0220CC557748D33862D /* AutoFillExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = B89BC0DD2296EA1CDD831E3C /* AutoFillExtension.appex */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		D64C0F898BA4FD7440AEC398 /* DatabaseViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF1680F80D263A4F12E1FD11 /* DatabaseViewModel.swift */; };
 		DFE4172CD97B51357093526D /* KDBXParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04630AC02950D75B272D5927 /* KDBXParser.swift */; };
 		E108E33C1F878E4B638078F5 /* core.c in Sources */ = {isa = PBXBuildFile; fileRef = B61CB00D954BF7F9725FCDDC /* core.c */; settings = {COMPILER_FLAGS = "-DARGON2_NO_THREADS"; }; };
+		E334E6B9CF58BFF29EC50139 /* ModelLogicTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CECAB218BA8547CF5053EEE /* ModelLogicTests.swift */; };
 		E722EA9764D5ED5B33586558 /* blake2-impl.h in Sources */ = {isa = PBXBuildFile; fileRef = CB8CA57BCC9BB3348C50B665 /* blake2-impl.h */; settings = {COMPILER_FLAGS = "-DARGON2_NO_THREADS"; }; };
 		F691FA81DDA8728F4B074047 /* test.kdbx in Resources */ = {isa = PBXBuildFile; fileRef = 51AE62F0327AE140D741636B /* test.kdbx */; };
 		F77D33B3CE56151F3F4880B3 /* encoding.h in Sources */ = {isa = PBXBuildFile; fileRef = 4A74E616BDF70E76A1BF9C47 /* encoding.h */; settings = {COMPILER_FLAGS = "-DARGON2_NO_THREADS"; }; };
@@ -121,6 +126,7 @@
 		071857A0B486E482F58E96A0 /* KDBXParserTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KDBXParserTests.swift; sourceTree = "<group>"; };
 		1D4B55B0EA14F17F01BB82FE /* NavigationUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationUITests.swift; sourceTree = "<group>"; };
 		1F0D3EBAABD59A7BD9FEFB5B /* CredentialProviderViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CredentialProviderViewController.swift; sourceTree = "<group>"; };
+		2CECAB218BA8547CF5053EEE /* ModelLogicTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelLogicTests.swift; sourceTree = "<group>"; };
 		2FCAF3387FBFE90D9ED761A0 /* ref.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = ref.c; sourceTree = "<group>"; };
 		3377E866435693A59D8E7E5D /* blake2b.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = blake2b.c; sourceTree = "<group>"; };
 		3CD81FD786A947B544FE59B9 /* argon2_bridge.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = argon2_bridge.h; sourceTree = "<group>"; };
@@ -137,14 +143,17 @@
 		72B36D86223AA2841F9F19D6 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		74875E522F92348C08057696 /* HapticService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HapticService.swift; sourceTree = "<group>"; };
 		75C024C6B1529C887FACFC32 /* TOTPViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TOTPViewModel.swift; sourceTree = "<group>"; };
+		765A581F2449D279DC9F00F8 /* SharedVaultStoreTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharedVaultStoreTests.swift; sourceTree = "<group>"; };
 		79D44D96D45E5426A8CE40F4 /* blake2.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = blake2.h; sourceTree = "<group>"; };
 		7D1CB28C4D8F04F4885EA61E /* SharedVaultStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharedVaultStore.swift; sourceTree = "<group>"; };
 		821772BDC9C5D12C20DFE035 /* KeeVaultUITests.xctest */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.cfbundle; path = KeeVaultUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		857C0EBF8BB4D5443786B54C /* DocumentPickerService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentPickerService.swift; sourceTree = "<group>"; };
+		87732690E19B56E5EFC4AA4F /* TOTPGeneratorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TOTPGeneratorTests.swift; sourceTree = "<group>"; };
 		87A9BBBD6B10534CBFC5D62C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		89FE935F12B1213BF2AA4887 /* Entry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Entry.swift; sourceTree = "<group>"; };
 		955B1BDEF32074A97D218B94 /* KeeVaultTests.xctest */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.cfbundle; path = KeeVaultTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		98D53142E0E400EAFDFC0DB8 /* TOTPGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TOTPGenerator.swift; sourceTree = "<group>"; };
+		994B7822924FC4C783E5BF76 /* DatabaseViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseViewModelTests.swift; sourceTree = "<group>"; };
 		9BF81D6E9F454E1A0E39F806 /* UnlockView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnlockView.swift; sourceTree = "<group>"; };
 		9DD45B45F9FA3134A2B46DA3 /* argon2.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = argon2.c; sourceTree = "<group>"; };
 		9ECFA82E9096A43DB1AF8027 /* encoding.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = encoding.c; sourceTree = "<group>"; };
@@ -163,6 +172,7 @@
 		EA801B7F5A40A25CA95BC6B9 /* BiometricService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BiometricService.swift; sourceTree = "<group>"; };
 		EC9D9D013823B73C45F84BF6 /* KDBXCrypto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KDBXCrypto.swift; sourceTree = "<group>"; };
 		EF1680F80D263A4F12E1FD11 /* DatabaseViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseViewModel.swift; sourceTree = "<group>"; };
+		F1E82D92CFD9B903490902A7 /* TOTPViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TOTPViewModelTests.swift; sourceTree = "<group>"; };
 		F24A68304E05C5E4CCF32D33 /* ScreenProtectionService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenProtectionService.swift; sourceTree = "<group>"; };
 		F55B3FE0C3221312F43C5814 /* KeeVault.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = KeeVault.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F65F32F879F0C5EC8B81B446 /* SearchUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchUITests.swift; sourceTree = "<group>"; };
@@ -238,7 +248,12 @@
 		8C63268F934714FD2F7C4FF8 /* KeeVaultTests */ = {
 			isa = PBXGroup;
 			children = (
+				994B7822924FC4C783E5BF76 /* DatabaseViewModelTests.swift */,
 				071857A0B486E482F58E96A0 /* KDBXParserTests.swift */,
+				2CECAB218BA8547CF5053EEE /* ModelLogicTests.swift */,
+				765A581F2449D279DC9F00F8 /* SharedVaultStoreTests.swift */,
+				87732690E19B56E5EFC4AA4F /* TOTPGeneratorTests.swift */,
+				F1E82D92CFD9B903490902A7 /* TOTPViewModelTests.swift */,
 			);
 			path = KeeVaultTests;
 			sourceTree = "<group>";
@@ -546,7 +561,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				64673414C1434500302E97E8 /* DatabaseViewModelTests.swift in Sources */,
 				07A16BF71717EDF0B460697F /* KDBXParserTests.swift in Sources */,
+				E334E6B9CF58BFF29EC50139 /* ModelLogicTests.swift in Sources */,
+				A773061608F431A27D942FE9 /* SharedVaultStoreTests.swift in Sources */,
+				3D9716BB3BF72310A4046471 /* TOTPGeneratorTests.swift in Sources */,
+				C1E95CA4A0681735A4B9E962 /* TOTPViewModelTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
