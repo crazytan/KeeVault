@@ -1,12 +1,39 @@
 # STATUS.md — KeeVault Project Status
 
-**Last updated:** 2026-02-13 10:42pm PST
+**Last updated:** 2026-02-14 11:22pm PST
 
 ## Current State
-- **Phase:** UI test fixes
+- **Phase:** KDBX parser unit-test stabilization
 - **Build:** ✅ Compiles and runs
-- **Tests:** 1/5 passing (wrong password rejection works)
-- **Blocker:** UI tests can't unlock vault — see debugging notes below
+- **Unit tests:** ✅ 4/4 passing (`KeeVaultTests`)
+- **UI tests:** unchanged from prior run (see historical results below)
+- **Blocker:** remaining failures are in UI flow, not parser unit coverage
+
+## Unit Test Work (2026-02-14)
+- Verified fixture header: `TestFixtures/test.kdbx` exists, bytes `10-11` = `0x0004` (KDBX major version 4)
+- Verified fixture via KeePassXC CLI:
+  - `keepassxc-cli ls TestFixtures/test.kdbx` => `Social/`, `Work/`
+  - `keepassxc-cli db-info TestFixtures/test.kdbx` => Argon2d KDF, valid DB metadata
+- Added new unit test target: `KeeVaultTests` in `project.yml`
+- Added tests: `KeeVaultTests/KDBXParserTests.swift`
+  - fixture parse (direct file parse, no UI)
+  - Argon2 known vector derivation
+  - gzip decompression known data
+  - full parse flow parity (`password` vs `compositeKey` path)
+- Fixed parser bug in `KeeVault/Models/KDBXParser.swift`:
+  - handle payloads where gzip wraps inner header/XML
+  - gracefully handle payloads without an explicit inner header
+
+## Unit Test Results (2026-02-14)
+| Test | Status |
+|------|--------|
+| `testParseFixtureFileDirectly` | ✅ PASS |
+| `testArgon2KeyDerivationKnownVector` | ✅ PASS |
+| `testGunzipKnownCompressedData` | ✅ PASS |
+| `testFullParseFlowCompositeKeyPathMatchesPasswordPath` | ✅ PASS |
+
+Command used:
+`xcodebuild -scheme KeeVault -destination 'platform=iOS Simulator,name=iPhone 17' -only-testing:KeeVaultTests test`
 
 ## Test Results (2026-02-13)
 | Test | Status |

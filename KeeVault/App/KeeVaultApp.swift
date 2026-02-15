@@ -65,7 +65,7 @@ struct DatabaseNavigationView: View {
             .navigationDestination(for: KPEntry.self) { entry in
                 EntryDetailView(entry: entry)
             }
-            .searchable(text: $viewModel.searchText, prompt: "Search entries")
+            .searchable(text: $viewModel.searchText, placement: .navigationBarDrawer(displayMode: .always), prompt: "Search entries")
             .toolbar {
                 ToolbarItem(placement: .topBarTrailing) {
                     Button {

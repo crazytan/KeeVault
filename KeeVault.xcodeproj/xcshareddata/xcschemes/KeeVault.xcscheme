@@ -58,6 +58,17 @@
             parallelizable = "NO">
             <BuildableReference
                BuildableIdentifier = "primary"
+               BlueprintIdentifier = "2AA5363F49FAF8064C6BF401"
+               BuildableName = "KeeVaultTests.xctest"
+               BlueprintName = "KeeVaultTests"
+               ReferencedContainer = "container:KeeVault.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
+         <TestableReference
+            skipped = "NO"
+            parallelizable = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
                BlueprintIdentifier = "6D9034EE3DACBB02919B9D37"
                BuildableName = "KeeVaultUITests.xctest"
                BlueprintName = "KeeVaultUITests"

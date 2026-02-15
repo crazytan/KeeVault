@@ -95,6 +95,21 @@ targets:
       - path: TestFixtures/test.kdbx
         buildPhase: resources
 
+  KeeVaultTests:
+    type: bundle.unit-test
+    platform: iOS
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.keevault.app.tests
+        GENERATE_INFOPLIST_FILE: true
+        TEST_TARGET_NAME: KeeVault
+    dependencies:
+      - target: KeeVault
+    sources:
+      - path: KeeVaultTests
+      - path: TestFixtures/test.kdbx
+        buildPhase: resources
+
 schemes:
   KeeVault:
     build:
@@ -107,6 +122,9 @@ schemes:
       config: Debug
       gatherCoverageData: false
       targets:
+        - name: KeeVaultTests
+          parallelizable: false
+          randomExecutionOrder: false
         - name: KeeVaultUITests
           parallelizable: false
           randomExecutionOrder: false

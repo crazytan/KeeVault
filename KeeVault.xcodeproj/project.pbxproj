@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		07A16BF71717EDF0B460697F /* KDBXParserTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 071857A0B486E482F58E96A0 /* KDBXParserTests.swift */; };
 		0B7D322BDCD334BF2F20CE5D /* KeychainService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FDDC37E863EB341697FC0AC /* KeychainService.swift */; };
 		13EE88975D4DAB4A327D2791 /* KDBXCrypto.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC9D9D013823B73C45F84BF6 /* KDBXCrypto.swift */; };
 		157D8E7898E8CC395544235D /* GroupListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0232E599B749066A550CD867 /* GroupListView.swift */; };
@@ -70,12 +71,20 @@
 		DFE4172CD97B51357093526D /* KDBXParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04630AC02950D75B272D5927 /* KDBXParser.swift */; };
 		E108E33C1F878E4B638078F5 /* core.c in Sources */ = {isa = PBXBuildFile; fileRef = B61CB00D954BF7F9725FCDDC /* core.c */; settings = {COMPILER_FLAGS = "-DARGON2_NO_THREADS"; }; };
 		E722EA9764D5ED5B33586558 /* blake2-impl.h in Sources */ = {isa = PBXBuildFile; fileRef = CB8CA57BCC9BB3348C50B665 /* blake2-impl.h */; settings = {COMPILER_FLAGS = "-DARGON2_NO_THREADS"; }; };
+		F691FA81DDA8728F4B074047 /* test.kdbx in Resources */ = {isa = PBXBuildFile; fileRef = 51AE62F0327AE140D741636B /* test.kdbx */; };
 		F77D33B3CE56151F3F4880B3 /* encoding.h in Sources */ = {isa = PBXBuildFile; fileRef = 4A74E616BDF70E76A1BF9C47 /* encoding.h */; settings = {COMPILER_FLAGS = "-DARGON2_NO_THREADS"; }; };
 		FF5366CF37DD97415B6E62A8 /* UnlockFlowUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C21F92023642D6774A213759 /* UnlockFlowUITests.swift */; };
 		FFB6C5432D5BD90BCCB06184 /* ref.c in Sources */ = {isa = PBXBuildFile; fileRef = 2FCAF3387FBFE90D9ED761A0 /* ref.c */; settings = {COMPILER_FLAGS = "-DARGON2_NO_THREADS"; }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		A82A502D86D0F1284CBCDA98 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = EEE3A8A0453C62287D515E40 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = F5CCCD17070E72A4B318C437;
+			remoteInfo = KeeVault;
+		};
 		BB4626A5187223663F26C135 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = EEE3A8A0453C62287D515E40 /* Project object */;
@@ -109,6 +118,7 @@
 /* Begin PBXFileReference section */
 		0232E599B749066A550CD867 /* GroupListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupListView.swift; sourceTree = "<group>"; };
 		04630AC02950D75B272D5927 /* KDBXParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KDBXParser.swift; sourceTree = "<group>"; };
+		071857A0B486E482F58E96A0 /* KDBXParserTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KDBXParserTests.swift; sourceTree = "<group>"; };
 		1D4B55B0EA14F17F01BB82FE /* NavigationUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationUITests.swift; sourceTree = "<group>"; };
 		1F0D3EBAABD59A7BD9FEFB5B /* CredentialProviderViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CredentialProviderViewController.swift; sourceTree = "<group>"; };
 		2FCAF3387FBFE90D9ED761A0 /* ref.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = ref.c; sourceTree = "<group>"; };
@@ -133,6 +143,7 @@
 		857C0EBF8BB4D5443786B54C /* DocumentPickerService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentPickerService.swift; sourceTree = "<group>"; };
 		87A9BBBD6B10534CBFC5D62C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		89FE935F12B1213BF2AA4887 /* Entry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Entry.swift; sourceTree = "<group>"; };
+		955B1BDEF32074A97D218B94 /* KeeVaultTests.xctest */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.cfbundle; path = KeeVaultTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		98D53142E0E400EAFDFC0DB8 /* TOTPGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TOTPGenerator.swift; sourceTree = "<group>"; };
 		9BF81D6E9F454E1A0E39F806 /* UnlockView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnlockView.swift; sourceTree = "<group>"; };
 		9DD45B45F9FA3134A2B46DA3 /* argon2.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = argon2.c; sourceTree = "<group>"; };
@@ -164,6 +175,7 @@
 			children = (
 				B89BC0DD2296EA1CDD831E3C /* AutoFillExtension.appex */,
 				F55B3FE0C3221312F43C5814 /* KeeVault.app */,
+				955B1BDEF32074A97D218B94 /* KeeVaultTests.xctest */,
 				821772BDC9C5D12C20DFE035 /* KeeVaultUITests.xctest */,
 			);
 			name = Products;
@@ -223,6 +235,14 @@
 			path = AutoFillExtension;
 			sourceTree = "<group>";
 		};
+		8C63268F934714FD2F7C4FF8 /* KeeVaultTests */ = {
+			isa = PBXGroup;
+			children = (
+				071857A0B486E482F58E96A0 /* KDBXParserTests.swift */,
+			);
+			path = KeeVaultTests;
+			sourceTree = "<group>";
+		};
 		8CBC91F5801178AC803EEBDC /* TestFixtures */ = {
 			isa = PBXGroup;
 			children = (
@@ -248,6 +268,7 @@
 				711A08224E4D4C5795F3E424 /* AutoFillExtension */,
 				6545B9241493A8B1B0A7B476 /* CArgon2Bridge */,
 				A32A208F93C711849C1088B7 /* Extensions */,
+				8C63268F934714FD2F7C4FF8 /* KeeVaultTests */,
 				E395FCD1EB9C501BC350275C /* KeeVaultUITests */,
 				397037C85461299C2611E3C5 /* Models */,
 				A73FF28784C9F31E425687CD /* Resources */,
@@ -330,6 +351,25 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		2AA5363F49FAF8064C6BF401 /* KeeVaultTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 5FC88B455D18E25D1BFC62F6 /* Build configuration list for PBXNativeTarget "KeeVaultTests" */;
+			buildPhases = (
+				CB8108904E74C364CAAB3C72 /* Sources */,
+				618AC3C61CFE92C4F547F008 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				5C191E9331FA10642A4F2A9C /* PBXTargetDependency */,
+			);
+			name = KeeVaultTests;
+			packageProductDependencies = (
+			);
+			productName = KeeVaultTests;
+			productReference = 955B1BDEF32074A97D218B94 /* KeeVaultTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 		6D9034EE3DACBB02919B9D37 /* KeeVaultUITests */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 90FA865EE8F1C2741F01858F /* Build configuration list for PBXNativeTarget "KeeVaultUITests" */;
@@ -395,6 +435,9 @@
 				BuildIndependentTargetsInParallel = YES;
 				LastUpgradeCheck = 1600;
 				TargetAttributes = {
+					2AA5363F49FAF8064C6BF401 = {
+						TestTargetID = F5CCCD17070E72A4B318C437;
+					};
 					6D9034EE3DACBB02919B9D37 = {
 						TestTargetID = F5CCCD17070E72A4B318C437;
 					};
@@ -422,6 +465,7 @@
 			targets = (
 				9A972012DBD6BE303E4EEDB5 /* AutoFillExtension */,
 				F5CCCD17070E72A4B318C437 /* KeeVault */,
+				2AA5363F49FAF8064C6BF401 /* KeeVaultTests */,
 				6D9034EE3DACBB02919B9D37 /* KeeVaultUITests */,
 			);
 		};
@@ -434,6 +478,14 @@
 			files = (
 				1AE06B26374913022AF0B512 /* Assets.xcassets in Resources */,
 				314EE1BF6F838D5F59FF776B /* LaunchScreen.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		618AC3C61CFE92C4F547F008 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F691FA81DDA8728F4B074047 /* test.kdbx in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -490,6 +542,14 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		CB8108904E74C364CAAB3C72 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				07A16BF71717EDF0B460697F /* KDBXParserTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		EEE50EDAAD3283691A32AD61 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -538,6 +598,11 @@
 			isa = PBXTargetDependency;
 			target = F5CCCD17070E72A4B318C437 /* KeeVault */;
 			targetProxy = F2DF6CC5DE8D16F0C9E45348 /* PBXContainerItemProxy */;
+		};
+		5C191E9331FA10642A4F2A9C /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = F5CCCD17070E72A4B318C437 /* KeeVault */;
+			targetProxy = A82A502D86D0F1284CBCDA98 /* PBXContainerItemProxy */;
 		};
 		694EFAF0F8ADE07829C7FB88 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -655,6 +720,24 @@
 			};
 			name = Release;
 		};
+		9D5BEB99D46C820A53446610 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				GENERATE_INFOPLIST_FILE = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.keevault.app.tests;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/KeeVault.app/KeeVault";
+				TEST_TARGET_NAME = KeeVault;
+			};
+			name = Release;
+		};
 		A4468E53A3115306CA5FDBE6 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -683,6 +766,24 @@
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
+		};
+		A7C02578F7E2364286BAD148 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				GENERATE_INFOPLIST_FILE = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.keevault.app.tests;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/KeeVault.app/KeeVault";
+				TEST_TARGET_NAME = KeeVault;
+			};
+			name = Debug;
 		};
 		BEE1023E9E95110948A308DB /* Release */ = {
 			isa = XCBuildConfiguration;
@@ -822,6 +923,15 @@
 			buildConfigurations = (
 				64B37485476915410BA4AB44 /* Debug */,
 				C7C3CC980D6178B9A9D82AAB /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		5FC88B455D18E25D1BFC62F6 /* Build configuration list for PBXNativeTarget "KeeVaultTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				A7C02578F7E2364286BAD148 /* Debug */,
+				9D5BEB99D46C820A53446610 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Debug;

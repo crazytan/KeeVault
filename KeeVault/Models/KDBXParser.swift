@@ -157,17 +157,46 @@ enum KDBXParser {
             throw KDBXCrypto.CryptoError.unsupportedCipher(header.cipherID.hexString)
         }
 
+        var payloadForInnerHeader = decryptedPayload
+        var payloadWasPreDecompressed = false
+        if header.compressionFlags == 1, let decompressedPayload = try? KDBXCrypto.gunzip(decryptedPayload) {
+            payloadForInnerHeader = decompressedPayload
+            payloadWasPreDecompressed = true
+        }
+
         // 8. Parse inner header
-        var innerReader = DataReader(data: decryptedPayload)
+        var innerReader = DataReader(data: payloadForInnerHeader)
         let innerHeader = try parseInnerHeader(&innerReader)
 
+        // Some producers omit the inner header and write payload directly.
+        // If we consumed the whole payload without discovering header fields,
+        // rewind and treat decrypted bytes as XML/compressed XML.
+        let missingInnerHeader = innerReader.offset == payloadForInnerHeader.count &&
+            innerHeader.streamID == 0 &&
+            innerHeader.streamKey.isEmpty
+        if missingInnerHeader {
+            innerReader.offset = 0
+        }
+
         // 9. Get remaining data (the XML or compressed XML)
-        let innerPayload = decryptedPayload.subdata(in: innerReader.offset..<decryptedPayload.count)
+        let innerPayload = payloadForInnerHeader.subdata(in: innerReader.offset..<payloadForInnerHeader.count)
+        #if DEBUG
+        print("[KDBXParser] decrypted=\(decryptedPayload.count) innerOffset=\(innerReader.offset) innerPayload=\(innerPayload.count) compression=\(header.compressionFlags) preDecompressed=\(payloadWasPreDecompressed) innerHead=\(innerPayload.prefix(8).hexString)")
+        #endif
 
         // 10. Decompress if needed
         let xmlData: Data
-        if header.compressionFlags == 1 { // gzip
-            xmlData = try KDBXCrypto.gunzip(innerPayload)
+        if payloadWasPreDecompressed {
+            xmlData = innerPayload
+        } else if header.compressionFlags == 1 { // gzip
+            if let decompressed = try? KDBXCrypto.gunzip(innerPayload) {
+                xmlData = decompressed
+            } else if looksLikeXML(innerPayload) {
+                // Some producers write plain XML despite compression flag.
+                xmlData = innerPayload
+            } else {
+                throw KDBXCrypto.CryptoError.decompressionFailed
+            }
         } else {
             xmlData = innerPayload
         }
@@ -375,6 +404,17 @@ enum KDBXParser {
             innerStreamID: innerStreamID
         )
         return try parser.parse()
+    }
+
+    private static func looksLikeXML(_ data: Data) -> Bool {
+        let utf8BOM = Data([0xEF, 0xBB, 0xBF])
+        let trimmed: Data
+        if data.starts(with: utf8BOM) {
+            trimmed = Data(data.dropFirst(utf8BOM.count))
+        } else {
+            trimmed = data
+        }
+        return trimmed.starts(with: Data("<?xml".utf8)) || trimmed.starts(with: Data("<KeePassFile".utf8))
     }
 }
 

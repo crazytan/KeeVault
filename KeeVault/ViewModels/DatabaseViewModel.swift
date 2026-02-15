@@ -21,6 +21,7 @@ final class DatabaseViewModel {
     private(set) var state: State = .locked
     private(set) var rootGroup: KPGroup?
     var searchText = ""
+    var isSearchActive = false
     var navigationPath = NavigationPath()
 
     private var databaseURL: URL?

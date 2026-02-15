@@ -1,6 +1,7 @@
 import Foundation
 import CryptoKit
 import CommonCrypto
+import zlib
 
 // MARK: - Argon2 Bridge (calls C libargon2)
 
@@ -223,139 +224,66 @@ enum KDBXCrypto {
     // MARK: - GZip Decompression
 
     static func gunzip(_ data: Data) throws -> Data {
-        // Use Compression framework (Apple built-in)
-        guard data.count > 2 else { throw CryptoError.decompressionFailed }
-
-        // Skip gzip header if present
-        var startOffset = 0
-        if data[0] == 0x1F && data[1] == 0x8B {
-            // Parse gzip header to find where deflate data starts
-            startOffset = 10
-            let flags = data[3]
-            if flags & 0x04 != 0 { // FEXTRA
-                let extraLen = Int(data[startOffset]) | (Int(data[startOffset + 1]) << 8)
-                startOffset += 2 + extraLen
+        guard !data.isEmpty else { throw CryptoError.decompressionFailed }
+        let modes: [Int32] = [MAX_WBITS + 16, MAX_WBITS, -MAX_WBITS]
+        for mode in modes {
+            if let output = try? inflateStream(data: data, windowBits: mode), !output.isEmpty {
+                return output
             }
-            if flags & 0x08 != 0 { // FNAME
-                while startOffset < data.count && data[startOffset] != 0 { startOffset += 1 }
-                startOffset += 1
-            }
-            if flags & 0x10 != 0 { // FCOMMENT
-                while startOffset < data.count && data[startOffset] != 0 { startOffset += 1 }
-                startOffset += 1
-            }
-            if flags & 0x02 != 0 { startOffset += 2 } // FHCRC
         }
-
-        let compressed = data.subdata(in: startOffset..<(data.count - 8)) // strip trailer
-        return try decompressRawDeflate(compressed)
+        throw CryptoError.decompressionFailed
     }
 
-    private static func decompressRawDeflate(_ data: Data) throws -> Data {
-        let bufferSize = data.count * 4
-        var result = Data()
+    private static func inflateStream(data: Data, windowBits: Int32) throws -> Data {
+        var stream = z_stream()
+        let initResult = inflateInit2_(
+            &stream,
+            windowBits,
+            ZLIB_VERSION,
+            Int32(MemoryLayout<z_stream>.size)
+        )
+        guard initResult == Z_OK else {
+            throw CryptoError.decompressionFailed
+        }
+        defer {
+            inflateEnd(&stream)
+        }
 
-        try data.withUnsafeBytes { srcPtr in
-            let filter = try OutputFilter(.decompress, using: .zlib) { (outData: Data?) in
-                if let outData { result.append(outData) }
+        return try data.withUnsafeBytes { rawInput in
+            guard let inputBase = rawInput.bindMemory(to: Bytef.self).baseAddress else {
+                throw CryptoError.decompressionFailed
             }
-            // Feed in chunks
-            var offset = 0
-            let chunkSize = 65536
-            while offset < data.count {
-                let end = min(offset + chunkSize, data.count)
-                let chunk = data.subdata(in: offset..<end)
-                try filter.write(chunk)
-                offset = end
-            }
-            try filter.finalize()
-        }
 
-        if result.isEmpty { throw CryptoError.decompressionFailed }
-        return result
-    }
-}
+            stream.next_in = UnsafeMutablePointer(mutating: inputBase)
+            stream.avail_in = uInt(data.count)
 
-// MARK: - Compression OutputFilter
+            var output = Data()
+            var outBuffer = [UInt8](repeating: 0, count: 64 * 1024)
 
-import Compression
+            while true {
+                let status = outBuffer.withUnsafeMutableBufferPointer { buffer -> Int32 in
+                    stream.next_out = buffer.baseAddress
+                    stream.avail_out = uInt(buffer.count)
+                    return inflate(&stream, Z_NO_FLUSH)
+                }
 
-private class OutputFilter {
-    enum Operation { case compress, decompress }
-
-    private let algorithm: Algorithm
-    private let operation: Operation
-    private let callback: (Data?) throws -> Void
-    private var stream: compression_stream
-    private let bufferSize = 65536
-
-    init(_ operation: Operation, using algorithm: Algorithm, writingTo callback: @escaping (Data?) throws -> Void) throws {
-        self.operation = operation
-        self.algorithm = algorithm
-        self.callback = callback
-        self.stream = compression_stream(dst_ptr: UnsafeMutablePointer<UInt8>.allocate(capacity: 0), dst_size: 0, src_ptr: UnsafeMutablePointer<UInt8>.allocate(capacity: 0), src_size: 0, state: nil)
-
-        let op: compression_stream_operation = operation == .compress ? COMPRESSION_STREAM_ENCODE : COMPRESSION_STREAM_DECODE
-        let algo: compression_algorithm
-        switch algorithm {
-        case .zlib: algo = COMPRESSION_ZLIB
-        }
-
-        let status = compression_stream_init(&stream, op, algo)
-        guard status == COMPRESSION_STATUS_OK else {
-            throw KDBXCrypto.CryptoError.decompressionFailed
-        }
-    }
-
-    deinit {
-        compression_stream_destroy(&stream)
-    }
-
-    func write(_ data: Data) throws {
-        try data.withUnsafeBytes { ptr in
-            stream.src_ptr = ptr.bindMemory(to: UInt8.self).baseAddress!
-            stream.src_size = data.count
-
-            let buffer = UnsafeMutablePointer<UInt8>.allocate(capacity: bufferSize)
-            defer { buffer.deallocate() }
-
-            let flags: Int32 = 0
-            while stream.src_size > 0 {
-                stream.dst_ptr = buffer
-                stream.dst_size = bufferSize
-                let status = compression_stream_process(&stream, flags)
-                let produced = bufferSize - stream.dst_size
+                let produced = outBuffer.count - Int(stream.avail_out)
                 if produced > 0 {
-                    try callback(Data(bytes: buffer, count: produced))
+                    output.append(contentsOf: outBuffer.prefix(produced))
                 }
-                if status == COMPRESSION_STATUS_ERROR {
-                    throw KDBXCrypto.CryptoError.decompressionFailed
+
+                if status == Z_STREAM_END {
+                    break
+                }
+                guard status == Z_OK else {
+                    throw CryptoError.decompressionFailed
+                }
+                if produced == 0 && stream.avail_in == 0 {
+                    throw CryptoError.decompressionFailed
                 }
             }
+
+            return output
         }
     }
-
-    func finalize() throws {
-        let buffer = UnsafeMutablePointer<UInt8>.allocate(capacity: bufferSize)
-        defer { buffer.deallocate() }
-
-        stream.src_size = 0
-        repeat {
-            stream.dst_ptr = buffer
-            stream.dst_size = bufferSize
-            let status = compression_stream_process(&stream, Int32(COMPRESSION_STREAM_FINALIZE.rawValue))
-            let produced = bufferSize - stream.dst_size
-            if produced > 0 {
-                try callback(Data(bytes: buffer, count: produced))
-            }
-            if status == COMPRESSION_STATUS_END { break }
-            if status == COMPRESSION_STATUS_ERROR {
-                throw KDBXCrypto.CryptoError.decompressionFailed
-            }
-        } while true
-
-        try callback(nil)
-    }
-
-    enum Algorithm { case zlib }
 }

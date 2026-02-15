@@ -33,9 +33,23 @@ class KeeVaultUITestCase: XCTestCase {
 
     func unlockSuccessfully(file: StaticString = #filePath, line: UInt = #line) {
         unlock(password: "testpassword123")
+        
+        // Check for error first
+        let errorLabel = app.staticTexts["unlock.error.label"]
+        if errorLabel.waitForExistence(timeout: 2) {
+            XCTFail("Unlock failed with error: \(errorLabel.label)", file: file, line: line)
+            return
+        }
+        
+        // Wait a bit for unlock to complete, check state
+        sleep(3)
+        
+        let debugState = app.staticTexts["debug.state.label"]
+        let stateText = debugState.exists ? debugState.label : "no debug label"
+        
         XCTAssertTrue(
             app.buttons["vault.lock.button"].waitForExistence(timeout: 20),
-            "Vault did not unlock",
+            "Vault did not unlock. Debug state: \(stateText)",
             file: file,
             line: line
         )

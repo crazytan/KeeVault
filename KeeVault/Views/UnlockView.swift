@@ -78,6 +78,14 @@ struct UnlockView: View {
                     .padding(.horizontal)
                     .accessibilityIdentifier("unlock.error.label")
             }
+            
+            #if DEBUG
+            // Debug state indicator for UI tests
+            Text("State: \(String(describing: viewModel.state))")
+                .font(.caption2)
+                .foregroundStyle(.secondary)
+                .accessibilityIdentifier("debug.state.label")
+            #endif
         }
     }
 

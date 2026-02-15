@@ -9,6 +9,7 @@ final class SearchUITests: KeeVaultUITestCase {
             return
         }
 
+        // Search field should always be visible (displayMode: .always)
         let searchField = app.searchFields.firstMatch
         XCTAssertTrue(searchField.waitForExistence(timeout: 10), "Search field did not appear")
         searchField.tap()
