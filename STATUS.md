@@ -4,12 +4,13 @@
 
 ## Current State
 
-✅ **All tests passing** — ready for real-device testing
+✅ **All tests passing** — device testing complete!
 
 | Suite | Status |
 |-------|--------|
 | Unit tests | 25/25 ✅ |
-| UI tests | 5/5 ✅ |
+| UI tests (Simulator) | 5/5 ✅ |
+| UI tests (Device) | 5/5 ✅ (iPhone 17 Pro Max) |
 
 ## Completed Phases
 
@@ -22,6 +23,7 @@
 - [x] UI test suite (5 tests)
 - [x] Unit test suite (25 tests)
 - [x] Search navigation depth fix
+- [x] Real device testing (iPhone 17 Pro Max, iOS 26.3)
 
 ## Recent Fixes (2026-02-15)
 
@@ -36,9 +38,8 @@
 
 ## Next Steps
 
-1. **Real device testing** — test with actual .kdbx files on physical device
-2. **App Store prep** — privacy manifest, screenshots, metadata
-3. **v2 roadmap** — editing, sync, attachments
+1. **App Store prep** — privacy manifest, screenshots, metadata
+2. **v2 roadmap** — editing, sync, attachments
 
 ## Tech Stack
 

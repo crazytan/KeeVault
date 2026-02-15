@@ -10,6 +10,8 @@ settings:
     SWIFT_VERSION: "6.0"
     IPHONEOS_DEPLOYMENT_TARGET: "17.0"
     SWIFT_STRICT_CONCURRENCY: complete
+    DEVELOPMENT_TEAM: V82M9YX8BR
+    CODE_SIGN_STYLE: Automatic
 targets:
   KeeVault:
     type: application

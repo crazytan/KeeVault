@@ -451,15 +451,21 @@
 				LastUpgradeCheck = 1600;
 				TargetAttributes = {
 					2AA5363F49FAF8064C6BF401 = {
+						DevelopmentTeam = V82M9YX8BR;
+						ProvisioningStyle = Automatic;
 						TestTargetID = F5CCCD17070E72A4B318C437;
 					};
 					6D9034EE3DACBB02919B9D37 = {
+						DevelopmentTeam = V82M9YX8BR;
+						ProvisioningStyle = Automatic;
 						TestTargetID = F5CCCD17070E72A4B318C437;
 					};
 					9A972012DBD6BE303E4EEDB5 = {
+						DevelopmentTeam = V82M9YX8BR;
 						ProvisioningStyle = Automatic;
 					};
 					F5CCCD17070E72A4B318C437 = {
+						DevelopmentTeam = V82M9YX8BR;
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -665,8 +671,10 @@
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = V82M9YX8BR;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
@@ -838,8 +846,10 @@
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = V82M9YX8BR;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
