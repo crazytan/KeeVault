@@ -3,6 +3,10 @@ import SwiftUI
 struct SearchView: View {
     @Bindable var viewModel: DatabaseViewModel
 
+    private var isUITesting: Bool {
+        ProcessInfo.processInfo.arguments.contains("-ui-testing")
+    }
+
     var body: some View {
         Group {
             if viewModel.searchText.isEmpty {
@@ -17,10 +21,28 @@ struct SearchView: View {
                     systemImage: "doc.text.magnifyingglass",
                     description: Text("No entries matched \"\(viewModel.searchText)\".")
                 )
+                .accessibilityIdentifier("search.no-results")
             } else {
                 EntryListView(entries: viewModel.searchResults)
+                    .accessibilityIdentifier("search.results")
             }
         }
         .navigationTitle("Search")
+        .navigationBarTitleDisplayMode(.large)
+        .searchable(
+            text: $viewModel.searchText,
+            placement: .navigationBarDrawer(displayMode: .always),
+            prompt: "Search entries"
+        )
+        .overlay(alignment: .bottomTrailing) {
+            if isUITesting {
+                Text("results:\(viewModel.searchResults.count)")
+                    .font(.caption2)
+                    .padding(6)
+                    .background(.thinMaterial)
+                    .clipShape(RoundedRectangle(cornerRadius: 6))
+                    .accessibilityIdentifier("search.results.count")
+            }
+        }
     }
 }

@@ -37,6 +37,12 @@ struct GroupListView: View {
             }
         }
         .navigationTitle(group.name)
+        .navigationBarTitleDisplayMode(.large)
+        .searchable(
+            text: $viewModel.searchText,
+            placement: .navigationBarDrawer(displayMode: .always),
+            prompt: "Search entries"
+        )
     }
 }
 

@@ -80,8 +80,12 @@ class KeeVaultUITestCase: XCTestCase {
         for _ in 0..<maxDepth {
             let entry = app.buttons.matching(identifier: "entry.navlink").firstMatch
             if entry.waitForExistence(timeout: 3) {
-                let title = entry.label.components(separatedBy: "\n").first
-                return (title?.isEmpty == false) ? title : entry.label
+                let rawLabel = entry.label
+                let title = rawLabel
+                    .components(separatedBy: CharacterSet(charactersIn: ",\n"))
+                    .first?
+                    .trimmingCharacters(in: .whitespacesAndNewlines)
+                return (title?.isEmpty == false) ? title : rawLabel
             }
 
             let group = app.buttons.matching(identifier: "group.navlink").firstMatch
