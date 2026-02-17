@@ -1,16 +1,47 @@
 # STATUS.md — KeeVault Project Status
 
-**Last updated:** 2026-02-16
+**Last updated:** 2026-02-17
 
 ## Current State
 
-✅ **All tests passing** — device testing complete!
+✅ **All tests passing** — App Store prep in progress
 
 | Suite | Status |
 |-------|--------|
 | Unit tests | 43/43 ✅ |
-| UI tests (Simulator) | 5/5 ✅ |
+| UI tests (Simulator) | 6/6 ✅ (includes screenshot test) |
 | UI tests (Device) | 5/5 ✅ (iPhone 17 Pro Max) |
+
+## App Store Prep (2026-02-17)
+
+### Done
+- [x] App icon — golden key on navy background (replaced placeholder question mark)
+- [x] Screenshots captured via UI test (unlock, database browser, entry detail)
+- [x] Listing copy drafted (name, subtitle, description, keywords)
+- [x] Privacy policy — hosted as GitHub Gist
+- [x] Support page — hosted as GitHub Gist
+- [x] Analytics decision — Apple built-in only, no third-party SDKs
+- [x] TOTP functionality verified (8/8 tests passing)
+- [x] ScreenshotTests.swift added to UI test suite
+
+### Remaining
+- [ ] Remove "State: locked" debug label from unlock screen
+- [ ] Create App Store Connect listing
+- [ ] Archive build with release signing
+- [ ] Upload to App Store Connect
+- [ ] Submit for review
+
+### App Store URLs
+- **Privacy Policy:** https://gist.github.com/crazytan/afe07aecf77d2aea2664b4af79d70e0d#file-privacy-policy-md
+- **Support:** https://gist.github.com/crazytan/afe07aecf77d2aea2664b4af79d70e0d#file-index-md
+- **Support email:** tjtanjia.tan@gmail.com
+
+### Listing Copy
+- **Name:** KeeVault
+- **Subtitle:** KeePass Password Manager
+- **Category:** Utilities
+- **Price:** Free
+- **Keywords:** keepass,password,manager,kdbx,vault,security,autofill,totp,2fa,biometric
 
 ## Completed Phases
 
@@ -24,34 +55,8 @@
 - [x] Unit test suite (25 tests)
 - [x] Search navigation depth fix
 - [x] Real device testing (iPhone 17 Pro Max, iOS 26.3)
-
-## Recent Fixes (2026-02-15)
-
-**Search UI test fix** (`b82075d`):
-- Root cause: test typed into search while pushed inside nested groups, but SearchView only swapped at NavigationStack root
-- Fix: Added `.onChange(of: viewModel.searchText)` to clear `navigationPath` when search starts
-- Test robustness: Re-focus search field after clearing text
-
-**Unit test expansion** (`1d29feb`):
-- Added 21 new unit tests covering ViewModels, Services, and Models
-- Coverage: DatabaseViewModel, TOTPViewModel, TOTPGenerator, SharedVaultStore, KPGroup/KPEntry utilities
-
-## Recent Changes (2026-02-16)
-
-**AutoFill credential matching tests** (`23280bd`) — extracted and tested:
-- Extracted `CredentialMatcher` enum from `CredentialProviderViewController` into `KeeVault/Services/CredentialMatcher.swift`
-- 3 public static methods: `matchedEntries(from:for:)`, `searchTerm(for:)`, `hostFromURLString(_:)`
-- Added to AutoFill extension sources in `project.yml`
-- Updated `CredentialProviderViewController` to call `CredentialMatcher.matchedEntries(...)` instead of private method
-- 18 new unit tests in `KeeVaultTests/CredentialMatcherTests.swift` covering:
-  - `hostFromURLString`: full URLs, bare domains, subdomains, ports, HTTP, empty strings
-  - `searchTerm`: domain-type and URL-type identifiers
-  - `matchedEntries`: exact domain, subdomain, URL-type, no matches, multiple matches, empty URL/title, case insensitivity, empty identifiers
-
-## Next Steps
-
-1. **App Store prep** — privacy manifest, screenshots, metadata
-2. **v2 roadmap** — editing, sync, attachments
+- [x] AutoFill credential matching (18 unit tests)
+- [x] App icon + screenshots + listing prep
 
 ## Tech Stack
 
