@@ -6,7 +6,7 @@ A free, open-source KeePass password manager for iOS.
 
 Having issues or have a question? Reach out:
 
-- **Email:** keevault@proton.me
+- **Email:** tjtanjia.tan@gmail.com
 - **GitHub Issues:** [github.com/crazytan/KeeVault/issues](https://github.com/crazytan/KeeVault/issues)
 
 ## Links

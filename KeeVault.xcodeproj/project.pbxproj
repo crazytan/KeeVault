@@ -52,6 +52,7 @@
 		8A8250A8AA57751BB0E04F7B /* TOTPGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98D53142E0E400EAFDFC0DB8 /* TOTPGenerator.swift */; };
 		8B00B860FAEB7BD3498023A5 /* blamka-round-ref.h in Sources */ = {isa = PBXBuildFile; fileRef = 4375E4C8984992F1CF3464EA /* blamka-round-ref.h */; settings = {COMPILER_FLAGS = "-DARGON2_NO_THREADS"; }; };
 		915040E9F69EA94BECBED136 /* SearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B339F71610822D7A6BE8EA47 /* SearchView.swift */; };
+		9401485162C59751F8580052 /* ScreenshotTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33D8978A1402A88691AF3BC7 /* ScreenshotTests.swift */; };
 		95E05966437433A8DB789E6B /* Entry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89FE935F12B1213BF2AA4887 /* Entry.swift */; };
 		95EB772CAA46B6B234931E04 /* argon2.h in Sources */ = {isa = PBXBuildFile; fileRef = 658FA92FDF42D22946461B26 /* argon2.h */; settings = {COMPILER_FLAGS = "-DARGON2_NO_THREADS"; }; };
 		997FA5C0DC53CE2731A37115 /* encoding.h in Sources */ = {isa = PBXBuildFile; fileRef = 4A74E616BDF70E76A1BF9C47 /* encoding.h */; settings = {COMPILER_FLAGS = "-DARGON2_NO_THREADS"; }; };
@@ -132,6 +133,7 @@
 		2CECAB218BA8547CF5053EEE /* ModelLogicTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelLogicTests.swift; sourceTree = "<group>"; };
 		2FCAF3387FBFE90D9ED761A0 /* ref.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = ref.c; sourceTree = "<group>"; };
 		3377E866435693A59D8E7E5D /* blake2b.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = blake2b.c; sourceTree = "<group>"; };
+		33D8978A1402A88691AF3BC7 /* ScreenshotTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenshotTests.swift; sourceTree = "<group>"; };
 		3CD81FD786A947B544FE59B9 /* argon2_bridge.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = argon2_bridge.h; sourceTree = "<group>"; };
 		3EDAC24E05E1785E79D0F478 /* NavigationConformances.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationConformances.swift; sourceTree = "<group>"; };
 		4375E4C8984992F1CF3464EA /* blamka-round-ref.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "blamka-round-ref.h"; sourceTree = "<group>"; };
@@ -364,6 +366,7 @@
 				FCA62AF00A42BCEE8691D62C /* EntryDetailUITests.swift */,
 				A7CC215325715C988E238D34 /* KeeVaultUITestCase.swift */,
 				1D4B55B0EA14F17F01BB82FE /* NavigationUITests.swift */,
+				33D8978A1402A88691AF3BC7 /* ScreenshotTests.swift */,
 				F65F32F879F0C5EC8B81B446 /* SearchUITests.swift */,
 				C21F92023642D6774A213759 /* UnlockFlowUITests.swift */,
 			);
@@ -535,6 +538,7 @@
 				439D340BC0576CDC0A5724DA /* EntryDetailUITests.swift in Sources */,
 				4F827D1E744FFF7C979DCB0C /* KeeVaultUITestCase.swift in Sources */,
 				A418AE2AA3EE750952AF5C8D /* NavigationUITests.swift in Sources */,
+				9401485162C59751F8580052 /* ScreenshotTests.swift in Sources */,
 				4BE5E85653CA857FEF6DB144 /* SearchUITests.swift in Sources */,
 				FF5366CF37DD97415B6E62A8 /* UnlockFlowUITests.swift in Sources */,
 			);

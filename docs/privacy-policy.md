@@ -27,7 +27,7 @@ The AutoFill extension operates locally on your device. Credential suggestions a
 
 ## Contact
 
-If you have questions about this privacy policy, contact us at keevault@proton.me.
+If you have questions about this privacy policy, contact us at tjtanjia.tan@gmail.com.
 
 ## Changes
 
