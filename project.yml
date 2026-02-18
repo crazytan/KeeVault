@@ -25,6 +25,7 @@ targets:
           - "$(SRCROOT)/KeeVault/CArgon2Bridge"
           - "$(SRCROOT)/KeeVault/CArgon2Bridge/argon2"
         OTHER_CFLAGS: "-DARGON2_NO_THREADS"
+        TARGETED_DEVICE_FAMILY: "1"
         ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
         CODE_SIGN_STYLE: Automatic
         CODE_SIGN_ENTITLEMENTS: KeeVault/KeeVault.entitlements
