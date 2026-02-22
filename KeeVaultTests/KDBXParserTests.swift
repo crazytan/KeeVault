@@ -4,15 +4,161 @@ import XCTest
 final class KDBXParserTests: XCTestCase {
     private let fixturePassword = "testpassword123"
 
-    func testParseFixtureFileDirectly() throws {
-        let data = try fixtureData()
+    // MARK: - Fixture Expectations
 
-        let root = try KDBXParser.parse(data: data, password: fixturePassword)
+    /// Expected entries in test.kdbx — ground truth from keepassxc-cli / pykeepass
+    private struct Expected {
+        struct EntryData {
+            let group: String
+            let title: String
+            let username: String
+            let password: String
+            let url: String
+            let notes: String
+            let hasTOTP: Bool
+            let totpSecret: String?
+        }
+
+        static let entries: [EntryData] = [
+            EntryData(
+                group: "Social", title: "Twitter",
+                username: "testuser", password: "twitterpass123",
+                url: "https://twitter.com", notes: "",
+                hasTOTP: false, totpSecret: nil
+            ),
+            EntryData(
+                group: "Social", title: "Discord",
+                username: "gamer123", password: "discordpass!@#",
+                url: "https://discord.com", notes: "Gaming account",
+                hasTOTP: true, totpSecret: "GEZDGNBVGY3TQOJQ"
+            ),
+            EntryData(
+                group: "Work", title: "Email",
+                username: "work@example.com", password: "workpass456",
+                url: "https://mail.example.com", notes: "",
+                hasTOTP: false, totpSecret: nil
+            ),
+            EntryData(
+                group: "Work", title: "GitHub",
+                username: "devuser", password: "githubpass789",
+                url: "https://github.com", notes: "",
+                hasTOTP: true, totpSecret: "JBSWY3DPEHPK3PXP"
+            ),
+        ]
+
+        static let groups = ["Social", "Work"]
+    }
+
+    // MARK: - Structure Tests
+
+    func testParseFindsAllGroups() throws {
+        let root = try parseFixture()
         let groupNames = Set(allGroupNames(in: root))
 
-        XCTAssertTrue(groupNames.contains("Social"))
-        XCTAssertTrue(groupNames.contains("Work"))
+        for name in Expected.groups {
+            XCTAssertTrue(groupNames.contains(name), "Missing group: \(name)")
+        }
     }
+
+    func testParseFindsCorrectEntryCount() throws {
+        let root = try parseFixture()
+        XCTAssertEqual(root.allEntries.count, Expected.entries.count,
+                       "Expected \(Expected.entries.count) entries, got \(root.allEntries.count)")
+    }
+
+    // MARK: - Entry Field Tests
+
+    func testAllEntryUsernames() throws {
+        let root = try parseFixture()
+        let entries = root.allEntries
+
+        for expected in Expected.entries {
+            let entry = entries.first { $0.title == expected.title }
+            XCTAssertNotNil(entry, "Entry not found: \(expected.title)")
+            XCTAssertEqual(entry?.username, expected.username,
+                           "\(expected.title): username mismatch")
+        }
+    }
+
+    func testAllEntryPasswords() throws {
+        let root = try parseFixture()
+        let entries = root.allEntries
+
+        for expected in Expected.entries {
+            let entry = entries.first { $0.title == expected.title }
+            XCTAssertNotNil(entry, "Entry not found: \(expected.title)")
+            XCTAssertEqual(entry?.password, expected.password,
+                           "\(expected.title): password mismatch — inner stream decryption may be broken")
+        }
+    }
+
+    func testAllEntryURLs() throws {
+        let root = try parseFixture()
+        let entries = root.allEntries
+
+        for expected in Expected.entries {
+            let entry = entries.first { $0.title == expected.title }
+            XCTAssertNotNil(entry, "Entry not found: \(expected.title)")
+            XCTAssertEqual(entry?.url, expected.url,
+                           "\(expected.title): URL mismatch")
+        }
+    }
+
+    func testAllEntryNotes() throws {
+        let root = try parseFixture()
+        let entries = root.allEntries
+
+        for expected in Expected.entries {
+            let entry = entries.first { $0.title == expected.title }
+            XCTAssertNotNil(entry, "Entry not found: \(expected.title)")
+            XCTAssertEqual(entry?.notes, expected.notes,
+                           "\(expected.title): notes mismatch")
+        }
+    }
+
+    // MARK: - TOTP Tests
+
+    func testEntriesWithTOTPHaveConfig() throws {
+        let root = try parseFixture()
+        let entries = root.allEntries
+
+        for expected in Expected.entries where expected.hasTOTP {
+            let entry = entries.first { $0.title == expected.title }
+            XCTAssertNotNil(entry, "Entry not found: \(expected.title)")
+            XCTAssertNotNil(entry?.totpConfig,
+                            "\(expected.title): expected TOTP config but got nil")
+            XCTAssertEqual(entry?.totpConfig?.secret, expected.totpSecret,
+                           "\(expected.title): TOTP secret mismatch")
+        }
+    }
+
+    func testEntriesWithoutTOTPHaveNoConfig() throws {
+        let root = try parseFixture()
+        let entries = root.allEntries
+
+        for expected in Expected.entries where !expected.hasTOTP {
+            let entry = entries.first { $0.title == expected.title }
+            XCTAssertNotNil(entry, "Entry not found: \(expected.title)")
+            XCTAssertNil(entry?.totpConfig,
+                         "\(expected.title): should not have TOTP config")
+        }
+    }
+
+    // MARK: - Group Membership Tests
+
+    func testEntriesAreInCorrectGroups() throws {
+        let root = try parseFixture()
+
+        for expected in Expected.entries {
+            let group = findGroup(named: expected.group, in: root)
+            XCTAssertNotNil(group, "Group not found: \(expected.group)")
+            let entryInGroup = group?.entries.first { $0.title == expected.title }
+            XCTAssertNotNil(entryInGroup,
+                            "\(expected.title) should be in group \(expected.group)")
+        }
+    }
+
+    // MARK: - Crypto Tests
 
     func testArgon2KeyDerivationKnownVector() throws {
         let derived = try Argon2.hash(
@@ -41,7 +187,9 @@ final class KDBXParserTests: XCTestCase {
         XCTAssertEqual(text, "KeeVault gunzip vector payload\nline2")
     }
 
-    func testFullParseFlowCompositeKeyPathMatchesPasswordPath() throws {
+    // MARK: - Composite Key Tests
+
+    func testCompositeKeyPathMatchesPasswordPath() throws {
         let data = try fixtureData()
 
         let parsedWithPassword = try KDBXParser.parse(data: data, password: fixturePassword)
@@ -55,6 +203,13 @@ final class KDBXParserTests: XCTestCase {
         XCTAssertEqual(parsedWithPassword.allEntries.count, parsedWithCompositeKey.allEntries.count)
     }
 
+    // MARK: - Helpers
+
+    private func parseFixture() throws -> KPGroup {
+        let data = try fixtureData()
+        return try KDBXParser.parse(data: data, password: fixturePassword)
+    }
+
     private func fixtureData() throws -> Data {
         let bundle = Bundle(for: KDBXParserTests.self)
         let fixtureURL = try XCTUnwrap(bundle.url(forResource: "test", withExtension: "kdbx"))
@@ -65,5 +220,13 @@ final class KDBXParserTests: XCTestCase {
         root.groups.flatMap { group in
             [group.name] + allGroupNames(in: group)
         }
+    }
+
+    private func findGroup(named name: String, in root: KPGroup) -> KPGroup? {
+        for group in root.groups {
+            if group.name == name { return group }
+            if let found = findGroup(named: name, in: group) { return found }
+        }
+        return nil
     }
 }
