@@ -2,8 +2,9 @@ import Foundation
 import CryptoKit
 import CommonCrypto
 import zlib
+import Argon2Swift
 
-// MARK: - Argon2 Bridge (calls C libargon2)
+// MARK: - Argon2
 
 enum Argon2Variant: UInt32, Sendable {
     case d = 0    // Argon2d
@@ -25,26 +26,30 @@ enum Argon2 {
         hashLength: Int = 32,
         variant: Argon2Variant
     ) throws -> Data {
-        var output = Data(count: hashLength)
-        let rc = output.withUnsafeMutableBytes { outPtr in
-            password.withUnsafeBytes { pwdPtr in
-                salt.withUnsafeBytes { saltPtr in
-                    argon2_hash(
-                        timeCost,
-                        memoryCost,
-                        parallelism,
-                        pwdPtr.baseAddress, password.count,
-                        saltPtr.baseAddress, salt.count,
-                        outPtr.baseAddress, hashLength,
-                        nil, 0, // encoded output — not needed
-                        argon2_type(variant.rawValue),
-                        UInt32(0x13) // ARGON2_VERSION_13
-                    )
-                }
-            }
+        let type: Argon2Type = switch variant {
+        case .d:
+            .d
+        case .id:
+            .id
         }
-        guard rc == 0 else { throw Argon2Error.hashFailed(rc) }
-        return output
+
+        do {
+            let result = try Argon2Swift.hashPasswordBytes(
+                password: password,
+                salt: Salt(bytes: salt),
+                iterations: Int(timeCost),
+                memory: Int(memoryCost),
+                parallelism: Int(parallelism),
+                length: hashLength,
+                type: type,
+                version: .V13
+            )
+            return result.hashData()
+        } catch let error as Argon2SwiftException {
+            throw Argon2Error.hashFailed(error.errorCode.rawValue)
+        } catch {
+            throw Argon2Error.hashFailed(-1)
+        }
     }
 }
 

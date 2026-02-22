@@ -12,6 +12,10 @@ settings:
     SWIFT_STRICT_CONCURRENCY: complete
     DEVELOPMENT_TEAM: V82M9YX8BR
     CODE_SIGN_STYLE: Automatic
+packages:
+  Argon2Swift:
+    url: https://github.com/tmthecoder/Argon2Swift.git
+    branch: main
 targets:
   KeeVault:
     type: application
@@ -20,11 +24,6 @@ targets:
       base:
         INFOPLIST_FILE: KeeVault/Info.plist
         PRODUCT_BUNDLE_IDENTIFIER: com.keevault.app
-        SWIFT_OBJC_BRIDGING_HEADER: KeeVault/CArgon2Bridge/argon2_bridge.h
-        HEADER_SEARCH_PATHS:
-          - "$(SRCROOT)/KeeVault/CArgon2Bridge"
-          - "$(SRCROOT)/KeeVault/CArgon2Bridge/argon2"
-        OTHER_CFLAGS: "-DARGON2_NO_THREADS"
         TARGETED_DEVICE_FAMILY: "1"
         ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
         CODE_SIGN_STYLE: Automatic
@@ -38,6 +37,7 @@ targets:
       - target: AutoFillExtension
         embed: true
         codeSign: true
+      - package: Argon2Swift
     sources:
       - path: KeeVault/App
       - path: KeeVault/Models
@@ -46,11 +46,6 @@ targets:
       - path: KeeVault/Views
       - path: KeeVault/Extensions
       - path: KeeVault/Resources
-      - path: KeeVault/CArgon2Bridge/argon2_bridge.h
-        buildPhase: headers
-      - path: KeeVault/CArgon2Bridge/argon2
-        compilerFlags: "-DARGON2_NO_THREADS"
-        buildPhase: sources
 
   AutoFillExtension:
     type: app-extension
@@ -65,11 +60,8 @@ targets:
         MARKETING_VERSION: "1.0.0"
         CURRENT_PROJECT_VERSION: "1"
         GENERATE_INFOPLIST_FILE: false
-        SWIFT_OBJC_BRIDGING_HEADER: KeeVault/CArgon2Bridge/argon2_bridge.h
-        HEADER_SEARCH_PATHS:
-          - "$(SRCROOT)/KeeVault/CArgon2Bridge"
-          - "$(SRCROOT)/KeeVault/CArgon2Bridge/argon2"
-        OTHER_CFLAGS: "-DARGON2_NO_THREADS"
+    dependencies:
+      - package: Argon2Swift
     sources:
       - path: AutoFillExtension
       - path: KeeVault/Models
@@ -78,11 +70,6 @@ targets:
       - path: KeeVault/Services/KeychainService.swift
       - path: KeeVault/Services/SharedVaultStore.swift
       - path: KeeVault/Services/CredentialMatcher.swift
-      - path: KeeVault/CArgon2Bridge/argon2_bridge.h
-        buildPhase: headers
-      - path: KeeVault/CArgon2Bridge/argon2
-        compilerFlags: "-DARGON2_NO_THREADS"
-        buildPhase: sources
 
   KeeVaultUITests:
     type: bundle.ui-testing
