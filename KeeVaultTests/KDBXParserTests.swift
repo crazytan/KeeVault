@@ -69,14 +69,19 @@ final class KDBXParserTests: XCTestCase {
     // MARK: - No Duplicates (History entries must be excluded)
 
     func testNoDuplicateEntries() throws {
+        // test.kdbx has 2 history versions inside the Twitter entry.
+        // Without proper History filtering, the parser would return 6 entries instead of 4.
         let root = try parseFixture()
         let entries = root.allEntries
+
+        XCTAssertEqual(entries.count, Expected.entries.count,
+                       "Expected \(Expected.entries.count) entries but got \(entries.count) — history entries may be leaking")
 
         // Each title+username combo should appear exactly once
         let keys = entries.map { "\($0.title)|\($0.username)" }
         let uniqueKeys = Set(keys)
         XCTAssertEqual(keys.count, uniqueKeys.count,
-                       "Duplicate entries found — history entries may be leaking. Got: \(keys)")
+                       "Duplicate entries found: \(keys)")
     }
 
     // MARK: - Entry Field Tests
