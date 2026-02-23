@@ -35,6 +35,10 @@ These files are tested and should only change for real bugs:
 - Clipboard auto-expires (30s)
 - No analytics, telemetry, or network calls
 
+## Testing Philosophy
+
+Every feature and bug fix should include automated tests. Unit tests for logic, UI tests for user-facing flows. If a bug is found, write a regression test first, then fix. Run the full test suite before committing — don't assume unrelated changes are safe.
+
 ## Build & Test
 
 ```bash

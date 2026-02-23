@@ -2,9 +2,19 @@
 
 ## TODO
 
-- [ ] Face ID unlock button not appearing on device (keychain `hasStoredKey` returns false even after successful store — possibly `SecItemCopyMatching` with `kSecUseAuthenticationUISkip` returns unexpected status code with `.biometryCurrentSet` access control; needs status code debugging on device)
+### Bugs
+- [ ] Face ID unlock button not appearing on device (keychain `hasStoredKey` returns false after successful store; needs on-device status code debugging)
 - [ ] AutoFill from Safari not working as expected
 - [ ] AutoFill subtitle missing in iOS Settings
+
+### Features
+- [ ] Settings page (clipboard timeout, auto-lock timeout, auto Face ID, sort preference)
+- [ ] List sorting by different attributes (created, updated, title)
+- [ ] Auto-lock after inactivity timeout (foreground idle timer; background lock already works)
+- [ ] Auto Face ID unlock on app open (opt-in; depends on keychain bug fix)
+- [ ] Favicon support (download from Google favicon service; opt-in since it adds network calls)
+- [ ] Multiple URLs per entry via KP2A_URL custom fields (also improves AutoFill matching)
+- [ ] Add tests for auto-lock on background behavior
 
 ### v2 roadmap
 - [ ] Editing support (create/modify entries)
