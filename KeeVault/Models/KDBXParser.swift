@@ -502,8 +502,17 @@ final class KDBXXMLParser: NSObject, XMLParserDelegate {
 
     // Inner stream cipher state for decrypting protected values
     private var streamOffset = 0
+    private var chachaCounter: UInt32 = 0
+    private var keystreamBlock = Data()
+    private var keystreamBlockOffset = 0
     private lazy var streamCipherKey: Data = {
         KDBXCrypto.sha512(innerStreamKey)
+    }()
+    private lazy var innerChaChaKey: Data = {
+        Data(streamCipherKey.prefix(32))
+    }()
+    private lazy var innerChaChaNonce: Data = {
+        Data(streamCipherKey[32..<44])
     }()
 
     private var rootEntries: [KPEntry] = []
@@ -680,13 +689,85 @@ final class KDBXXMLParser: NSObject, XMLParserDelegate {
             return String(data: encrypted, encoding: .utf8) ?? ""
         }
 
-        // ChaCha20 inner stream: generate keystream and XOR
-        let key = Data(streamCipherKey.prefix(32))
-        let nonce = Data(streamCipherKey[32..<44])
+        guard innerChaChaKey.count == 32, innerChaChaNonce.count == 12 else {
+            return String(data: encrypted, encoding: .utf8) ?? ""
+        }
 
-        // We need to maintain a running counter, so we generate a chunk large enough
-        let decrypted = KDBXCrypto.chacha20Stream(key: key, nonce: nonce, data: encrypted)
+        // KDBX4 protected values consume one continuous ChaCha20 stream.
+        var decrypted = Data()
+        decrypted.reserveCapacity(encrypted.count)
+
+        for byte in encrypted {
+            decrypted.append(byte ^ nextKeystreamByte())
+        }
+
         return String(data: decrypted, encoding: .utf8) ?? ""
+    }
+
+    private func nextKeystreamByte() -> UInt8 {
+        if keystreamBlockOffset >= keystreamBlock.count {
+            keystreamBlock = makeChaCha20Block(counter: chachaCounter)
+            keystreamBlockOffset = 0
+            chachaCounter &+= 1
+        }
+
+        let byte = keystreamBlock[keystreamBlockOffset]
+        keystreamBlockOffset += 1
+        streamOffset += 1
+        return byte
+    }
+
+    private func makeChaCha20Block(counter: UInt32) -> Data {
+        var state = [UInt32](repeating: 0, count: 16)
+        state[0] = 0x61707865
+        state[1] = 0x3320646e
+        state[2] = 0x79622d32
+        state[3] = 0x6b206574
+
+        innerChaChaKey.withUnsafeBytes { ptr in
+            for i in 0..<8 {
+                state[4 + i] = ptr.loadUnaligned(fromByteOffset: i * 4, as: UInt32.self).littleEndian
+            }
+        }
+
+        state[12] = counter
+        innerChaChaNonce.withUnsafeBytes { ptr in
+            for i in 0..<3 {
+                state[13 + i] = ptr.loadUnaligned(fromByteOffset: i * 4, as: UInt32.self).littleEndian
+            }
+        }
+
+        var working = state
+        for _ in 0..<10 {
+            quarterRound(&working, 0, 4, 8, 12)
+            quarterRound(&working, 1, 5, 9, 13)
+            quarterRound(&working, 2, 6, 10, 14)
+            quarterRound(&working, 3, 7, 11, 15)
+            quarterRound(&working, 0, 5, 10, 15)
+            quarterRound(&working, 1, 6, 11, 12)
+            quarterRound(&working, 2, 7, 8, 13)
+            quarterRound(&working, 3, 4, 9, 14)
+        }
+
+        for i in 0..<16 {
+            working[i] = working[i] &+ state[i]
+        }
+
+        var block = Data(capacity: 64)
+        for word in working {
+            var little = word.littleEndian
+            withUnsafeBytes(of: &little) { bytes in
+                block.append(contentsOf: bytes)
+            }
+        }
+        return block
+    }
+
+    private func quarterRound(_ s: inout [UInt32], _ a: Int, _ b: Int, _ c: Int, _ d: Int) {
+        s[a] = s[a] &+ s[b]; s[d] ^= s[a]; s[d] = (s[d] << 16) | (s[d] >> 16)
+        s[c] = s[c] &+ s[d]; s[b] ^= s[c]; s[b] = (s[b] << 12) | (s[b] >> 20)
+        s[a] = s[a] &+ s[b]; s[d] ^= s[a]; s[d] = (s[d] << 8) | (s[d] >> 24)
+        s[c] = s[c] &+ s[d]; s[b] ^= s[c]; s[b] = (s[b] << 7) | (s[b] >> 25)
     }
 
     private func isInsideHistory(_ parser: XMLParser) -> Bool {
