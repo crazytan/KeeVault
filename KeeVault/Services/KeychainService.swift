@@ -6,8 +6,14 @@ enum KeychainService {
     private static let service = "com.keevault.app"
     private static let compositeKeyAccount = "compositeKey"
 
+    /// Use filename only — bookmark-resolved paths can change between launches
+    private static func accountKey(for databasePath: String) -> String {
+        let filename = URL(fileURLWithPath: databasePath).lastPathComponent
+        return "\(compositeKeyAccount):\(filename)"
+    }
+
     static func storeCompositeKey(_ key: Data, for databasePath: String) throws {
-        let account = "\(compositeKeyAccount):\(databasePath)"
+        let account = accountKey(for: databasePath)
 
         // Delete any existing item first
         let deleteQuery: [String: Any] = [
@@ -43,7 +49,7 @@ enum KeychainService {
     }
 
     static func retrieveCompositeKey(for databasePath: String, context: LAContext) throws -> Data {
-        let account = "\(compositeKeyAccount):\(databasePath)"
+        let account = accountKey(for: databasePath)
 
         let query: [String: Any] = [
             kSecClass as String: kSecClassGenericPassword,
@@ -62,7 +68,7 @@ enum KeychainService {
     }
 
     static func deleteCompositeKey(for databasePath: String) {
-        let account = "\(compositeKeyAccount):\(databasePath)"
+        let account = accountKey(for: databasePath)
         let query: [String: Any] = [
             kSecClass as String: kSecClassGenericPassword,
             kSecAttrService as String: service,
@@ -72,7 +78,7 @@ enum KeychainService {
     }
 
     static func hasStoredKey(for databasePath: String) -> Bool {
-        let account = "\(compositeKeyAccount):\(databasePath)"
+        let account = accountKey(for: databasePath)
         let query: [String: Any] = [
             kSecClass as String: kSecClassGenericPassword,
             kSecAttrService as String: service,

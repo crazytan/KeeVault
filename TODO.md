@@ -3,9 +3,9 @@
 ## v1.2 (next)
 - [ ] AutoFill from Safari not working as expected
 - [ ] AutoFill subtitle missing in iOS Settings
-- [ ] Editing support (create/modify entries)
 
 ## v2
+- [ ] Editing support (create/modify entries)
 - [ ] iPad support
 - [ ] Sync / attachments
 
