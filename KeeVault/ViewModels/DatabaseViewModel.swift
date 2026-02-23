@@ -25,7 +25,7 @@ final class DatabaseViewModel {
     var navigationPath = NavigationPath()
 
     private var databaseURL: URL?
-    private var compositeKey: Data?
+    private(set) var compositeKey: Data?
     private let isUITesting: Bool
 
     var hasSavedFile: Bool {
