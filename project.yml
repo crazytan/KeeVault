@@ -12,6 +12,7 @@ settings:
     SWIFT_STRICT_CONCURRENCY: complete
     DEVELOPMENT_TEAM: V82M9YX8BR
     CODE_SIGN_STYLE: Automatic
+    ENABLE_USER_SCRIPT_SANDBOXING: "YES"
 packages:
   Argon2Swift:
     url: https://github.com/tmthecoder/Argon2Swift.git
