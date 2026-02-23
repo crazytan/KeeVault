@@ -105,7 +105,7 @@ enum KDBXCrypto {
     // MARK: - AES-256-CBC Decrypt
 
     static func decryptAES256CBC(data: Data, key: Data, iv: Data) throws -> Data {
-        var outLength = data.count + kCCBlockSizeAES128
+        let outLength = data.count + kCCBlockSizeAES128
         var outData = Data(count: outLength)
         var bytesWritten: Int = 0
 

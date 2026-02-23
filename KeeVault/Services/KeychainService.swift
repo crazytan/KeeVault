@@ -77,7 +77,7 @@ enum KeychainService {
             kSecClass as String: kSecClassGenericPassword,
             kSecAttrService as String: service,
             kSecAttrAccount as String: account,
-            kSecUseAuthenticationUI as String: kSecUseAuthenticationUIFail,
+            kSecUseAuthenticationUI as String: kSecUseAuthenticationUISkip,
         ]
         let status = SecItemCopyMatching(query as CFDictionary, nil)
         return status == errSecInteractionNotAllowed || status == errSecSuccess

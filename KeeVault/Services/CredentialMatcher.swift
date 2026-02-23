@@ -22,14 +22,11 @@ enum CredentialMatcher {
     }
 
     static func searchTerm(for identifier: ASCredentialServiceIdentifier) -> String? {
-        switch identifier.type {
-        case .domain:
-            return identifier.identifier
-        case .URL:
-            return hostFromURLString(identifier.identifier) ?? identifier.identifier
-        @unknown default:
+        if identifier.type == .domain {
             return identifier.identifier
         }
+
+        return hostFromURLString(identifier.identifier) ?? identifier.identifier
     }
 
     static func hostFromURLString(_ value: String) -> String? {

@@ -1,5 +1,6 @@
 import Foundation
 
+@MainActor
 @Observable
 final class TOTPViewModel {
     private(set) var code: String = "------"
@@ -19,7 +20,9 @@ final class TOTPViewModel {
     func start() {
         refresh()
         timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { [weak self] _ in
-            self?.refresh()
+            Task { @MainActor [weak self] in
+                self?.refresh()
+            }
         }
     }
 
@@ -35,7 +38,4 @@ final class TOTPViewModel {
         progress = Double(secondsRemaining) / Double(config.period)
     }
 
-    deinit {
-        timer?.invalidate()
-    }
 }

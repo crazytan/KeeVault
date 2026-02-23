@@ -96,7 +96,7 @@ enum KDBXParser {
         }
 
         // 2. Version
-        let versionMinor = reader.readUInt16()
+        let _ = reader.readUInt16()
         let versionMajor = reader.readUInt16()
         guard versionMajor == versionKDBX4 else {
             throw ParseError.unsupportedVersion(versionMajor)
