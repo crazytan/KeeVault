@@ -5,39 +5,45 @@ struct GroupListView: View {
     @Bindable var viewModel: DatabaseViewModel
 
     var body: some View {
-        List {
-            if !group.groups.isEmpty {
-                Section("Groups") {
-                    ForEach(group.groups) { subgroup in
-                        NavigationLink(value: subgroup) {
-                            GroupRow(group: subgroup)
+        Group {
+            if viewModel.searchText.isEmpty {
+                List {
+                    if !group.groups.isEmpty {
+                        Section("Groups") {
+                            ForEach(group.groups) { subgroup in
+                                NavigationLink(value: subgroup) {
+                                    GroupRow(group: subgroup)
+                                }
+                                .accessibilityIdentifier("group.navlink")
+                            }
                         }
-                        .accessibilityIdentifier("group.navlink")
+                    }
+
+                    if !group.entries.isEmpty {
+                        Section("Entries") {
+                            ForEach(group.entries) { entry in
+                                NavigationLink(value: entry) {
+                                    EntryRow(entry: entry)
+                                }
+                                .accessibilityIdentifier("entry.navlink")
+                            }
+                        }
+                    }
+
+                    if group.groups.isEmpty && group.entries.isEmpty {
+                        ContentUnavailableView(
+                            "Empty Group",
+                            systemImage: "folder",
+                            description: Text("This group has no entries.")
+                        )
                     }
                 }
-            }
-
-            if !group.entries.isEmpty {
-                Section("Entries") {
-                    ForEach(group.entries) { entry in
-                        NavigationLink(value: entry) {
-                            EntryRow(entry: entry)
-                        }
-                        .accessibilityIdentifier("entry.navlink")
-                    }
-                }
-            }
-
-            if group.groups.isEmpty && group.entries.isEmpty {
-                ContentUnavailableView(
-                    "Empty Group",
-                    systemImage: "folder",
-                    description: Text("This group has no entries.")
-                )
+                .navigationTitle(group.name)
+                .navigationBarTitleDisplayMode(.large)
+            } else {
+                SearchView(viewModel: viewModel)
             }
         }
-        .navigationTitle(group.name)
-        .navigationBarTitleDisplayMode(.large)
         .searchable(
             text: $viewModel.searchText,
             placement: .navigationBarDrawer(displayMode: .always),

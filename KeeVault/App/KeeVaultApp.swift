@@ -47,18 +47,14 @@ struct DatabaseNavigationView: View {
     var body: some View {
         NavigationStack(path: $viewModel.navigationPath) {
             Group {
-                if viewModel.searchText.isEmpty {
-                    if let root = viewModel.rootGroup {
-                        GroupListView(group: root, viewModel: viewModel)
-                    } else {
-                        ContentUnavailableView(
-                            "Vault Not Loaded",
-                            systemImage: "lock.doc",
-                            description: Text("Unlock a database to view groups and entries.")
-                        )
-                    }
+                if let root = viewModel.rootGroup {
+                    GroupListView(group: root, viewModel: viewModel)
                 } else {
-                    SearchView(viewModel: viewModel)
+                    ContentUnavailableView(
+                        "Vault Not Loaded",
+                        systemImage: "lock.doc",
+                        description: Text("Unlock a database to view groups and entries.")
+                    )
                 }
             }
             .navigationDestination(for: KPGroup.self) { group in
@@ -78,15 +74,5 @@ struct DatabaseNavigationView: View {
                 }
             }
         }
-        .onChange(of: viewModel.searchText) { oldValue, newValue in
-            if oldValue.isEmpty && !newValue.isEmpty && !viewModel.navigationPath.isEmpty {
-                viewModel.navigationPath = NavigationPath()
-            }
-        }
-        .searchable(
-            text: $viewModel.searchText,
-            placement: .navigationBarDrawer(displayMode: .always),
-            prompt: "Search entries"
-        )
     }
 }
