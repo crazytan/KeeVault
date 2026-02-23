@@ -9,7 +9,7 @@
 
 ### Features
 - [x] Settings page (clipboard timeout, auto-lock timeout, auto Face ID, sort preference)
-- [ ] Auto-lock after inactivity timeout (foreground idle timer; background lock already works)
+- [x] Auto-lock after inactivity timeout (foreground idle timer with configurable timeout)
 - [ ] Auto Face ID unlock on app open (opt-in; depends on keychain bug fix)
 - [ ] Favicon support (download from Google favicon service; opt-in since it adds network calls)
 - [x] List sorting by different attributes (created, updated, title)
@@ -24,6 +24,7 @@
 ## Unreleased
 
 - Fixed Face ID unlock not appearing on device (improved keychain existence check)
+- Auto-lock inactivity timer (resets on user interaction, configurable in Settings)
 - Settings page with auto-lock timeout, clipboard timeout, sort order, and about section
 - Fixed keychain account key to use filename instead of full path (bookmark-resolved paths change between launches)
 - List sorting by title, created date, or modified date (persisted to UserDefaults)
