@@ -131,19 +131,27 @@ final class SortOrderTests: XCTestCase {
         XCTAssertEqual(sorted.map(\.name), ["Recent", "Old"])
     }
 
-    // MARK: - SortOrder enum
+    // MARK: - Persistence
 
-    func testSortOrderAllCasesCoversExpectedValues() {
-        let cases = DatabaseViewModel.SortOrder.allCases
-        XCTAssertEqual(cases.count, 3)
-        XCTAssertTrue(cases.contains(.title))
-        XCTAssertTrue(cases.contains(.createdDate))
-        XCTAssertTrue(cases.contains(.modifiedDate))
+    func testSortOrderPersistsToUserDefaults() {
+        let key = "KeeVault.sortOrder"
+        // Clean slate
+        UserDefaults.standard.removeObject(forKey: key)
+
+        let vm1 = DatabaseViewModel()
+        vm1.sortOrder = .modifiedDate
+
+        let vm2 = DatabaseViewModel()
+        XCTAssertEqual(vm2.sortOrder, .modifiedDate)
+
+        // Clean up
+        UserDefaults.standard.removeObject(forKey: key)
     }
 
-    func testSortOrderRawValues() {
-        XCTAssertEqual(DatabaseViewModel.SortOrder.title.rawValue, "Title")
-        XCTAssertEqual(DatabaseViewModel.SortOrder.createdDate.rawValue, "Date Created")
-        XCTAssertEqual(DatabaseViewModel.SortOrder.modifiedDate.rawValue, "Date Modified")
+    // MARK: - Empty Input
+
+    func testSortEmptyArrayReturnsEmpty() {
+        XCTAssertTrue(viewModel.sortedEntries([]).isEmpty)
+        XCTAssertTrue(viewModel.sortedGroups([]).isEmpty)
     }
 }

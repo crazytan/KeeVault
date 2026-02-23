@@ -54,6 +54,25 @@ final class AutoLockTests: XCTestCase {
         XCTAssertTrue(vm.hasSavedFile)
     }
 
+
+    func testLockClearsSearchText() async throws {
+        let vm = try await makeUnlockedViewModel()
+        vm.searchText = "test"
+
+        vm.lock()
+
+        XCTAssertEqual(vm.searchText, "")
+    }
+
+    func testLockClearsNavigationPath() async throws {
+        let vm = try await makeUnlockedViewModel()
+        vm.navigationPath.append("something")
+
+        vm.lock()
+
+        XCTAssertTrue(vm.navigationPath.isEmpty)
+    }
+
     private func fixtureURL() throws -> URL {
         let bundle = Bundle(for: AutoLockTests.self)
         return try XCTUnwrap(bundle.url(forResource: "test", withExtension: "kdbx"))
