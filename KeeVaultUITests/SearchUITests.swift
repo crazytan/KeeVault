@@ -125,6 +125,34 @@ final class SearchUITests: KeeVaultUITestCase {
         searchField.typeText(deleteSequence)
     }
 
+    func testSearchStaysActiveWhileTyping() {
+        unlockSuccessfully()
+
+        let searchField = activateSearchField()
+
+        // Type one character at a time and verify the search field keeps focus
+        searchField.typeText("T")
+        sleep(1)
+
+        // Search field should still exist and be active (not dismissed)
+        let activeSearchField = findSearchInput(timeout: 3)
+        XCTAssertNotNil(activeSearchField, "Search field disappeared after typing first character")
+
+        // Type more characters
+        activeSearchField?.typeText("wi")
+        sleep(1)
+
+        // Verify results appeared (we have a "Twitter" entry)
+        let resultsCountLabel = app.staticTexts["search.results.count"]
+        if resultsCountLabel.waitForExistence(timeout: 5) {
+            XCTAssertNotEqual(resultsCountLabel.label, "results:0", "Expected search results for 'Twi'")
+        }
+
+        // Verify search field is still active
+        let stillActive = findSearchInput(timeout: 2)
+        XCTAssertNotNil(stillActive, "Search field dismissed during typing")
+    }
+
     func testSearchShowsMatchesAndNoResults() {
         unlockSuccessfully()
 
