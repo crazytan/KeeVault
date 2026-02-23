@@ -1,6 +1,7 @@
 # TODO — KeeVault
 
 ## v1.2 (next)
+- [ ] Face ID unlock button not appearing on device (keychain `hasStoredKey` returns false even after successful store — possibly `SecItemCopyMatching` with `kSecUseAuthenticationUISkip` returns unexpected status code with `.biometryCurrentSet` access control; needs status code debugging on device)
 - [ ] AutoFill from Safari not working as expected
 - [ ] AutoFill subtitle missing in iOS Settings
 
