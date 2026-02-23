@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 77;
+	objectVersion = 63;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -111,7 +111,7 @@
 		3EDAC24E05E1785E79D0F478 /* NavigationConformances.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationConformances.swift; sourceTree = "<group>"; };
 		4A63F67A487C7503A1647768 /* EntryDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EntryDetailView.swift; sourceTree = "<group>"; };
 		4AA1BC781576F6FCF822CF5F /* ClipboardService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClipboardService.swift; sourceTree = "<group>"; };
-		51AE62F0327AE140D741636B /* test.kdbx */ = {isa = PBXFileReference; path = test.kdbx; sourceTree = "<group>"; };
+		51AE62F0327AE140D741636B /* test.kdbx */ = {isa = PBXFileReference; lastKnownFileType = file; path = test.kdbx; sourceTree = "<group>"; };
 		520EE09EDA183240F2C4A150 /* EntryListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EntryListView.swift; sourceTree = "<group>"; };
 		58B65B1D329FCBD2769D7650 /* CredentialMatcherTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CredentialMatcherTests.swift; sourceTree = "<group>"; };
 		5FDAB0B2AA37625E26242E53 /* Group.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Group.swift; sourceTree = "<group>"; };
@@ -133,7 +133,7 @@
 		A64C780766746F0A09D3F69E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		A7CC215325715C988E238D34 /* KeeVaultUITestCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeeVaultUITestCase.swift; sourceTree = "<group>"; };
 		B339F71610822D7A6BE8EA47 /* SearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchView.swift; sourceTree = "<group>"; };
-		B89BC0DD2296EA1CDD831E3C /* AutoFillExtension.appex */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = "wrapper.app-extension"; path = AutoFillExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		B89BC0DD2296EA1CDD831E3C /* AutoFillExtension.appex */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = "wrapper.extensionkit-extension"; name = AutoFillExtension.appex; path = KeeVaultAutoFill.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		BB1D16EA7A4AAC7EE91A2FB7 /* AutoFillExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = AutoFillExtension.entitlements; sourceTree = "<group>"; };
 		C21F92023642D6774A213759 /* UnlockFlowUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnlockFlowUITests.swift; sourceTree = "<group>"; };
 		C5851D3E9580E70714F51B41 /* KeeVaultApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeeVaultApp.swift; sourceTree = "<group>"; };
@@ -446,7 +446,6 @@
 			packageReferences = (
 				BF2269DCF81DA97F564C74D5 /* XCRemoteSwiftPackageReference "Argon2Swift" */,
 			);
-			preferredProjectObjectVersion = 77;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
