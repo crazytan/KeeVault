@@ -132,9 +132,36 @@ final class CredentialMatcherTests: XCTestCase {
         XCTAssertEqual(matches.count, 1)
     }
 
+    // MARK: - Additional URL Matching
+
+    func testMatchesOnAdditionalURL() {
+        let entries = [makeEntry(title: "GitHub", url: "https://github.com", username: "u", password: "p",
+                                 customFields: ["KP2A_URL_1": "https://gist.github.com"])]
+        let ids = [ASCredentialServiceIdentifier(identifier: "gist.github.com", type: .domain)]
+        let matches = CredentialMatcher.matchedEntries(from: entries, for: ids)
+        XCTAssertEqual(matches.count, 1)
+    }
+
+    func testNoMatchWhenAdditionalURLDoesNotMatch() {
+        let entries = [makeEntry(title: "GitHub", url: "https://github.com", username: "u", password: "p",
+                                 customFields: ["KP2A_URL_1": "https://gist.github.com"])]
+        let ids = [ASCredentialServiceIdentifier(identifier: "gitlab.com", type: .domain)]
+        let matches = CredentialMatcher.matchedEntries(from: entries, for: ids)
+        XCTAssertTrue(matches.isEmpty)
+    }
+
+    func testMatchesOnSecondAdditionalURL() {
+        let entries = [makeEntry(title: "Work", url: "https://example.com", username: "u", password: "p",
+                                 customFields: ["KP2A_URL_1": "https://intranet.example.com",
+                                                "KP2A_URL_2": "https://vpn.example.com"])]
+        let ids = [ASCredentialServiceIdentifier(identifier: "vpn.example.com", type: .domain)]
+        let matches = CredentialMatcher.matchedEntries(from: entries, for: ids)
+        XCTAssertEqual(matches.count, 1)
+    }
+
     // MARK: - Helpers
 
-    private func makeEntry(title: String, url: String, username: String, password: String) -> KPEntry {
-        KPEntry(title: title, username: username, password: password, url: url)
+    private func makeEntry(title: String, url: String, username: String, password: String, customFields: [String: String] = [:]) -> KPEntry {
+        KPEntry(title: title, username: username, password: password, url: url, customFields: customFields)
     }
 }

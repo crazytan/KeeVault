@@ -176,6 +176,33 @@ final class KDBXParserTests: XCTestCase {
         }
     }
 
+    // MARK: - KP2A Additional URLs
+
+    func testGitHubEntryHasAdditionalURLs() throws {
+        let root = try parseFixture()
+        let github = try XCTUnwrap(root.allEntries.first { $0.title == "GitHub" })
+
+        XCTAssertEqual(github.additionalURLs, [
+            "https://github.com/settings",
+            "https://gist.github.com",
+        ])
+    }
+
+    func testEntriesWithoutKP2AURLsHaveEmptyAdditionalURLs() throws {
+        let root = try parseFixture()
+        let twitter = try XCTUnwrap(root.allEntries.first { $0.title == "Twitter" })
+        XCTAssertTrue(twitter.additionalURLs.isEmpty)
+    }
+
+    func testKP2AURLFieldsExcludedFromCustomFields() throws {
+        let root = try parseFixture()
+        let github = try XCTUnwrap(root.allEntries.first { $0.title == "GitHub" })
+
+        let kp2aKeys = github.customFields.keys.filter { $0.hasPrefix("KP2A_URL_") }
+        // KP2A_URL fields should still be in customFields (additionalURLs reads from them)
+        XCTAssertEqual(kp2aKeys.count, 2)
+    }
+
     // MARK: - Crypto Tests
 
     func testArgon2KeyDerivationKnownVector() throws {
