@@ -134,14 +134,22 @@ struct PasswordFieldRow: View {
         if BiometricService.isAvailable {
             authenticating = true
             Task {
+                await MainActor.run {
+                    BiometricService.isBiometricAuthInProgress = true
+                }
                 do {
                     _ = try await BiometricService.authenticate(reason: "View password")
-                    HapticService.success()
-                    revealed = true
+                    await MainActor.run {
+                        HapticService.success()
+                        revealed = true
+                    }
                 } catch {
-                    HapticService.tap()
+                    // Intentionally no-op on failed biometric auth.
                 }
-                authenticating = false
+                await MainActor.run {
+                    BiometricService.isBiometricAuthInProgress = false
+                    authenticating = false
+                }
             }
         } else {
             HapticService.tap()
@@ -189,11 +197,19 @@ struct CopyButton: View {
         Button {
             if requireAuth && BiometricService.isAvailable {
                 Task {
+                    await MainActor.run {
+                        BiometricService.isBiometricAuthInProgress = true
+                    }
                     do {
                         _ = try await BiometricService.authenticate(reason: "Copy password")
-                        performCopy()
+                        await MainActor.run {
+                            performCopy()
+                        }
                     } catch {
-                        HapticService.tap()
+                        // Intentionally no-op on failed biometric auth.
+                    }
+                    await MainActor.run {
+                        BiometricService.isBiometricAuthInProgress = false
                     }
                 }
             } else {

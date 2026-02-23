@@ -2,6 +2,9 @@ import Foundation
 import LocalAuthentication
 
 enum BiometricService {
+    @MainActor
+    static var isBiometricAuthInProgress = false
+
     enum BiometricType {
         case none
         case faceID
