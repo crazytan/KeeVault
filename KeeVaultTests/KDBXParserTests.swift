@@ -270,6 +270,23 @@ final class KDBXParserTests: XCTestCase {
         XCTAssertEqual(kp2aKeys.count, 2)
     }
 
+    func testKP2AURLsAreSortedByKey() {
+        let entry = KPEntry(
+            title: "Unordered",
+            customFields: [
+                "KP2A_URL_3": "https://three.example.com",
+                "KP2A_URL_1": "https://one.example.com",
+                "KP2A_URL_2": "https://two.example.com",
+            ]
+        )
+
+        XCTAssertEqual(entry.additionalURLs, [
+            "https://one.example.com",
+            "https://two.example.com",
+            "https://three.example.com",
+        ])
+    }
+
     // MARK: - Crypto Tests
 
     func testArgon2KeyDerivationKnownVector() throws {

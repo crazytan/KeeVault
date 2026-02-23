@@ -159,6 +159,14 @@ final class CredentialMatcherTests: XCTestCase {
         XCTAssertEqual(matches.count, 1)
     }
 
+    func testEmptyKP2AURLsAreFiltered() {
+        let entries = [makeEntry(title: "Test", url: "https://example.com", username: "u", password: "p",
+                                 customFields: ["KP2A_URL_1": ""])]
+        let ids = [ASCredentialServiceIdentifier(identifier: "somethingelse.com", type: .domain)]
+        let matches = CredentialMatcher.matchedEntries(from: entries, for: ids)
+        XCTAssertTrue(matches.isEmpty)
+    }
+
     // MARK: - Helpers
 
     private func makeEntry(title: String, url: String, username: String, password: String, customFields: [String: String] = [:]) -> KPEntry {
