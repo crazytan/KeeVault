@@ -3,7 +3,7 @@
 ## TODO
 
 ### Bugs
-- [ ] Face ID unlock button not appearing on device (keychain `hasStoredKey` returns false after successful store; needs on-device status code debugging)
+- [x] Face ID unlock button not appearing on device (fixed keychain existence check: use LAContext with interactionNotAllowed instead of deprecated kSecUseAuthenticationUISkip, broadened status codes)
 - [ ] AutoFill from Safari not working as expected
 - [ ] AutoFill subtitle missing in iOS Settings
 
@@ -23,6 +23,7 @@
 
 ## Unreleased
 
+- Fixed Face ID unlock not appearing on device (improved keychain existence check)
 - Settings page with auto-lock timeout, clipboard timeout, sort order, and about section
 - Fixed keychain account key to use filename instead of full path (bookmark-resolved paths change between launches)
 - List sorting by title, created date, or modified date (persisted to UserDefaults)

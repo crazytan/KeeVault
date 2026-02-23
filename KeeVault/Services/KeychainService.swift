@@ -79,14 +79,24 @@ enum KeychainService {
 
     static func hasStoredKey(for databasePath: String) -> Bool {
         let account = accountKey(for: databasePath)
+        let context = LAContext()
+        context.interactionNotAllowed = true
+
         let query: [String: Any] = [
             kSecClass as String: kSecClassGenericPassword,
             kSecAttrService as String: service,
             kSecAttrAccount as String: account,
-            kSecUseAuthenticationUI as String: kSecUseAuthenticationUISkip,
+            kSecMatchLimit as String: kSecMatchLimitOne,
+            kSecReturnAttributes as String: true,
+            kSecUseAuthenticationContext as String: context,
         ]
         let status = SecItemCopyMatching(query as CFDictionary, nil)
-        return status == errSecInteractionNotAllowed || status == errSecSuccess
+        // Item exists if we get success, or if auth is needed (interaction not allowed / auth failed)
+        let exists = status == errSecSuccess || status == errSecInteractionNotAllowed || status == errSecAuthFailed
+        if !exists && status != errSecItemNotFound {
+            print("[KeychainService] hasStoredKey unexpected status: \(status)")
+        }
+        return exists
     }
 
     enum KeychainError: Error, LocalizedError {

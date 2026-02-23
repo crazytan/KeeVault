@@ -73,6 +73,69 @@ final class AutoLockTests: XCTestCase {
         XCTAssertTrue(vm.navigationPath.isEmpty)
     }
 
+    // MARK: - Inactivity Timer
+
+    private var savedAutoLockTimeout: SettingsService.AutoLockTimeout!
+
+    override func setUp() async throws {
+        try await super.setUp()
+        savedAutoLockTimeout = SettingsService.autoLockTimeout
+    }
+
+    override func tearDown() async throws {
+        SettingsService.autoLockTimeout = savedAutoLockTimeout
+        try await super.tearDown()
+    }
+
+    func testInactivityTimerCreatedWithCorrectInterval() async throws {
+        SettingsService.autoLockTimeout = .fiveMinutes
+        let vm = try await makeUnlockedViewModel()
+
+        XCTAssertNotNil(vm.inactivityTimer)
+        XCTAssertEqual(vm.inactivityTimerInterval, 300)
+    }
+
+    func testInactivityTimerThirtySecondsInterval() async throws {
+        SettingsService.autoLockTimeout = .thirtySeconds
+        let vm = try await makeUnlockedViewModel()
+
+        XCTAssertNotNil(vm.inactivityTimer)
+        XCTAssertEqual(vm.inactivityTimerInterval, 30)
+    }
+
+    func testInactivityTimerCancelledOnLock() async throws {
+        SettingsService.autoLockTimeout = .fiveMinutes
+        let vm = try await makeUnlockedViewModel()
+        XCTAssertNotNil(vm.inactivityTimer)
+
+        vm.lock()
+
+        XCTAssertNil(vm.inactivityTimer)
+    }
+
+    func testNeverSettingMeansNoTimer() async throws {
+        SettingsService.autoLockTimeout = .never
+        let vm = try await makeUnlockedViewModel()
+
+        XCTAssertNil(vm.inactivityTimer)
+    }
+
+    func testImmediatelySettingMeansNoForegroundTimer() async throws {
+        SettingsService.autoLockTimeout = .immediately
+        let vm = try await makeUnlockedViewModel()
+
+        XCTAssertNil(vm.inactivityTimer)
+    }
+
+    func testResetInactivityTimerDoesNothingWhenLocked() {
+        SettingsService.autoLockTimeout = .fiveMinutes
+        let vm = DatabaseViewModel()
+
+        vm.resetInactivityTimer()
+
+        XCTAssertNil(vm.inactivityTimer)
+    }
+
     private func fixtureURL() throws -> URL {
         let bundle = Bundle(for: AutoLockTests.self)
         return try XCTUnwrap(bundle.url(forResource: "test", withExtension: "kdbx"))

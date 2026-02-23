@@ -26,9 +26,17 @@ final class DatabaseViewModel {
 
     private(set) var state: State = .locked
     private(set) var rootGroup: KPGroup?
-    var searchText = ""
-    var isSearchActive = false
-    var navigationPath = NavigationPath()
+    private(set) var inactivityTimer: Timer?
+    private(set) var inactivityTimerInterval: TimeInterval?
+    var searchText = "" {
+        didSet { resetInactivityTimer() }
+    }
+    var isSearchActive = false {
+        didSet { resetInactivityTimer() }
+    }
+    var navigationPath = NavigationPath() {
+        didSet { resetInactivityTimer() }
+    }
     var sortOrder: SortOrder {
         didSet { Self.saveSortOrder(sortOrder) }
     }
@@ -153,6 +161,7 @@ final class DatabaseViewModel {
             self.rootGroup = root
             self.compositeKey = compositeKey
             state = .unlocked
+            startInactivityTimer()
 
             // Store key for biometric unlock
             if BiometricService.isAvailable {
@@ -187,17 +196,44 @@ final class DatabaseViewModel {
             self.rootGroup = root
             self.compositeKey = compositeKey
             state = .unlocked
+            startInactivityTimer()
         } catch {
             state = .error(error.localizedDescription)
         }
     }
 
     func lock() {
+        cancelInactivityTimer()
+        state = .locked
         rootGroup = nil
         compositeKey = nil
         searchText = ""
         navigationPath = NavigationPath()
-        state = .locked
+    }
+
+    // MARK: - Inactivity Timer
+
+    func startInactivityTimer() {
+        cancelInactivityTimer()
+        let timeout = SettingsService.autoLockTimeout
+        guard let seconds = timeout.seconds, seconds > 0 else { return }
+        inactivityTimerInterval = seconds
+        inactivityTimer = Timer.scheduledTimer(withTimeInterval: seconds, repeats: false) { [weak self] _ in
+            Task { @MainActor [weak self] in
+                self?.lock()
+            }
+        }
+    }
+
+    func cancelInactivityTimer() {
+        inactivityTimer?.invalidate()
+        inactivityTimer = nil
+        inactivityTimerInterval = nil
+    }
+
+    func resetInactivityTimer() {
+        guard case .unlocked = state else { return }
+        startInactivityTimer()
     }
 
     private func readSecurityScoped(url: URL) throws -> Data {

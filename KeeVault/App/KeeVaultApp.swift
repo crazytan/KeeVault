@@ -13,6 +13,7 @@ struct KeeVaultApp: App {
                     switch newPhase {
                     case .active:
                         screenProtectionService.hideShield()
+                        viewModel.resetInactivityTimer()
                     case .inactive:
                         if !BiometricService.isBiometricAuthInProgress {
                             screenProtectionService.showShield()
