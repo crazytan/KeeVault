@@ -33,6 +33,18 @@ final class KDBXParserTests: XCTestCase {
                 hasTOTP: true, totpSecret: "GEZDGNBVGY3TQOJQ"
             ),
             EntryData(
+                group: "Social", title: "Offline Key",
+                username: "", password: "physical-key-backup",
+                url: "", notes: "Stored in safe deposit box\nBox #42\nBank: Chase\n" + String(repeating: "A", count: 200),
+                hasTOTP: false, totpSecret: nil
+            ),
+            EntryData(
+                group: "Social", title: "Public Profile",
+                username: "crazytan", password: "",
+                url: "https://keybase.io/crazytan", notes: "",
+                hasTOTP: false, totpSecret: nil
+            ),
+            EntryData(
                 group: "Work", title: "Email",
                 username: "work@example.com", password: "workpass456",
                 url: "https://mail.example.com", notes: "",
@@ -44,9 +56,15 @@ final class KDBXParserTests: XCTestCase {
                 url: "https://github.com", notes: "",
                 hasTOTP: true, totpSecret: "JBSWY3DPEHPK3PXP"
             ),
+            EntryData(
+                group: "Internal", title: "日本語テスト 🔑",
+                username: "ユーザー", password: "pässwörd!@#¥",
+                url: "https://example.jp", notes: "",
+                hasTOTP: false, totpSecret: nil
+            ),
         ]
 
-        static let groups = ["Social", "Work"]
+        static let groups = ["Social", "Work", "Empty", "Internal"]
     }
 
     // MARK: - Structure Tests
@@ -174,6 +192,55 @@ final class KDBXParserTests: XCTestCase {
             XCTAssertNotNil(entryInGroup,
                             "\(expected.title) should be in group \(expected.group)")
         }
+    }
+
+    // MARK: - Nested Groups
+
+    func testNestedSubgroupParsed() throws {
+        let root = try parseFixture()
+        let work = findGroup(named: "Work", in: root)
+        XCTAssertNotNil(work)
+        let internal_ = work?.groups.first { $0.name == "Internal" }
+        XCTAssertNotNil(internal_, "Nested group Work/Internal not found")
+        XCTAssertEqual(internal_?.entries.count, 1)
+    }
+
+    func testEmptyGroupHasNoEntries() throws {
+        let root = try parseFixture()
+        let empty = root.groups.first { $0.name == "Empty" }
+        XCTAssertNotNil(empty, "Empty group not found")
+        XCTAssertTrue(empty?.entries.isEmpty ?? false)
+    }
+
+    func testAllEntriesIncludesNestedGroupEntries() throws {
+        let root = try parseFixture()
+        let nestedEntry = root.allEntries.first { $0.title == "日本語テスト 🔑" }
+        XCTAssertNotNil(nestedEntry, "Entry in nested group not found via allEntries")
+    }
+
+    // MARK: - Edge Cases
+
+    func testEntryWithEmptyURLAndUsername() throws {
+        let root = try parseFixture()
+        let entry = root.allEntries.first { $0.title == "Offline Key" }
+        XCTAssertNotNil(entry)
+        XCTAssertEqual(entry?.url, "")
+        XCTAssertEqual(entry?.username, "")
+    }
+
+    func testEntryWithEmptyPassword() throws {
+        let root = try parseFixture()
+        let entry = root.allEntries.first { $0.title == "Public Profile" }
+        XCTAssertNotNil(entry)
+        XCTAssertEqual(entry?.password, "")
+    }
+
+    func testUnicodeEntryFieldsParsedCorrectly() throws {
+        let root = try parseFixture()
+        let entry = root.allEntries.first { $0.title == "日本語テスト 🔑" }
+        XCTAssertNotNil(entry)
+        XCTAssertEqual(entry?.username, "ユーザー")
+        XCTAssertEqual(entry?.password, "pässwörd!@#¥")
     }
 
     // MARK: - KP2A Additional URLs
