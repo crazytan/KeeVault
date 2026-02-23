@@ -1,64 +1,55 @@
 # AGENTS.md
 
-Important context for AI coding agents working on KeeVault.
+Context for AI coding agents working on KeeVault.
 
-## Project Snapshot
+## Overview
 
-- iOS password manager for KeePassXC/KDBX
-- Swift 6 + SwiftUI (iOS 17+)
-- Architecture: MVVM with Observation (`@Observable`)
-- v1 scope: read-only database access
+- iOS KeePass password manager (KDBX 4.x, read-only in v1)
+- Swift 6, SwiftUI, iOS 17+, MVVM with `@Observable`
+- Build system: XcodeGen (`project.yml` → `.xcodeproj`)
+- Crypto: Argon2Swift (SPM), custom AES/ChaCha20/HMAC in `KDBXCrypto.swift`
 
-## Stable Core (Handle Carefully)
+## Stable Core
 
-Core logic in `KeeVault/Models/` is implemented and should not be refactored unless fixing a real bug:
+These files are tested and should only change for real bugs:
 
-- `KDBXParser.swift` (KDBX 4.x parsing/decryption/integrity/XML)
-- `KDBXCrypto.swift` (AES, ChaCha20, HMAC, gzip — Argon2 via Argon2Swift SPM)
-- `Entry.swift` and `Group.swift` models
-- `TOTPGenerator.swift` (RFC 6238)
+- `KDBXParser.swift` — KDBX 4.x parsing, decryption, XML extraction
+- `KDBXCrypto.swift` — AES, ChaCha20, HMAC, gzip, key derivation
+- `Entry.swift`, `Group.swift` — data models
+- `TOTPGenerator.swift` — RFC 6238
 
-## Architecture & Conventions
+## Conventions
 
-- Use `@Observable`, not `ObservableObject`/`@Published`
-- Use `NavigationStack` + `NavigationPath`, not `NavigationView`
-- Use SwiftUI `.fileImporter`, not UIKit document picker wrappers
-- Keep crypto/parsing off the main thread (`Task` background work)
-- Follow Swift 6 strict concurrency (`Sendable` correctness)
-- Avoid force unwraps outside tests
-- Prefer `guard` for early exits
-- No unnecessary third-party dependencies
+- `@Observable`, not `ObservableObject`/`@Published`
+- `NavigationStack` + `NavigationPath`, not `NavigationView`
+- Swift 6 strict concurrency (`Sendable` correctness)
+- Crypto/parsing off main thread
+- No force unwraps outside tests
+- No unnecessary dependencies
 
-## Security Expectations
+## Security
 
-- Store derived/composite key in Keychain with biometric access control
+- Composite key stored in Keychain with biometric access control
 - Never store raw master password
-- Auto-lock when app backgrounds
-- Clear sensitive in-memory state on lock/background
-- Clipboard entries auto-expire (30s)
+- Auto-lock on background, clear sensitive state
+- Clipboard auto-expires (30s)
 - No analytics, telemetry, or network calls
 
-## Feature Boundaries (v1)
+## Build & Test
 
-Included:
-- KDBX 4.x read/decrypt
-- Group/entry browsing
-- Search (title/username/url/notes)
-- TOTP display + copy
-- Face ID unlock after first password unlock
-- AutoFill credential provider extension
+```bash
+xcodegen generate
+xcodebuild build -project KeeVault.xcodeproj -scheme KeeVault -destination 'platform=iOS Simulator,name=iPhone 17 Pro'
+xcodebuild test -project KeeVault.xcodeproj -scheme KeeVault -destination 'platform=iOS Simulator,name=iPhone 17 Pro'
+```
 
-Not included:
-- Create/edit/delete entries or groups
-- Attachments
-- Keyfile support
-- Hardware key/YubiKey support
-- Multiple databases
+If simulator gets stuck with "preflight checks" error:
+```bash
+xcrun simctl shutdown all && xcrun simctl erase <UDID>
+```
 
-## Testing Notes
+## Test Fixture
 
-- Validate with real KeePassXC `.kdbx` fixtures
-- Include nested groups, URLs, notes, protected fields, and TOTP
-- Test Face ID in simulator: `Features > Face ID > Enrolled`
-- Test AutoFill via iOS Settings password autofill flow
-
+`TestFixtures/test.kdbx` (password: `testpassword123`) contains:
+- Social/Twitter (with 2 history entries), Social/Discord (with TOTP)
+- Work/Email, Work/GitHub (with TOTP)
