@@ -499,6 +499,7 @@ final class KDBXXMLParser: NSObject, XMLParserDelegate {
     private var isProtected = false
     private var inValue = false
     private var inKey = false
+    private var historyDepth = 0
 
     // Inner stream cipher state for decrypting protected values
     private var streamOffset = 0
@@ -555,9 +556,12 @@ final class KDBXXMLParser: NSObject, XMLParserDelegate {
             currentGroupEntries.append([])
             currentGroupSubgroups.append([])
 
+        case "History":
+            historyDepth += 1
+
         case "Entry":
-            // Ignore History entries
-            if !isInsideHistory(parser) {
+            // Ignore entries nested under <History>.
+            if !isInsideHistory() {
                 currentEntry = EntryBuilder()
             }
 
@@ -599,8 +603,11 @@ final class KDBXXMLParser: NSObject, XMLParserDelegate {
                 currentGroupSubgroups[currentGroupSubgroups.count - 1].append(group)
             }
 
+        case "History":
+            historyDepth = max(0, historyDepth - 1)
+
         case "Entry":
-            if let builder = currentEntry {
+            if !isInsideHistory(), let builder = currentEntry {
                 let entry = builder.build()
                 if currentGroupEntries.isEmpty {
                     rootEntries.append(entry)
@@ -770,9 +777,8 @@ final class KDBXXMLParser: NSObject, XMLParserDelegate {
         s[c] = s[c] &+ s[d]; s[b] ^= s[c]; s[b] = (s[b] << 7) | (s[b] >> 25)
     }
 
-    private func isInsideHistory(_ parser: XMLParser) -> Bool {
-        // Simple heuristic — if we already have an entry context, a nested Entry is history
-        return false // Simplified; history entries are inside <History> element
+    private func isInsideHistory() -> Bool {
+        historyDepth > 0
     }
 
     private func parseKPDate(_ string: String) -> Date? {

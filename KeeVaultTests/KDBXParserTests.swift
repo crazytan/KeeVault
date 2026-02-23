@@ -66,6 +66,19 @@ final class KDBXParserTests: XCTestCase {
                        "Expected \(Expected.entries.count) entries, got \(root.allEntries.count)")
     }
 
+    // MARK: - No Duplicates (History entries must be excluded)
+
+    func testNoDuplicateEntries() throws {
+        let root = try parseFixture()
+        let entries = root.allEntries
+
+        // Each title+username combo should appear exactly once
+        let keys = entries.map { "\($0.title)|\($0.username)" }
+        let uniqueKeys = Set(keys)
+        XCTAssertEqual(keys.count, uniqueKeys.count,
+                       "Duplicate entries found — history entries may be leaking. Got: \(keys)")
+    }
+
     // MARK: - Entry Field Tests
 
     func testAllEntryUsernames() throws {
