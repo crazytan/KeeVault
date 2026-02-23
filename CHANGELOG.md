@@ -9,10 +9,10 @@
 
 ### Features
 - [ ] Settings page (clipboard timeout, auto-lock timeout, auto Face ID, sort preference)
-- [x] List sorting by different attributes (created, updated, title)
 - [ ] Auto-lock after inactivity timeout (foreground idle timer; background lock already works)
 - [ ] Auto Face ID unlock on app open (opt-in; depends on keychain bug fix)
 - [ ] Favicon support (download from Google favicon service; opt-in since it adds network calls)
+- [x] List sorting by different attributes (created, updated, title)
 - [x] Multiple URLs per entry via KP2A_URL custom fields (also improves AutoFill matching)
 - [x] Add tests for auto-lock on background behavior
 

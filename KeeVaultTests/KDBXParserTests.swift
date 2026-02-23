@@ -207,7 +207,7 @@ final class KDBXParserTests: XCTestCase {
 
     func testEmptyGroupHasNoEntries() throws {
         let root = try parseFixture()
-        let empty = root.groups.first { $0.name == "Empty" }
+        let empty = findGroup(named: "Empty", in: root)
         XCTAssertNotNil(empty, "Empty group not found")
         XCTAssertTrue(empty?.entries.isEmpty ?? false)
     }
