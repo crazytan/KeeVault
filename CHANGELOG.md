@@ -9,12 +9,12 @@
 
 ### Features
 - [ ] Settings page (clipboard timeout, auto-lock timeout, auto Face ID, sort preference)
-- [ ] List sorting by different attributes (created, updated, title)
+- [x] List sorting by different attributes (created, updated, title)
 - [ ] Auto-lock after inactivity timeout (foreground idle timer; background lock already works)
 - [ ] Auto Face ID unlock on app open (opt-in; depends on keychain bug fix)
 - [ ] Favicon support (download from Google favicon service; opt-in since it adds network calls)
-- [ ] Multiple URLs per entry via KP2A_URL custom fields (also improves AutoFill matching)
-- [ ] Add tests for auto-lock on background behavior
+- [x] Multiple URLs per entry via KP2A_URL custom fields (also improves AutoFill matching)
+- [x] Add tests for auto-lock on background behavior
 
 ### v2 roadmap
 - [ ] Editing support (create/modify entries)
@@ -24,6 +24,9 @@
 ## Unreleased
 
 - Fixed keychain account key to use filename instead of full path (bookmark-resolved paths change between launches)
+- List sorting by title, created date, or modified date (persisted to UserDefaults)
+- Multiple URLs per entry via KP2A_URL custom fields (display + AutoFill matching)
+- Auto-lock unit tests + enriched test fixture (7 entries, nested groups, unicode, edge cases)
 
 ## v1.1.0 (2026-02-22)
 
