@@ -7,16 +7,19 @@ enum CredentialMatcher {
         let searchTerms = Set(identifiers.compactMap(searchTerm(for:)).map { $0.lowercased() })
 
         return entries.filter { entry in
-            let entryHost = hostFromURLString(entry.url)?.lowercased()
-            let entryURL = entry.url.lowercased()
-            let entryTitle = entry.title.lowercased()
+            let allURLs = [entry.url] + entry.additionalURLs
 
             return searchTerms.contains { term in
-                if let entryHost, entryHost == term || entryHost.hasSuffix(".\(term)") {
-                    return true
+                for urlString in allURLs {
+                    let host = hostFromURLString(urlString)?.lowercased()
+                    if let host, host == term || host.hasSuffix(".\(term)") {
+                        return true
+                    }
+                    if urlString.lowercased().contains(term) {
+                        return true
+                    }
                 }
-
-                return entryURL.contains(term) || entryTitle.contains(term)
+                return entry.title.lowercased().contains(term)
             }
         }
     }

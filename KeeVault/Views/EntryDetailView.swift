@@ -27,6 +27,10 @@ struct EntryDetailView: View {
                 URLFieldRow(url: entry.url)
             }
 
+            ForEach(Array(entry.additionalURLs.enumerated()), id: \.offset) { index, url in
+                URLFieldRow(url: url, label: "URL \(index + 2)")
+            }
+
             if entry.totpConfig != nil {
                 TOTPSection(config: entry.totpConfig!)
             }
@@ -160,10 +164,11 @@ struct PasswordFieldRow: View {
 
 struct URLFieldRow: View {
     let url: String
+    var label: String = "URL"
     @Environment(\.openURL) private var openURL
 
     var body: some View {
-        Section("URL") {
+        Section(label) {
             HStack {
                 Image(systemName: "globe")
                     .foregroundStyle(.secondary)

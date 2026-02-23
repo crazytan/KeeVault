@@ -44,6 +44,14 @@ struct KPEntry: Identifiable, Sendable {
         self.lastModificationTime = lastModificationTime
     }
 
+    /// Additional URLs from KeePass2Android KP2A_URL_* custom fields, sorted by key
+    var additionalURLs: [String] {
+        customFields.filter { $0.key.hasPrefix("KP2A_URL_") }
+            .sorted { $0.key < $1.key }
+            .map(\.value)
+            .filter { !$0.isEmpty }
+    }
+
     /// System icon name based on KeePass icon ID
     var systemIconName: String {
         switch iconID {

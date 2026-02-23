@@ -653,7 +653,7 @@ final class KDBXXMLParser: NSObject, XMLParserDelegate {
             }
 
         case "String":
-            if let entry = currentEntry {
+            if !isInsideHistory(), let entry = currentEntry {
                 switch currentKey {
                 case "Title": entry.title = currentValue
                 case "UserName": entry.username = currentValue
