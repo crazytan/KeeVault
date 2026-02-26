@@ -14,12 +14,32 @@ jobs:
   build-and-test:
     runs-on: macos-15
     timeout-minutes: 30
+    env:
+      SCHEME: KeeVault
+      PROJECT: KeeVault.xcodeproj
+      DESTINATION: 'platform=iOS Simulator,name=iPhone 16 Pro,OS=latest'
 
     steps:
       - uses: actions/checkout@v4
 
       - name: Select Xcode
-        run: sudo xcode-select -s /Applications/Xcode_16.2.app
+        run: |
+          # Use latest available Xcode on the runner
+          XCODE_PATH=$(ls -d /Applications/Xcode_*.app 2>/dev/null | sort -V | tail -1)
+          echo "Using Xcode: $XCODE_PATH"
+          sudo xcode-select -s "$XCODE_PATH"
+          xcodebuild -version
+
+      - name: Install simulator runtime
+        run: |
+          # List available runtimes and install iOS if missing
+          xcrun simctl list runtimes
+          if ! xcrun simctl list runtimes | grep -q "iOS.*Available"; then
+            echo "No iOS runtime found, installing..."
+            xcodebuild -downloadPlatform iOS
+          fi
+          # List available simulators
+          xcrun simctl list devices available | grep "iPhone" | head -5
 
       - name: Install XcodeGen
         run: brew install xcodegen
@@ -29,27 +49,30 @@ jobs:
 
       - name: Build
         run: |
+          set -o pipefail
           xcodebuild build-for-testing \
-            -project KeeVault.xcodeproj \
-            -scheme KeeVault \
-            -destination 'platform=iOS Simulator,name=iPhone 16 Pro' \
+            -project "$PROJECT" \
+            -scheme "$SCHEME" \
+            -destination "$DESTINATION" \
             -skipPackagePluginValidation \
             | xcpretty
 
       - name: Run unit tests
         run: |
+          set -o pipefail
           xcodebuild test-without-building \
-            -project KeeVault.xcodeproj \
-            -scheme KeeVault \
-            -destination 'platform=iOS Simulator,name=iPhone 16 Pro' \
+            -project "$PROJECT" \
+            -scheme "$SCHEME" \
+            -destination "$DESTINATION" \
             -only-testing:KeeVaultTests \
             | xcpretty
 
       - name: Run UI tests
         run: |
+          set -o pipefail
           xcodebuild test-without-building \
-            -project KeeVault.xcodeproj \
-            -scheme KeeVault \
-            -destination 'platform=iOS Simulator,name=iPhone 16 Pro' \
+            -project "$PROJECT" \
+            -scheme "$SCHEME" \
+            -destination "$DESTINATION" \
             -only-testing:KeeVaultUITests \
             | xcpretty
