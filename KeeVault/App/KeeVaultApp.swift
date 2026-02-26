@@ -71,7 +71,7 @@ struct DatabaseNavigationView: View {
                     } label: {
                         Image(systemName: "lock.fill")
                     }
-                    .accessibilityIdentifier("vault.lock.button")
+                    .accessibilityIdentifier("lock.button")
                 }
             }
         }
