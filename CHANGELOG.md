@@ -3,13 +3,13 @@
 ## TODO
 
 ### Bugs
-- AutoFill from Safari not working as expected
-- AutoFill subtitle missing in iOS Settings
+- AutoFill subtitle missing in iOS Settings (Passwords & AutoFill page)
 - 3 UI tests failing (EntryDetail, Navigation, Search) — can't find entries after unlock, likely UI test mode detection issue
 
 ### Features
 - Auto Face ID unlock on app open (opt-in setting)
 - Auto Face ID unlock in AutoFill extension (when opt-in enabled)
+- Exclude Recycle Bin from search results and AutoFill
 - Favicon support (download from Google favicon service; opt-in since it adds network calls)
 
 ### v2 roadmap
