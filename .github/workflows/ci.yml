@@ -68,6 +68,7 @@ jobs:
             | xcpretty
 
       - name: Run UI tests
+        if: github.event_name == 'pull_request'
         run: |
           set -o pipefail
           xcodebuild test-without-building \
