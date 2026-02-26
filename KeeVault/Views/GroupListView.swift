@@ -5,13 +5,21 @@ struct GroupListView: View {
     @Bindable var viewModel: DatabaseViewModel
     @State private var showSettings = false
 
+    private var visibleGroups: [KPGroup] {
+        let recycleBinID = viewModel.rootGroup?.recycleBinUUID
+        if let recycleBinID {
+            return group.groups.filter { $0.id != recycleBinID }
+        }
+        return group.groups
+    }
+
     var body: some View {
         Group {
             if viewModel.searchText.isEmpty {
                 List {
-                    if !group.groups.isEmpty {
+                    if !visibleGroups.isEmpty {
                         Section("Groups") {
-                            ForEach(viewModel.sortedGroups(group.groups)) { subgroup in
+                            ForEach(viewModel.sortedGroups(visibleGroups)) { subgroup in
                                 NavigationLink(value: subgroup) {
                                     GroupRow(group: subgroup)
                                 }
@@ -31,7 +39,7 @@ struct GroupListView: View {
                         }
                     }
 
-                    if group.groups.isEmpty && group.entries.isEmpty {
+                    if visibleGroups.isEmpty && group.entries.isEmpty {
                         ContentUnavailableView(
                             "Empty Group",
                             systemImage: "folder",

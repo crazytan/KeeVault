@@ -500,6 +500,8 @@ final class KDBXXMLParser: NSObject, XMLParserDelegate {
     private var inValue = false
     private var inKey = false
     private var historyDepth = 0
+    private var inMeta = false
+    private var recycleBinUUID: UUID?
 
     // Inner stream cipher state for decrypting protected values
     private var streamOffset = 0
@@ -522,6 +524,7 @@ final class KDBXXMLParser: NSObject, XMLParserDelegate {
     private var currentGroupSubgroups: [[KPGroup]] = []
     private var groupNames: [String] = []
     private var groupIconIDs: [Int] = []
+    private var groupUUIDs: [UUID] = []
     private var groupCreationTimes: [Date?] = []
     private var groupLastModificationTimes: [Date?] = []
 
@@ -540,7 +543,8 @@ final class KDBXXMLParser: NSObject, XMLParserDelegate {
         return KPGroup(
             name: "Root",
             entries: rootEntries,
-            groups: rootGroups
+            groups: rootGroups,
+            recycleBinUUID: recycleBinUUID
         )
     }
 
@@ -552,9 +556,13 @@ final class KDBXXMLParser: NSObject, XMLParserDelegate {
         currentText = ""
 
         switch elementName {
+        case "Meta":
+            inMeta = true
+
         case "Group":
             groupNames.append("")
             groupIconIDs.append(48)
+            groupUUIDs.append(UUID())
             groupCreationTimes.append(nil)
             groupLastModificationTimes.append(nil)
             currentGroupEntries.append([])
@@ -593,15 +601,26 @@ final class KDBXXMLParser: NSObject, XMLParserDelegate {
     func parser(_ parser: XMLParser, didEndElement elementName: String,
                 namespaceURI: String?, qualifiedName: String?) {
         switch elementName {
+        case "Meta":
+            inMeta = false
+
+        case "RecycleBinUUID":
+            if inMeta {
+                if let uuid = parseKPUUID(currentText) {
+                    recycleBinUUID = uuid
+                }
+            }
+
         case "Group":
             let name = groupNames.removeLast()
             let iconID = groupIconIDs.removeLast()
+            let groupID = groupUUIDs.removeLast()
             let creationTime = groupCreationTimes.removeLast()
             let lastModificationTime = groupLastModificationTimes.removeLast()
             let entries = currentGroupEntries.removeLast()
             let subgroups = currentGroupSubgroups.removeLast()
 
-            let group = KPGroup(name: name, iconID: iconID, entries: entries, groups: subgroups, creationTime: creationTime, lastModificationTime: lastModificationTime)
+            let group = KPGroup(id: groupID, name: name, iconID: iconID, entries: entries, groups: subgroups, creationTime: creationTime, lastModificationTime: lastModificationTime)
 
             if currentGroupSubgroups.isEmpty {
                 rootGroups.append(group)
@@ -696,6 +715,13 @@ final class KDBXXMLParser: NSObject, XMLParserDelegate {
                     entry.tags = trimmed.components(separatedBy: CharacterSet([",", ";"])).map {
                         $0.trimmingCharacters(in: .whitespaces)
                     }.filter { !$0.isEmpty }
+                }
+            }
+
+        case "UUID":
+            if currentEntry == nil, !groupUUIDs.isEmpty, !inMeta {
+                if let uuid = parseKPUUID(currentText) {
+                    groupUUIDs[groupUUIDs.count - 1] = uuid
                 }
             }
 
@@ -795,6 +821,18 @@ final class KDBXXMLParser: NSObject, XMLParserDelegate {
 
     private func isInsideHistory() -> Bool {
         historyDepth > 0
+    }
+
+    private static let nullUUID = UUID(uuid: (0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0))
+
+    private func parseKPUUID(_ string: String) -> UUID? {
+        let trimmed = string.trimmingCharacters(in: .whitespacesAndNewlines)
+        guard let data = Data(base64Encoded: trimmed), data.count == 16 else { return nil }
+        let uuid = data.withUnsafeBytes { ptr -> UUID in
+            UUID(uuid: ptr.loadUnaligned(as: uuid_t.self))
+        }
+        // Null UUID means "not configured"
+        return uuid == Self.nullUUID ? nil : uuid
     }
 
     private func parseKPDate(_ string: String) -> Date? {

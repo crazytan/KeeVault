@@ -74,7 +74,13 @@ final class DatabaseViewModel {
     var searchResults: [KPEntry] {
         guard !searchText.isEmpty, let root = rootGroup else { return [] }
         let query = searchText.lowercased()
-        return root.allEntries.filter { entry in
+        let candidates: [KPEntry]
+        if let recycleBinID = root.recycleBinUUID {
+            candidates = root.allEntries(excludingGroupID: recycleBinID)
+        } else {
+            candidates = root.allEntries
+        }
+        return candidates.filter { entry in
             entry.title.lowercased().contains(query) ||
             entry.username.lowercased().contains(query) ||
             entry.url.lowercased().contains(query) ||

@@ -10,6 +10,8 @@ final class KPGroup: Identifiable, Sendable {
     let isExpanded: Bool
     let creationTime: Date?
     let lastModificationTime: Date?
+    /// UUID of the Recycle Bin group (only meaningful on the root group)
+    let recycleBinUUID: UUID?
 
     init(
         id: UUID = UUID(),
@@ -19,7 +21,8 @@ final class KPGroup: Identifiable, Sendable {
         groups: [KPGroup] = [],
         isExpanded: Bool = true,
         creationTime: Date? = nil,
-        lastModificationTime: Date? = nil
+        lastModificationTime: Date? = nil,
+        recycleBinUUID: UUID? = nil
     ) {
         self.id = id
         self.name = name
@@ -29,11 +32,18 @@ final class KPGroup: Identifiable, Sendable {
         self.isExpanded = isExpanded
         self.creationTime = creationTime
         self.lastModificationTime = lastModificationTime
+        self.recycleBinUUID = recycleBinUUID
     }
 
     /// Recursively find all entries in this group and subgroups
     var allEntries: [KPEntry] {
         entries + groups.flatMap(\.allEntries)
+    }
+
+    /// Recursively find all entries, excluding a specific group and its subgroups
+    func allEntries(excludingGroupID groupID: UUID) -> [KPEntry] {
+        guard id != groupID else { return [] }
+        return entries + groups.flatMap { $0.allEntries(excludingGroupID: groupID) }
     }
 
     /// System icon name based on KeePass icon ID

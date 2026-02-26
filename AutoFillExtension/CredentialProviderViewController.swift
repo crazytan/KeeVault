@@ -147,7 +147,13 @@ final class CredentialProviderViewController: ASCredentialProviderViewController
             return try KDBXParser.parse(data: data, compositeKey: compositeKey)
         }.value
 
-        parsedEntries = root.allEntries.filter { !$0.password.isEmpty }
+        let allEntries: [KPEntry]
+        if let recycleBinID = root.recycleBinUUID {
+            allEntries = root.allEntries(excludingGroupID: recycleBinID)
+        } else {
+            allEntries = root.allEntries
+        }
+        parsedEntries = allEntries.filter { !$0.password.isEmpty }
     }
 
     private func readSecurityScoped(url: URL) throws -> Data {
