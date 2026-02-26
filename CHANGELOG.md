@@ -3,12 +3,9 @@
 ## TODO
 
 ### Bugs
-- AutoFill subtitle missing in iOS Settings (Passwords & AutoFill page)
-- 3 UI tests failing (EntryDetail, Navigation, Search) — can't find entries after unlock, likely UI test mode detection issue
+- (none currently)
 
 ### Features
-- Auto Face ID unlock on app open (opt-in setting)
-- Auto Face ID unlock in AutoFill extension (when opt-in enabled)
 - Exclude Recycle Bin from search results and AutoFill
 - Favicon support (download from Google favicon service; opt-in since it adds network calls)
 
@@ -19,6 +16,11 @@
 
 ## Unreleased
 
+- Fixed AutoFill subtitle missing in iOS Settings (use ProvidesPasswords key)
+- Fixed 3 failing UI tests (navigation helpers now prefer non-empty groups)
+- Removed debug state label from unlock screen
+- Auto Face ID unlock on app open (opt-in setting in Security)
+- Auto Face ID unlock in AutoFill extension (shared via App Group)
 - Lock button in group list toolbar
 - Renamed "Clipboard Timeout" → "Clipboard Clear Timeout" in Settings
 - Renamed "Sort Order" → "Default Sort Order" in Settings
