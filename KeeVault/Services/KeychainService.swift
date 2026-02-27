@@ -93,9 +93,11 @@ enum KeychainService {
         let status = SecItemCopyMatching(query as CFDictionary, nil)
         // Item exists if we get success, or if auth is needed (interaction not allowed / auth failed)
         let exists = status == errSecSuccess || status == errSecInteractionNotAllowed || status == errSecAuthFailed
+        #if DEBUG
         if !exists && status != errSecItemNotFound {
             print("[KeychainService] hasStoredKey unexpected status: \(status)")
         }
+        #endif
         return exists
     }
 

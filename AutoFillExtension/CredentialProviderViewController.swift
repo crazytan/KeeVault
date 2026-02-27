@@ -207,11 +207,13 @@ final class CredentialProviderViewController: ASCredentialProviderViewController
             return
         }
 
+        parsedEntries = []
         let credential = ASPasswordCredential(user: user, password: entry.password)
         extensionContext.completeRequest(withSelectedCredential: credential, completionHandler: nil)
     }
 
     private func cancelRequest(code: ASExtensionError.Code) {
+        parsedEntries = []
         extensionContext.cancelRequest(withError: ASExtensionError(code))
     }
 

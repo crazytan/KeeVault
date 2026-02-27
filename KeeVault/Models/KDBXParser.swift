@@ -77,6 +77,18 @@ enum KDBXParser {
         }
     }
 
+    // MARK: - Constant-Time Comparison
+
+    /// Compare two Data values in constant time to prevent timing side-channels on HMAC/hash checks.
+    private static func constantTimeEqual(_ a: Data, _ b: Data) -> Bool {
+        guard a.count == b.count else { return false }
+        var result: UInt8 = 0
+        for i in 0..<a.count {
+            result |= a[i] ^ b[i]
+        }
+        return result == 0
+    }
+
     // MARK: - Public API
 
     /// Parse and decrypt a KDBX 4.x file, returning the root group
@@ -113,7 +125,7 @@ enum KDBXParser {
         let storedHeaderHMAC = reader.readBytes(32)
 
         let computedHeaderSHA = KDBXCrypto.sha256(headerBytes)
-        guard storedHeaderSHA == computedHeaderSHA else {
+        guard constantTimeEqual(storedHeaderSHA, computedHeaderSHA) else {
             throw ParseError.invalidSignature
         }
 
@@ -136,7 +148,7 @@ enum KDBXParser {
         // Verify header HMAC
         let headerHMACKey = computeBlockHMACKey(blockIndex: UInt64.max, baseKey: hmacBaseKey)
         let computedHeaderHMAC = KDBXCrypto.hmacSHA256(key: headerHMACKey, data: headerBytes)
-        guard storedHeaderHMAC == computedHeaderHMAC else {
+        guard constantTimeEqual(storedHeaderHMAC, computedHeaderHMAC) else {
             throw KDBXCrypto.CryptoError.hmacMismatch
         }
 
@@ -361,6 +373,8 @@ enum KDBXParser {
             let storedHMAC = reader.readBytes(32)
             let blockSizeRaw = reader.readInt32()
 
+            guard blockSizeRaw >= 0 else { throw ParseError.truncatedFile }
+
             if blockSizeRaw == 0 {
                 // Final block — verify HMAC of empty block
                 let hmacKey = computeBlockHMACKey(blockIndex: blockIndex, baseKey: baseKey)
@@ -368,7 +382,7 @@ enum KDBXParser {
                 msg.append(withUInt64: blockIndex)
                 msg.append(withInt32: 0)
                 let computed = KDBXCrypto.hmacSHA256(key: hmacKey, data: msg)
-                guard storedHMAC == computed else { throw ParseError.invalidBlockHMAC }
+                guard constantTimeEqual(storedHMAC, computed) else { throw ParseError.invalidBlockHMAC }
                 break
             }
 
@@ -380,7 +394,7 @@ enum KDBXParser {
             msg.append(withInt32: blockSizeRaw)
             msg.append(blockData)
             let computed = KDBXCrypto.hmacSHA256(key: hmacKey, data: msg)
-            guard storedHMAC == computed else { throw ParseError.invalidBlockHMAC }
+            guard constantTimeEqual(storedHMAC, computed) else { throw ParseError.invalidBlockHMAC }
 
             result.append(blockData)
             blockIndex += 1

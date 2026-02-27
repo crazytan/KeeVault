@@ -254,6 +254,8 @@ enum KDBXCrypto {
             inflateEnd(&stream)
         }
 
+        let maxDecompressedSize = 256 * 1024 * 1024 // 256 MB
+
         return try data.withUnsafeBytes { rawInput in
             guard let inputBase = rawInput.bindMemory(to: Bytef.self).baseAddress else {
                 throw CryptoError.decompressionFailed
@@ -275,6 +277,10 @@ enum KDBXCrypto {
                 let produced = outBuffer.count - Int(stream.avail_out)
                 if produced > 0 {
                     output.append(contentsOf: outBuffer.prefix(produced))
+                }
+
+                if output.count > maxDecompressedSize {
+                    throw CryptoError.decompressionFailed
                 }
 
                 if status == Z_STREAM_END {
