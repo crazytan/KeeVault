@@ -40,14 +40,12 @@ enum SettingsService {
         case tenSeconds = "10 Seconds"
         case thirtySeconds = "30 Seconds"
         case oneMinute = "1 Minute"
-        case never = "Never"
 
-        var seconds: TimeInterval? {
+        var seconds: TimeInterval {
             switch self {
             case .tenSeconds: 10
             case .thirtySeconds: 30
             case .oneMinute: 60
-            case .never: nil
             }
         }
     }

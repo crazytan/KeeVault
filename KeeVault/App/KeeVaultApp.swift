@@ -64,16 +64,6 @@ struct DatabaseNavigationView: View {
             .navigationDestination(for: KPEntry.self) { entry in
                 EntryDetailView(entry: entry)
             }
-            .toolbar {
-                ToolbarItem(placement: .topBarTrailing) {
-                    Button {
-                        viewModel.lock()
-                    } label: {
-                        Image(systemName: "lock.fill")
-                    }
-                    .accessibilityIdentifier("lock.button")
-                }
-            }
         }
     }
 }
