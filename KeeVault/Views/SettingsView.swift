@@ -29,7 +29,7 @@ struct SettingsView: View {
                 }
 
                 Section {
-                    Toggle("Show Website Icons", isOn: $showWebsiteIcons)
+                    Toggle("Download Website Favicons", isOn: $showWebsiteIcons)
 
                     Picker("Default Sort Order", selection: $viewModel.sortOrder) {
                         ForEach(DatabaseViewModel.SortOrder.allCases, id: \.self) { order in
