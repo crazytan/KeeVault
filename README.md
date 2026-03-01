@@ -50,4 +50,4 @@ TestFixtures/         # Test .kdbx fixtures
 
 ## License
 
-MIT
+GPLv3 — see [LICENSE](LICENSE) for details.
