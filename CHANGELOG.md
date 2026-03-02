@@ -22,6 +22,12 @@
 
 ## Unreleased
 
+### Changes
+- License changed to GPLv3
+- Moved SECURITY_AUDIT.md to docs/
+- EU App Store availability enabled (DSA trader status submitted)
+
+
 ### Security
 - Passwords and TOTP secrets now stored as AES-GCM encrypted `EncryptedValue` in memory (lazy decrypt on demand)
 - Per-session symmetric key generated at unlock, destroyed on lock
