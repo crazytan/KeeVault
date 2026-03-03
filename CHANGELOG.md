@@ -17,7 +17,8 @@
 
 ### v2 roadmap
 - Editing support (create/modify entries)
-- iPad support
+- EU App Store launch
+- iPad-native layout
 - Sync / attachments
 
 ## Unreleased
