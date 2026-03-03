@@ -19,7 +19,7 @@ final class CredentialIdentityStoreManagerTests: XCTestCase {
     }
 
     func testDomainFromSubdomainURL() {
-        XCTAssertEqual(CredentialIdentityStoreManager.domainFromURLString("https://accounts.google.com/signin"), "accounts.google.com")
+        XCTAssertEqual(CredentialIdentityStoreManager.domainFromURLString("https://accounts.google.com/signin"), "google.com")
     }
 
     func testDomainFromBareDomainPrependsHTTPS() {
@@ -103,14 +103,14 @@ final class CredentialIdentityStoreManagerTests: XCTestCase {
     func testFirstValidDomainWinsFromPrimaryURL() {
         let entry = makeEntry(
             title: "Multi",
-            url: "https://primary.example.com",
+            url: "https://github.com",
             username: "user",
             hasPassword: true,
-            customFields: ["KP2A_URL_1": "https://secondary.example.com"]
+            customFields: ["KP2A_URL_1": "https://gitlab.com"]
         )
         let identity = CredentialIdentityStoreManager.passwordIdentity(for: entry)
 
-        XCTAssertEqual(identity?.serviceIdentifier.identifier, "primary.example.com")
+        XCTAssertEqual(identity?.serviceIdentifier.identifier, "github.com")
     }
 
     func testFallsBackToAdditionalURLWhenPrimaryInvalid() {
@@ -124,7 +124,7 @@ final class CredentialIdentityStoreManagerTests: XCTestCase {
         let identity = CredentialIdentityStoreManager.passwordIdentity(for: entry)
 
         XCTAssertNotNil(identity)
-        XCTAssertEqual(identity?.serviceIdentifier.identifier, "backup.example.com")
+        XCTAssertEqual(identity?.serviceIdentifier.identifier, "example.com")
     }
 
     func testNilWhenAllURLsInvalid() {
@@ -152,7 +152,7 @@ final class CredentialIdentityStoreManagerTests: XCTestCase {
         )
         let identity = CredentialIdentityStoreManager.passwordIdentity(for: entry)
 
-        XCTAssertEqual(identity?.serviceIdentifier.identifier, "second.example.com")
+        XCTAssertEqual(identity?.serviceIdentifier.identifier, "example.com")
     }
 
     // MARK: - passwordIdentity: bare domain URLs
@@ -163,6 +163,45 @@ final class CredentialIdentityStoreManagerTests: XCTestCase {
 
         XCTAssertNotNil(identity)
         XCTAssertEqual(identity?.serviceIdentifier.identifier, "example.com")
+    }
+
+    // MARK: - domainFromURLString: www stripping and registered domain
+
+    func testDomainStripsWWWPrefix() {
+        XCTAssertEqual(CredentialIdentityStoreManager.domainFromURLString("https://www.facebook.com"), "facebook.com")
+    }
+
+    func testDomainStripsWWWFromBareDomain() {
+        XCTAssertEqual(CredentialIdentityStoreManager.domainFromURLString("www.facebook.com"), "facebook.com")
+    }
+
+    func testDomainExtractsRegisteredDomainFromSubdomain() {
+        XCTAssertEqual(CredentialIdentityStoreManager.domainFromURLString("https://login.facebook.com/path"), "facebook.com")
+    }
+
+    func testDomainFromBareFacebookDomain() {
+        XCTAssertEqual(CredentialIdentityStoreManager.domainFromURLString("facebook.com"), "facebook.com")
+    }
+
+    func testDomainReturnsNilForIPv4Address() {
+        XCTAssertNil(CredentialIdentityStoreManager.domainFromURLString("https://192.168.1.1/path"))
+    }
+
+    func testDomainReturnsNilForLocalhost() {
+        XCTAssertNil(CredentialIdentityStoreManager.domainFromURLString("http://localhost:8080"))
+    }
+
+    func testDomainHandlesMultiPartTLD() {
+        XCTAssertEqual(CredentialIdentityStoreManager.domainFromURLString("https://www.bbc.co.uk"), "bbc.co.uk")
+    }
+
+    func testDomainExtractsRegisteredDomainFromMultiPartTLD() {
+        XCTAssertEqual(CredentialIdentityStoreManager.domainFromURLString("https://news.bbc.co.uk"), "bbc.co.uk")
+    }
+
+    func testDomainReturnsNilForBareMultiPartTLD() {
+        // "co.uk" alone is a TLD, not a registrable domain
+        XCTAssertNil(CredentialIdentityStoreManager.domainFromURLString("https://co.uk"))
     }
 
     // MARK: - Helpers

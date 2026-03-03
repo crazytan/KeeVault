@@ -33,10 +33,17 @@ enum CredentialMatcher {
     }
 
     static func hostFromURLString(_ value: String) -> String? {
-        if let host = URL(string: value)?.host {
-            return host
+        let host: String?
+        if let h = URL(string: value)?.host {
+            host = h
+        } else {
+            host = URL(string: "https://\(value)")?.host
         }
 
-        return URL(string: "https://\(value)")?.host
+        guard var result = host else { return nil }
+        if result.lowercased().hasPrefix("www.") {
+            result = String(result.dropFirst(4))
+        }
+        return result
     }
 }
