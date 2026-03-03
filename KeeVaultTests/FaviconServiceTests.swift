@@ -56,6 +56,86 @@ final class FaviconServiceTests: XCTestCase {
         XCTAssertEqual(FaviconService.extractDomain(from: "https://mail.google.com"), "mail.google.com")
     }
 
+    // MARK: - Private Domain Filtering
+
+    func testRejectsRFC1918_10() {
+        XCTAssertNil(FaviconService.extractDomain(from: "http://10.0.0.1"))
+    }
+
+    func testRejectsRFC1918_172() {
+        XCTAssertNil(FaviconService.extractDomain(from: "http://172.16.0.1"))
+        XCTAssertNil(FaviconService.extractDomain(from: "http://172.31.255.255"))
+    }
+
+    func testRejectsRFC1918_192() {
+        XCTAssertNil(FaviconService.extractDomain(from: "http://192.168.1.1"))
+        XCTAssertNil(FaviconService.extractDomain(from: "http://192.168.0.100"))
+    }
+
+    func testRejectsLinkLocal() {
+        XCTAssertNil(FaviconService.extractDomain(from: "http://169.254.1.1"))
+    }
+
+    func testRejectsLoopback127() {
+        XCTAssertNil(FaviconService.extractDomain(from: "http://127.0.0.1"))
+        XCTAssertNil(FaviconService.extractDomain(from: "http://127.0.0.2"))
+    }
+
+    func testRejectsLocalTLD() {
+        XCTAssertNil(FaviconService.extractDomain(from: "http://myserver.local"))
+    }
+
+    func testRejectsInternalTLD() {
+        XCTAssertNil(FaviconService.extractDomain(from: "http://wiki.internal"))
+    }
+
+    func testRejectsLanTLD() {
+        XCTAssertNil(FaviconService.extractDomain(from: "http://nas.lan"))
+    }
+
+    func testRejectsHomeTLD() {
+        XCTAssertNil(FaviconService.extractDomain(from: "http://router.home"))
+    }
+
+    func testRejectsLocaldomainTLD() {
+        XCTAssertNil(FaviconService.extractDomain(from: "http://printer.localdomain"))
+    }
+
+    func testRejectsCorpTLD() {
+        XCTAssertNil(FaviconService.extractDomain(from: "http://jira.corp"))
+    }
+
+    func testRejectsIntranetTLD() {
+        XCTAssertNil(FaviconService.extractDomain(from: "http://portal.intranet"))
+    }
+
+    func testRejectsArpaTLD() {
+        XCTAssertNil(FaviconService.extractDomain(from: "http://1.168.192.in-addr.arpa"))
+    }
+
+    func testRejectsSingleLabelHostname() {
+        XCTAssertNil(FaviconService.extractDomain(from: "http://myserver"))
+    }
+
+    func testAllowsPublicDomains() {
+        XCTAssertEqual(FaviconService.extractDomain(from: "https://github.com"), "github.com")
+        XCTAssertEqual(FaviconService.extractDomain(from: "https://www.example.com"), "www.example.com")
+        XCTAssertEqual(FaviconService.extractDomain(from: "https://app.notion.so"), "app.notion.so")
+    }
+
+    func testIsPrivateDomainDirectly() {
+        XCTAssertTrue(FaviconService.isPrivateDomain("myserver"))
+        XCTAssertTrue(FaviconService.isPrivateDomain("wiki.internal"))
+        XCTAssertTrue(FaviconService.isPrivateDomain("10.0.0.1"))
+        XCTAssertTrue(FaviconService.isPrivateDomain("172.20.0.1"))
+        XCTAssertTrue(FaviconService.isPrivateDomain("192.168.1.1"))
+        XCTAssertTrue(FaviconService.isPrivateDomain("169.254.0.1"))
+        XCTAssertTrue(FaviconService.isPrivateDomain("::1"))
+        XCTAssertTrue(FaviconService.isPrivateDomain("fe80::1"))
+        XCTAssertFalse(FaviconService.isPrivateDomain("github.com"))
+        XCTAssertFalse(FaviconService.isPrivateDomain("8.8.8.8"))
+    }
+
     // MARK: - Cache Key
 
     func testCacheKeyIsSHA256Hex() {

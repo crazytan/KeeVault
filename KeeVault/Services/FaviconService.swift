@@ -4,8 +4,7 @@ import UIKit
 enum FaviconService: Sendable {
     // MARK: - Configuration
 
-    private static let faviconBaseURL = "https://www.google.com/s2/favicons"
-    private static let iconSize = 64
+    private static let faviconBaseURL = "https://icons.duckduckgo.com/ip3/"
     private static let ttlSeconds: TimeInterval = 7 * 24 * 60 * 60 // 7 days
     private static let cacheDirectoryName = "favicons"
 
@@ -38,12 +37,55 @@ enum FaviconService: Sendable {
             return nil
         }
 
-        // Reject IP addresses and localhost
-        if host == "localhost" || host.allSatisfy({ $0.isNumber || $0 == "." || $0 == ":" }) {
+        let lower = host.lowercased()
+
+        // Reject localhost
+        if lower == "localhost" { return nil }
+
+        // Reject IP addresses (IPv4 and IPv6)
+        if lower.allSatisfy({ $0.isNumber || $0 == "." || $0 == ":" }) {
             return nil
         }
 
-        return host.lowercased()
+        // Reject private/internal domains
+        if isPrivateDomain(lower) { return nil }
+
+        return lower
+    }
+
+    // MARK: - Private Domain Detection
+
+    private static let privateTLDs: Set<String> = [
+        ".local", ".internal", ".lan", ".home",
+        ".localdomain", ".corp", ".intranet", ".arpa",
+    ]
+
+    static func isPrivateDomain(_ host: String) -> Bool {
+        // Single-label hostnames (no dots) are likely internal
+        if !host.contains(".") { return true }
+
+        // Private TLDs
+        for tld in privateTLDs where host.hasSuffix(tld) {
+            return true
+        }
+
+        // IPv6 loopback and link-local
+        if host == "::1" || host.hasPrefix("fe80:") { return true }
+
+        // Check for private/reserved IPv4 ranges
+        let parts = host.split(separator: ".").compactMap { UInt8($0) }
+        if parts.count == 4 {
+            switch (parts[0], parts[1]) {
+            case (10, _):                          return true  // 10.0.0.0/8
+            case (172, 16...31):                   return true  // 172.16.0.0/12
+            case (192, 168):                       return true  // 192.168.0.0/16
+            case (169, 254):                       return true  // 169.254.0.0/16 link-local
+            case (127, _):                         return true  // 127.0.0.0/8 loopback
+            default: break
+            }
+        }
+
+        return false
     }
 
     // MARK: - Cache Key
@@ -92,13 +134,7 @@ enum FaviconService: Sendable {
     // MARK: - Fetch
 
     static func fetchFavicon(for domain: String) async -> UIImage? {
-        guard var components = URLComponents(string: faviconBaseURL) else { return nil }
-        components.queryItems = [
-            URLQueryItem(name: "domain", value: domain),
-            URLQueryItem(name: "sz", value: String(iconSize)),
-        ]
-
-        guard let url = components.url else { return nil }
+        guard let url = URL(string: "\(faviconBaseURL)\(domain).ico") else { return nil }
 
         do {
             let (data, response) = try await URLSession.shared.data(from: url)
