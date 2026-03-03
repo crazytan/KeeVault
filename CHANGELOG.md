@@ -10,8 +10,8 @@
 
 ### Security (from SECURITY_AUDIT.md)
 - [x] **HIGH-1/2:** Lazy decrypt — passwords and TOTP secrets held as AES-GCM `EncryptedValue` in memory, decrypted on demand only (copy, reveal, AutoFill, TOTP generation). Session key nilled on lock.
-- [ ] **MEDIUM-1:** Switch favicon provider from Google to DuckDuckGo (privacy)
-- [ ] **MEDIUM-5:** Filter internal/private domain names from favicon fetching
+- [x] **MEDIUM-1:** Switch favicon provider from Google to DuckDuckGo (privacy)
+- [x] **MEDIUM-5:** Filter internal/private domain names from favicon fetching
 - [ ] **LOW-2:** Add exponential backoff after failed password attempts
 - [ ] **LOW-3:** Detect active screen recording (`UIScreen.isCaptured`) and show warning/blur
 
@@ -32,6 +32,8 @@
 
 
 ### Security
+- Switched favicon provider from Google to DuckDuckGo (prevents Google tracking favicon requests)
+- Private/internal domains (RFC 1918 IPs, .local/.corp/.internal TLDs, single-label hostnames, etc.) are now filtered from favicon fetching to prevent hostname leakage
 - Passwords and TOTP secrets now stored as AES-GCM encrypted `EncryptedValue` in memory (lazy decrypt on demand)
 - Per-session symmetric key generated at unlock, destroyed on lock
 - Plaintext secrets only exist in transient local variables at point of use (copy, reveal, TOTP generation)
