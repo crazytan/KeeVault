@@ -127,7 +127,10 @@ struct PasswordFieldRow: View {
                     }
                 } label: {
                     Image(systemName: revealed ? "eye.slash.fill" : "eye.fill")
+                        .font(.body)
                 }
+                .frame(width: 44, height: 44)
+                .contentShape(Rectangle())
                 .disabled(authenticating)
                 .accessibilityIdentifier("entry.password.reveal")
                 CopyButton(resolveText: { (try? password.decrypt(using: sessionKey)) ?? "" }, requireAuth: true, accessibilityID: "entry.copy.password")
@@ -266,8 +269,11 @@ struct CopyButton: View {
             }
         } label: {
             Image(systemName: copied ? "checkmark" : "doc.on.doc")
+                .font(.body)
                 .foregroundStyle(copied ? Color.green : Color.accentColor)
         }
+        .frame(width: 44, height: 44)
+        .contentShape(Rectangle())
         .buttonStyle(.borderless)
         .accessibilityIdentifier(accessibilityID)
     }
