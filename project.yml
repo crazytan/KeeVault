@@ -89,6 +89,8 @@ targets:
       - path: KeeVaultUITests
       - path: TestFixtures/test.kdbx
         buildPhase: resources
+      - path: TestFixtures/demo.kdbx
+        buildPhase: resources
 
   KeeVaultTests:
     type: bundle.unit-test
@@ -103,6 +105,8 @@ targets:
     sources:
       - path: KeeVaultTests
       - path: TestFixtures/test.kdbx
+        buildPhase: resources
+      - path: TestFixtures/demo.kdbx
         buildPhase: resources
 
 schemes:

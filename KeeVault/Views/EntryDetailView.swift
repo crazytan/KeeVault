@@ -110,8 +110,7 @@ struct PasswordFieldRow: View {
                     .foregroundStyle(.secondary)
                     .frame(width: 24)
                 if revealed, let text = revealedText {
-                    Text(text)
-                        .font(.body.monospaced())
+                    ColoredPasswordText(text)
                         .textSelection(.enabled)
                 } else {
                     Text(String(repeating: "\u{2022}", count: 12))
@@ -163,6 +162,32 @@ struct PasswordFieldRow: View {
             HapticService.tap()
             revealedText = (try? password.decrypt(using: sessionKey)) ?? ""
             revealed = true
+        }
+    }
+}
+
+struct ColoredPasswordText: View {
+    let password: String
+
+    init(_ password: String) {
+        self.password = password
+    }
+
+    var body: some View {
+        password.reduce(Text("")) { result, char in
+            result + Text(String(char))
+                .foregroundColor(color(for: char))
+        }
+        .font(.body.monospaced())
+    }
+
+    private func color(for char: Character) -> Color {
+        if char.isLetter {
+            return .primary
+        } else if char.isNumber {
+            return .blue
+        } else {
+            return .orange
         }
     }
 }
