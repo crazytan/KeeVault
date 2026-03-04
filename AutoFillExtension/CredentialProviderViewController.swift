@@ -32,8 +32,8 @@ final class CredentialProviderViewController: ASCredentialProviderViewController
         pendingUnlock = true
     }
 
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         if pendingUnlock {
             pendingUnlock = false
             presentUnlockPromptIfNeeded()
