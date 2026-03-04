@@ -1,6 +1,6 @@
 # AGENTS.md
 
-Context for AI coding agents working on KeeVault.
+Context for AI coding agents working on KeeForge.
 
 ## Overview
 
