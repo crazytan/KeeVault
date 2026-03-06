@@ -46,61 +46,61 @@ final class CredentialIdentityStoreManagerTests: XCTestCase {
         )
     }
 
-    // MARK: - passwordIdentity: basic identity creation
+    // MARK: - passwordIdentities: basic identity creation
 
     func testIdentityWithUsernameAndURL() {
         let entry = makeEntry(title: "GitHub", url: "https://github.com", username: "octocat", hasPassword: true)
-        let identity = CredentialIdentityStoreManager.passwordIdentity(for: entry)
+        let identities = CredentialIdentityStoreManager.passwordIdentities(for: entry)
 
-        XCTAssertNotNil(identity)
-        XCTAssertEqual(identity?.user, "octocat")
-        XCTAssertEqual(identity?.serviceIdentifier.identifier, "github.com")
-        XCTAssertEqual(identity?.serviceIdentifier.type, .domain)
+        XCTAssertEqual(identities.count, 1)
+        XCTAssertEqual(identities.first?.user, "octocat")
+        XCTAssertEqual(identities.first?.serviceIdentifier.identifier, "github.com")
+        XCTAssertEqual(identities.first?.serviceIdentifier.type, .domain)
     }
 
     func testIdentityRecordIdentifierIsEntryUUID() {
         let id = UUID()
         let entry = makeEntry(id: id, title: "Test", url: "https://example.com", username: "user", hasPassword: true)
-        let identity = CredentialIdentityStoreManager.passwordIdentity(for: entry)
+        let identities = CredentialIdentityStoreManager.passwordIdentities(for: entry)
 
-        XCTAssertEqual(identity?.recordIdentifier, id.uuidString)
+        XCTAssertEqual(identities.first?.recordIdentifier, id.uuidString)
     }
 
-    // MARK: - passwordIdentity: username fallback to title
+    // MARK: - passwordIdentities: username fallback to title
 
     func testIdentityFallsBackToTitleWhenUsernameEmpty() {
         let entry = makeEntry(title: "Work Account", url: "https://example.com", username: "", hasPassword: true)
-        let identity = CredentialIdentityStoreManager.passwordIdentity(for: entry)
+        let identities = CredentialIdentityStoreManager.passwordIdentities(for: entry)
 
-        XCTAssertNotNil(identity)
-        XCTAssertEqual(identity?.user, "Work Account")
+        XCTAssertEqual(identities.count, 1)
+        XCTAssertEqual(identities.first?.user, "Work Account")
     }
 
-    // MARK: - passwordIdentity: entries that should be skipped
+    // MARK: - passwordIdentities: entries that should be skipped
 
-    func testIdentityNilWhenNoUsernameAndNoTitle() {
+    func testIdentityEmptyWhenNoUsernameAndNoTitle() {
         let entry = makeEntry(title: "", url: "https://example.com", username: "", hasPassword: true)
-        XCTAssertNil(CredentialIdentityStoreManager.passwordIdentity(for: entry))
+        XCTAssertTrue(CredentialIdentityStoreManager.passwordIdentities(for: entry).isEmpty)
     }
 
-    func testIdentityNilWhenNoPassword() {
+    func testIdentityEmptyWhenNoPassword() {
         let entry = makeEntry(title: "Test", url: "https://example.com", username: "user", hasPassword: false)
-        XCTAssertNil(CredentialIdentityStoreManager.passwordIdentity(for: entry))
+        XCTAssertTrue(CredentialIdentityStoreManager.passwordIdentities(for: entry).isEmpty)
     }
 
-    func testIdentityNilWhenURLEmpty() {
+    func testIdentityEmptyWhenURLEmpty() {
         let entry = makeEntry(title: "No URL", url: "", username: "user", hasPassword: true)
-        XCTAssertNil(CredentialIdentityStoreManager.passwordIdentity(for: entry))
+        XCTAssertTrue(CredentialIdentityStoreManager.passwordIdentities(for: entry).isEmpty)
     }
 
-    func testIdentityNilWhenURLWhitespace() {
+    func testIdentityEmptyWhenURLWhitespace() {
         let entry = makeEntry(title: "Bad URL", url: "   ", username: "user", hasPassword: true)
-        XCTAssertNil(CredentialIdentityStoreManager.passwordIdentity(for: entry))
+        XCTAssertTrue(CredentialIdentityStoreManager.passwordIdentities(for: entry).isEmpty)
     }
 
-    // MARK: - passwordIdentity: multiple URLs (additionalURLs via KP2A_URL_*)
+    // MARK: - passwordIdentities: multiple URLs (additionalURLs via KP2A_URL_*)
 
-    func testFirstValidDomainWinsFromPrimaryURL() {
+    func testMultipleIdentitiesForMultipleURLs() {
         let entry = makeEntry(
             title: "Multi",
             url: "https://github.com",
@@ -108,9 +108,12 @@ final class CredentialIdentityStoreManagerTests: XCTestCase {
             hasPassword: true,
             customFields: ["KP2A_URL_1": "https://gitlab.com"]
         )
-        let identity = CredentialIdentityStoreManager.passwordIdentity(for: entry)
+        let identities = CredentialIdentityStoreManager.passwordIdentities(for: entry)
+        let domains = Set(identities.map { $0.serviceIdentifier.identifier })
 
-        XCTAssertEqual(identity?.serviceIdentifier.identifier, "github.com")
+        XCTAssertEqual(identities.count, 2)
+        XCTAssertTrue(domains.contains("github.com"))
+        XCTAssertTrue(domains.contains("gitlab.com"))
     }
 
     func testFallsBackToAdditionalURLWhenPrimaryInvalid() {
@@ -121,13 +124,13 @@ final class CredentialIdentityStoreManagerTests: XCTestCase {
             hasPassword: true,
             customFields: ["KP2A_URL_1": "https://backup.example.com"]
         )
-        let identity = CredentialIdentityStoreManager.passwordIdentity(for: entry)
+        let identities = CredentialIdentityStoreManager.passwordIdentities(for: entry)
 
-        XCTAssertNotNil(identity)
-        XCTAssertEqual(identity?.serviceIdentifier.identifier, "example.com")
+        XCTAssertEqual(identities.count, 1)
+        XCTAssertEqual(identities.first?.serviceIdentifier.identifier, "example.com")
     }
 
-    func testNilWhenAllURLsInvalid() {
+    func testEmptyWhenAllURLsInvalid() {
         let entry = makeEntry(
             title: "No Valid URLs",
             url: "",
@@ -135,10 +138,10 @@ final class CredentialIdentityStoreManagerTests: XCTestCase {
             hasPassword: true,
             customFields: ["KP2A_URL_1": "", "KP2A_URL_2": ""]
         )
-        XCTAssertNil(CredentialIdentityStoreManager.passwordIdentity(for: entry))
+        XCTAssertTrue(CredentialIdentityStoreManager.passwordIdentities(for: entry).isEmpty)
     }
 
-    func testAdditionalURLsSortedByKey() {
+    func testAdditionalURLsSkipsEmptyValues() {
         // KP2A_URL_1 is empty, KP2A_URL_2 has a valid domain — should use KP2A_URL_2
         let entry = makeEntry(
             title: "Sorted",
@@ -150,19 +153,37 @@ final class CredentialIdentityStoreManagerTests: XCTestCase {
                 "KP2A_URL_2": "https://second.example.com",
             ]
         )
-        let identity = CredentialIdentityStoreManager.passwordIdentity(for: entry)
+        let identities = CredentialIdentityStoreManager.passwordIdentities(for: entry)
 
-        XCTAssertEqual(identity?.serviceIdentifier.identifier, "example.com")
+        XCTAssertEqual(identities.count, 1)
+        XCTAssertEqual(identities.first?.serviceIdentifier.identifier, "example.com")
     }
 
-    // MARK: - passwordIdentity: bare domain URLs
+    // MARK: - passwordIdentities: bare domain URLs
 
     func testIdentityWithBareDomainURL() {
         let entry = makeEntry(title: "Bare", url: "example.com", username: "user", hasPassword: true)
-        let identity = CredentialIdentityStoreManager.passwordIdentity(for: entry)
+        let identities = CredentialIdentityStoreManager.passwordIdentities(for: entry)
 
-        XCTAssertNotNil(identity)
-        XCTAssertEqual(identity?.serviceIdentifier.identifier, "example.com")
+        XCTAssertEqual(identities.count, 1)
+        XCTAssertEqual(identities.first?.serviceIdentifier.identifier, "example.com")
+    }
+
+    // MARK: - passwordIdentities: deduplication
+
+    func testDeduplicatesIdenticalDomains() {
+        // Primary and additional URL resolve to same domain
+        let entry = makeEntry(
+            title: "Dup",
+            url: "https://example.com",
+            username: "user",
+            hasPassword: true,
+            customFields: ["KP2A_URL_1": "https://www.example.com"]
+        )
+        let identities = CredentialIdentityStoreManager.passwordIdentities(for: entry)
+
+        XCTAssertEqual(identities.count, 1)
+        XCTAssertEqual(identities.first?.serviceIdentifier.identifier, "example.com")
     }
 
     // MARK: - domainFromURLString: www stripping and registered domain

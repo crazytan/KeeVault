@@ -13,8 +13,9 @@ enum CredentialIdentityStoreManager: Sendable {
                 return
             }
 
-            let identities = entries.compactMap(passwordIdentity(for:))
-            let skippedCount = entries.count - identities.count
+            let identities = entries.flatMap(passwordIdentities(for:))
+            let entriesWithIdentities = entries.filter { !passwordIdentities(for: $0).isEmpty }.count
+            let skippedCount = entries.count - entriesWithIdentities
             if skippedCount > 0 {
                 logger.info("Skipped \(skippedCount) entries with no extractable domain")
             }
@@ -53,7 +54,7 @@ enum CredentialIdentityStoreManager: Sendable {
             let state = await store.state()
             guard state.isEnabled else { return }
 
-            let identities = entries.compactMap(passwordIdentity(for:))
+            let identities = entries.flatMap(passwordIdentities(for:))
             guard !identities.isEmpty else { return }
 
             do {
@@ -66,21 +67,23 @@ enum CredentialIdentityStoreManager: Sendable {
 
     // MARK: - Internal (visible to tests via @testable import)
 
-    static func passwordIdentity(for entry: KPEntry) -> ASPasswordCredentialIdentity? {
+    static func passwordIdentities(for entry: KPEntry) -> [ASPasswordCredentialIdentity] {
         let username = entry.username.isEmpty ? entry.title : entry.username
-        guard !username.isEmpty else { return nil }
-        guard entry.hasPassword else { return nil }
+        guard !username.isEmpty else { return [] }
+        guard entry.hasPassword else { return [] }
 
         let allURLs = [entry.url] + entry.additionalURLs
-        let domain = allURLs.lazy.compactMap(domainFromURLString).first
-        guard let domain else { return nil }
+        let domains = Set(allURLs.compactMap(domainFromURLString))
+        guard !domains.isEmpty else { return [] }
 
-        let serviceIdentifier = ASCredentialServiceIdentifier(identifier: domain, type: .domain)
-        return ASPasswordCredentialIdentity(
-            serviceIdentifier: serviceIdentifier,
-            user: username,
-            recordIdentifier: entry.id.uuidString
-        )
+        return domains.sorted().map { domain in
+            let serviceIdentifier = ASCredentialServiceIdentifier(identifier: domain, type: .domain)
+            return ASPasswordCredentialIdentity(
+                serviceIdentifier: serviceIdentifier,
+                user: username,
+                recordIdentifier: entry.id.uuidString
+            )
+        }
     }
 
     static func domainFromURLString(_ urlString: String) -> String? {
