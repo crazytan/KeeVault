@@ -267,7 +267,7 @@ final class DatabaseViewModel {
                 url.stopAccessingSecurityScopedResource()
             }
         }
-        return try Data(contentsOf: url)
+        return try CoordinatedFileReader.readData(from: url)
     }
 
     private static func uiTestDatabaseURL() -> URL? {

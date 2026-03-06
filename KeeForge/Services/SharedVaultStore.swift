@@ -11,7 +11,7 @@ enum SharedVaultStore {
 
     static func saveBookmark(for url: URL) throws {
         let bookmarkData = try url.bookmarkData(
-            options: .minimalBookmark,
+            options: [],
             includingResourceValuesForKeys: nil,
             relativeTo: nil
         )
@@ -29,6 +29,10 @@ enum SharedVaultStore {
         ) else { return nil }
 
         if isStale {
+            let accessed = url.startAccessingSecurityScopedResource()
+            defer {
+                if accessed { url.stopAccessingSecurityScopedResource() }
+            }
             try? saveBookmark(for: url)
         }
 

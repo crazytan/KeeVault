@@ -219,7 +219,7 @@ final class CredentialProviderViewController: ASCredentialProviderViewController
             throw NSError(domain: ASExtensionErrorDomain, code: ASExtensionError.failed.rawValue)
         }
         defer { url.stopAccessingSecurityScopedResource() }
-        return try Data(contentsOf: url)
+        return try CoordinatedFileReader.readData(from: url)
     }
 
     private func presentMatchesOrFinish() {
