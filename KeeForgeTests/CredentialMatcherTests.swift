@@ -116,13 +116,13 @@ final class CredentialMatcherTests: XCTestCase {
         XCTAssertEqual(matches.count, 1)
     }
 
-    func testEmptyIdentifiersReturnsAll() {
+    func testEmptyIdentifiersReturnsEmpty() {
         let entries = [
             makeEntry(title: "A", url: "https://a.com", username: "u", password: "p"),
             makeEntry(title: "B", url: "https://b.com", username: "u", password: "p"),
         ]
         let matches = CredentialMatcher.matchedEntries(from: entries, for: [])
-        XCTAssertEqual(matches.count, 2)
+        XCTAssertTrue(matches.isEmpty)
     }
 
     func testCaseInsensitiveMatch() {

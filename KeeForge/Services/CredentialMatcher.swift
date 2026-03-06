@@ -2,7 +2,7 @@ import AuthenticationServices
 
 enum CredentialMatcher {
     static func matchedEntries(from entries: [KPEntry], for identifiers: [ASCredentialServiceIdentifier]) -> [KPEntry] {
-        guard !identifiers.isEmpty else { return entries }
+        guard !identifiers.isEmpty else { return [] }
 
         let searchTerms = Set(identifiers.compactMap(searchTerm(for:)).map { $0.lowercased() })
 
