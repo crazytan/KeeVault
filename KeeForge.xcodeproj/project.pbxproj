@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		A1B2C3D4E5F60718293A4B5C /* ReviewPromptService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1E2F3A4B5C60718293A4B5C /* ReviewPromptService.swift */; };
+		A2B3C4D5E6F70829314A5B6D /* ReviewPromptServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2E3F4A5B6C70829314A5B6D /* ReviewPromptServiceTests.swift */; };
 		01A3F5B7C8D24E9A3F6B1D02 /* AutoFillSearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02B4E6C9D9E35FAB407C2E13 /* AutoFillSearchView.swift */; };
 		05608A3B8309DC423D0D15EB /* TOTPGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51105ADF7C41EB47401418D9 /* TOTPGenerator.swift */; };
 		109624BC35F24E414533262E /* CredentialIdentityStoreManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C00A121EB1739F34DA39FE12 /* CredentialIdentityStoreManager.swift */; };
@@ -139,8 +141,10 @@
 		35E6EA2FF600FFF3543FF763 /* GroupListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupListView.swift; sourceTree = "<group>"; };
 		37FCB8A14A23CD5B7A7C8350 /* AutoFillExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = AutoFillExtension.entitlements; sourceTree = "<group>"; };
 		3A86027943176F7BF6A605EA /* SettingsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsService.swift; sourceTree = "<group>"; };
+		D1E2F3A4B5C60718293A4B5C /* ReviewPromptService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewPromptService.swift; sourceTree = "<group>"; };
 		3FFF736116CE4861D823A5B6 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		43638A44681D59420BAF6F8A /* SettingsServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsServiceTests.swift; sourceTree = "<group>"; };
+		D2E3F4A5B6C70829314A5B6D /* ReviewPromptServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewPromptServiceTests.swift; sourceTree = "<group>"; };
 		4A15836C142BB997DA70F8FE /* KeeForgeUITestCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeeForgeUITestCase.swift; sourceTree = "<group>"; };
 		4B393A7DB556210E94C0F3A2 /* AppStoreScreenshots.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppStoreScreenshots.swift; sourceTree = "<group>"; };
 		4C77F34C13AF18DED3B4314B /* ScreenshotTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenshotTests.swift; sourceTree = "<group>"; };
@@ -232,6 +236,7 @@
 				7E8950E3736C571416F14FEF /* FaviconService.swift */,
 				CC501EE7E48C61C39641D99D /* HapticService.swift */,
 				CFE66B25CC80659A7E75C953 /* KeychainService.swift */,
+				D1E2F3A4B5C60718293A4B5C /* ReviewPromptService.swift */,
 				D288FBCA92B66BC8122CF445 /* ScreenProtectionService.swift */,
 				3A86027943176F7BF6A605EA /* SettingsService.swift */,
 				B84A9EECD929C6729AE6C797 /* SharedVaultStore.swift */,
@@ -353,6 +358,7 @@
 				E3217CA8D7D14799D216386B /* FaviconServiceTests.swift */,
 				012690B5F23A7226C211D172 /* KDBXParserTests.swift */,
 				0330F701821BF808278069A3 /* ModelLogicTests.swift */,
+				D2E3F4A5B6C70829314A5B6D /* ReviewPromptServiceTests.swift */,
 				43638A44681D59420BAF6F8A /* SettingsServiceTests.swift */,
 				255524A0026746268CB46642 /* SharedVaultStoreTests.swift */,
 				DFF14B46CC89D1B7A9138E80 /* SortOrderTests.swift */,
@@ -570,6 +576,7 @@
 				85F4BF94918B5C26592668EA /* NavigationConformances.swift in Sources */,
 				D248A2156D636F43643B14A1 /* ScreenProtectionService.swift in Sources */,
 				58AD474260AA662614997B94 /* SearchView.swift in Sources */,
+				A1B2C3D4E5F60718293A4B5C /* ReviewPromptService.swift in Sources */,
 				8D12DB8CC870E9C939069474 /* SettingsService.swift in Sources */,
 				7FE2210E6E580757720E6153 /* SettingsView.swift in Sources */,
 				835C85AA1D1B65323ED71533 /* SharedVaultStore.swift in Sources */,
@@ -605,6 +612,7 @@
 				B253A58297B36B63A5838DCB /* FaviconServiceTests.swift in Sources */,
 				BFB9B3CB53F5C29E4AB01037 /* KDBXParserTests.swift in Sources */,
 				397AE855030AD882CF3B5A65 /* ModelLogicTests.swift in Sources */,
+				A2B3C4D5E6F70829314A5B6D /* ReviewPromptServiceTests.swift in Sources */,
 				D60E824CAF57BAF67DE77841 /* SettingsServiceTests.swift in Sources */,
 				2134BB330E59C281CF96FDAF /* SharedVaultStoreTests.swift in Sources */,
 				5E1E376FC35BF2DB8D73A60B /* SortOrderTests.swift in Sources */,

@@ -181,6 +181,7 @@ final class DatabaseViewModel {
             }
 
             populateCredentialStoreIfNeeded(root: root)
+            ReviewPromptService.requestReviewIfAppropriate()
         } catch {
             if isUITesting {
                 Self.diagnostic("unlock: failed with error '\(error.localizedDescription)'")
@@ -215,6 +216,7 @@ final class DatabaseViewModel {
             startInactivityTimer()
 
             populateCredentialStoreIfNeeded(root: root)
+            ReviewPromptService.requestReviewIfAppropriate()
         } catch {
             state = .error(error.localizedDescription)
         }
