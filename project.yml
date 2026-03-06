@@ -75,6 +75,7 @@ targets:
       - path: KeeForge/Services/CredentialMatcher.swift
       - path: KeeForge/Services/CredentialIdentityStoreManager.swift
       - path: KeeForge/Services/FaviconService.swift
+      - path: KeeForge/Services/CoordinatedFileReader.swift
 
   KeeForgeUITests:
     type: bundle.ui-testing
