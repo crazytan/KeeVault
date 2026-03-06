@@ -17,7 +17,7 @@ jobs:
     env:
       SCHEME: KeeForge
       PROJECT: KeeForge.xcodeproj
-      DESTINATION: 'platform=iOS Simulator,name=iPhone 16 Pro,OS=latest'
+      DESTINATION: 'platform=iOS Simulator,name=iPhone 16 Pro'
 
     steps:
       - uses: actions/checkout@v4
