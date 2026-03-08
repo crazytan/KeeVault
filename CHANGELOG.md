@@ -5,20 +5,20 @@
 ### Features
 - [x] Feedback button in About page → links to GitHub Issues
 - [x] Tip Jar in About page — consumable IAPs (StoreKit 2)
-- [ ] Key file support (`.key` / `.keyx` — composite key unlock) → see docs/KEY_FILE_IMPLEMENTATION.md
+- [x] Key file support (`.key` / `.keyx` — composite key unlock) → see docs/KEY_FILE_IMPLEMENTATION.md
 - [ ] Passkey support
-- [ ] Show created/modified timestamps in entry detail view
-- [ ] Sort ascending/descending toggle (currently always ascending)
+- [x] Show created/modified timestamps in entry detail view
+- [x] Sort ascending/descending toggle (currently always ascending)
 
 ### Bugs
-- [ ] Tip Jar section shows spinner on device (StoreKit config not wired to scheme, or products not in App Store Connect)
+- [x] Tip Jar section shows spinner on device (StoreKit config not wired to scheme, or products not in App Store Connect)
 
 ### Security (from SECURITY_AUDIT.md)
 - [x] **HIGH-1/2:** Lazy decrypt — passwords and TOTP secrets held as AES-GCM `EncryptedValue` in memory, decrypted on demand only (copy, reveal, AutoFill, TOTP generation). Session key nilled on lock.
 - [x] **MEDIUM-1:** Switch favicon provider from Google to DuckDuckGo (privacy)
 - [x] **MEDIUM-5:** Filter internal/private domain names from favicon fetching
-- [ ] **LOW-2:** Add exponential backoff after failed password attempts
-- [ ] **LOW-3:** Detect active screen recording (`UIScreen.isCaptured`) and show warning/blur
+- [x] **LOW-2:** Add exponential backoff after failed password attempts
+- [x] **LOW-3:** Detect active screen recording (`UIScreen.isCaptured`) and show warning/blur
 
 ### v2 roadmap
 - Editing support (create/modify entries)
