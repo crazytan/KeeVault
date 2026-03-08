@@ -2,14 +2,16 @@
 
 ## TODO
 
-### Bugs
-- (none currently)
-
 ### Features
-- [ ] Feedback button in About page → links to GitHub Issues
-- [ ] Tip Jar in About page — consumable IAPs (Apple takes 30%, but it's the approved approach)
-- [ ] Key file support (`.key` / `.keyx` — composite key unlock)
+- [x] Feedback button in About page → links to GitHub Issues
+- [x] Tip Jar in About page — consumable IAPs (StoreKit 2)
+- [ ] Key file support (`.key` / `.keyx` — composite key unlock) → see docs/KEY_FILE_IMPLEMENTATION.md
 - [ ] Passkey support
+- [ ] Show created/modified timestamps in entry detail view
+- [ ] Sort ascending/descending toggle (currently always ascending)
+
+### Bugs
+- [ ] Tip Jar section shows spinner on device (StoreKit config not wired to scheme, or products not in App Store Connect)
 
 ### Security (from SECURITY_AUDIT.md)
 - [x] **HIGH-1/2:** Lazy decrypt — passwords and TOTP secrets held as AES-GCM `EncryptedValue` in memory, decrypted on demand only (copy, reveal, AutoFill, TOTP generation). Session key nilled on lock.
