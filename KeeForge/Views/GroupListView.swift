@@ -65,6 +65,11 @@ struct GroupListView: View {
                                         Text(order.rawValue).tag(order)
                                     }
                                 }
+
+                                Picker("Sort Direction", selection: $viewModel.sortAscending) {
+                                    Text("Ascending").tag(true)
+                                    Text("Descending").tag(false)
+                                }
                             } label: {
                                 Image(systemName: "arrow.up.arrow.down")
                             }

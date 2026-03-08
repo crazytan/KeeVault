@@ -217,8 +217,11 @@ final class DatabaseViewModel {
             let delay = lockoutDelay
             if delay > 0 {
                 lockoutUntil = Date.now.addingTimeInterval(delay)
+                let seconds = Int(ceil(delay))
+                state = .error("Too many failed attempts. Try again in \(seconds)s.")
+            } else {
+                state = .error(error.localizedDescription)
             }
-            state = .error(error.localizedDescription)
         }
     }
 
