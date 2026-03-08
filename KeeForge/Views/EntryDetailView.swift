@@ -64,6 +64,16 @@ struct EntryDetailView: View {
                     }
                 }
             }
+            if entry.creationTime != nil || entry.lastModificationTime != nil {
+                Section("Details") {
+                    if let created = entry.creationTime {
+                        LabeledContent("Created", value: created.formatted(date: .abbreviated, time: .shortened))
+                    }
+                    if let modified = entry.lastModificationTime {
+                        LabeledContent("Modified", value: modified.formatted(date: .abbreviated, time: .shortened))
+                    }
+                }
+            }
         }
         .navigationTitle(entry.title)
         .navigationBarTitleDisplayMode(.inline)
