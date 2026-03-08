@@ -25,10 +25,16 @@
 - Fixed demo.kdbx TOTP entries (bare base32 → proper `otpauth://` URIs)
 - App Store screenshot test: reveals colored password + scrolls to show TOTP
 
+### Known Issues
+- Passkey AutoFill auth may fail if relying party includes `www.` prefix (e.g. `www.passkeys.io` vs `passkeys.io`). Passkey display and badge work correctly.
+- AutoFill extension cannot access databases opened from cloud drives (Google Drive, OneDrive, Dropbox). Use local files for AutoFill.
+
 ### TODO (v2 roadmap)
+- [ ] Passkey AutoFill relying party normalization (strip www. prefix)
 - [ ] Passkey creation (Phase 3 — requires KDBX write support)
 - [ ] Editing support (create/modify entries)
 - [ ] Cloud drive integration (WebDAV, Google Drive, OneDrive, Dropbox)
+- [ ] Cloud file AutoFill support (copy to App Group container)
 - [ ] iPad-native layout
 - [ ] Sync / attachments
 

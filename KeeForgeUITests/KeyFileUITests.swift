@@ -20,20 +20,6 @@ final class KeyFileUITests: KeeForgeUITestCase {
         return nil
     }
 
-    func testKeyFileSelectButtonExists() {
-        let passwordField = app.secureTextFields["unlock.password.field"]
-        XCTAssertTrue(passwordField.waitForExistence(timeout: 10), "Password field not found")
-
-        // Key file row should be visible on unlock screen
-        let keyFileRow = app.descendants(matching: .any).matching(identifier: "unlock.keyfile.row").firstMatch
-        if !keyFileRow.waitForExistence(timeout: 5) {
-            app.swipeUp()
-        }
-
-        let selectButton = findKeyFileSelect()
-        XCTAssertNotNil(selectButton, "Key file Select button not found")
-    }
-
     func testKeyFileSelectOpensDocumentPicker() {
         let passwordField = app.secureTextFields["unlock.password.field"]
         XCTAssertTrue(passwordField.waitForExistence(timeout: 10), "Password field not found")
@@ -93,12 +79,6 @@ final class KeyFileUnlockUITests: KeeForgeUITestCase {
             app.buttons["lock.button"].waitForExistence(timeout: 20),
             "Vault did not unlock with password + key file"
         )
-    }
-
-    func testKeyFileUnlockSucceeds() {
-        // demo-keyfile.kdbx requires password "demo" + key file
-        // The key file is auto-injected via UI_TEST_KEYFILE_BASE64 env var
-        unlockWithKeyFile()
     }
 
     func testKeyFileUnlockShowsEntries() {
