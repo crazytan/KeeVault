@@ -93,7 +93,7 @@ struct SettingsView: View {
             Text("Display")
         } footer: {
             if showWebsiteIcons {
-                Text("Fetches icons from Google. Only the website domain is sent.")
+                Text("Fetches icons from DuckDuckGo. Only the website domain is sent.")
             }
         }
     }
