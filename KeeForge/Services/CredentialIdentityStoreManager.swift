@@ -14,7 +14,9 @@ enum CredentialIdentityStoreManager: Sendable {
             }
 
             let passwordIds = entries.flatMap(passwordIdentities(for:))
-            let passkeyIds = entries.compactMap(passkeyIdentity(for:))
+            let passkeyIds: [ASPasskeyCredentialIdentity] = SettingsService.passkeyEnabled
+                ? entries.compactMap(passkeyIdentity(for:))
+                : []
             let totalIdentities = passwordIds.count + passkeyIds.count
             guard totalIdentities > 0 else {
                 logger.info("No credential identities to populate")

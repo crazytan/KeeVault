@@ -8,7 +8,7 @@
 - **Feedback button** — links to GitHub Issues from the About section
 - **Entry timestamps** — created and modified dates shown in entry detail view
 - **Sort direction** — ascending/descending toggle for all sort orders
-- **Passkey support** — detect and authenticate with passkeys stored in KeePassXC format (`KPEX_PASSKEY_*` custom fields). AutoFill extension provides passkey credentials to Safari and apps. Passkey badge on entries, detail view shows relying party + username.
+- **Passkey support** — detect and authenticate with passkeys stored in KeePassXC format (`KPEX_PASSKEY_*` custom fields). AutoFill extension provides passkey credentials to Safari and apps. Passkey badge on entries, detail view shows relying party + username. *(Disabled behind feature flag for v1.4.0 — will be re-enabled in a future release)*
 
 ### Security
 - Exponential backoff after failed password attempts (2s→4s→8s→16s→30s cap)

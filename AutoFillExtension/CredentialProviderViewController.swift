@@ -39,6 +39,10 @@ final class CredentialProviderViewController: ASCredentialProviderViewController
     // MARK: - Passkey credential request (iOS 17+)
 
     override func prepareCredentialList(for serviceIdentifiers: [ASCredentialServiceIdentifier], requestParameters: ASPasskeyCredentialRequestParameters) {
+        guard SettingsService.passkeyEnabled else {
+            cancelRequest(code: .failed)
+            return
+        }
         self.serviceIdentifiers = serviceIdentifiers
         targetRecordIdentifier = nil
         pendingPasskeyRequest = nil
@@ -48,6 +52,10 @@ final class CredentialProviderViewController: ASCredentialProviderViewController
 
     override func prepareInterfaceToProvideCredential(for credentialRequest: ASCredentialRequest) {
         if let passkeyRequest = credentialRequest as? ASPasskeyCredentialRequest {
+            guard SettingsService.passkeyEnabled else {
+                cancelRequest(code: .failed)
+                return
+            }
             pendingPasskeyRequest = passkeyRequest
             targetRecordIdentifier = passkeyRequest.credentialIdentity.recordIdentifier
             didAttemptAutoBiometricUnlock = false
@@ -61,6 +69,10 @@ final class CredentialProviderViewController: ASCredentialProviderViewController
 
     override func provideCredentialWithoutUserInteraction(for credentialRequest: ASCredentialRequest) {
         if let passkeyRequest = credentialRequest as? ASPasskeyCredentialRequest {
+            guard SettingsService.passkeyEnabled else {
+                extensionContext.cancelRequest(withError: ASExtensionError(.failed))
+                return
+            }
             providePasskeyWithoutUserInteraction(for: passkeyRequest)
         } else if let passwordIdentity = credentialRequest.credentialIdentity as? ASPasswordCredentialIdentity {
             provideCredentialWithoutUserInteraction(for: passwordIdentity)
@@ -293,8 +305,8 @@ final class CredentialProviderViewController: ASCredentialProviderViewController
         } else {
             allEntries = root.allEntries
         }
-        // Include entries with passwords OR passkeys
-        parsedEntries = allEntries.filter { $0.hasPassword || $0.hasPasskey }
+        // Include entries with passwords OR passkeys (when enabled)
+        parsedEntries = allEntries.filter { $0.hasPassword || (SettingsService.passkeyEnabled && $0.hasPasskey) }
     }
 
     private func readSecurityScoped(url: URL) throws -> Data {
