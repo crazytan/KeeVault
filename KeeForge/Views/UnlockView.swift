@@ -4,8 +4,9 @@ import UniformTypeIdentifiers
 struct UnlockView: View {
     @Bindable var viewModel: DatabaseViewModel
     @State private var password = ""
-    @State private var showFilePicker = false
-    @State private var showKeyFilePicker = false
+    private enum PickerKind { case database, keyFile }
+    @State private var activePicker: PickerKind?
+    @State private var showPicker = false
     @State private var keyFileData: Data?
     @State private var keyFileName: String?
     @State private var autoUnlockAttemptedLockCycle: Int?
@@ -32,9 +33,17 @@ struct UnlockView: View {
         }
         .padding()
         .fileImporter(
-            isPresented: $showFilePicker,
+            isPresented: $showPicker,
             allowedContentTypes: [.item],
-            onCompletion: handleFileSelection
+            onCompletion: { result in
+                switch activePicker {
+                case .keyFile:
+                    handleKeyFileSelection(result)
+                default:
+                    handleFileSelection(result)
+                }
+                activePicker = nil
+            }
         )
         .onAppear {
             autoUnlockWithBiometricsIfNeeded()
@@ -79,7 +88,8 @@ struct UnlockView: View {
             }
 
             Button("Choose Different File") {
-                showFilePicker = true
+                activePicker = .database
+                showPicker = true
             }
             .font(.footnote)
 
@@ -129,18 +139,14 @@ struct UnlockView: View {
             }
 
             Button("Select") {
-                showKeyFilePicker = true
+                activePicker = .keyFile
+                showPicker = true
             }
             .font(.subheadline)
             .accessibilityIdentifier("unlock.keyfile.select")
         }
         .padding(.horizontal)
         .accessibilityIdentifier("unlock.keyfile.row")
-        .fileImporter(
-            isPresented: $showKeyFilePicker,
-            allowedContentTypes: [.item],
-            onCompletion: handleKeyFileSelection
-        )
     }
 
     private var noFileSection: some View {
@@ -148,7 +154,7 @@ struct UnlockView: View {
             Text("Open a .kdbx database to get started")
                 .foregroundStyle(.secondary)
 
-            Button(action: { showFilePicker = true }) {
+            Button(action: { activePicker = .database; showPicker = true }) {
                 Label("Open Database", systemImage: "folder.badge.plus")
                     .frame(maxWidth: .infinity)
             }

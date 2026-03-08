@@ -28,6 +28,7 @@
 ### TODO (v2 roadmap)
 - [ ] Passkey creation (Phase 3 — requires KDBX write support)
 - [ ] Editing support (create/modify entries)
+- [ ] Cloud drive integration (WebDAV, Google Drive, OneDrive, Dropbox)
 - [ ] iPad-native layout
 - [ ] Sync / attachments
 
