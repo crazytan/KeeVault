@@ -1,6 +1,6 @@
 # Changelog
 
-## v1.4.0 (unreleased)
+## v1.4.0 (2026-03-08)
 
 ### New Features
 - **Key file support** — unlock databases with password + key file (composite key). Supports all KeePass key file formats: binary, hex, XML v1.0 (`.key`), XML v2.0 (`.keyx`), and arbitrary files
@@ -16,6 +16,9 @@
 - QuickType AutoFill now enabled by default for new users
 
 ### Fixes
+- Fixed backoff error message — now shows "Too many failed attempts. Try again in Xs." immediately instead of raw crypto error
+- Sort direction toggle added to list view toolbar (was only in Settings)
+- Fixed favicon provider label (Google → DuckDuckGo)
 - Tip Jar shows "not available" instead of infinite spinner when products aren't configured
 - Fixed demo.kdbx TOTP entries (bare base32 → proper `otpauth://` URIs)
 - App Store screenshot test: reveals colored password + scrolls to show TOTP
