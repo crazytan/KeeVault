@@ -8,6 +8,7 @@ final class SortOrderTests: XCTestCase {
     override func setUp() {
         super.setUp()
         viewModel = DatabaseViewModel()
+        viewModel.sortAscending = true
     }
 
     // MARK: - Entry Sorting
@@ -57,6 +58,7 @@ final class SortOrderTests: XCTestCase {
 
     func testSortEntriesByModifiedDateDescending() {
         viewModel.sortOrder = .modifiedDate
+        viewModel.sortAscending = false
         let old = Date(timeIntervalSince1970: 1_000_000)
         let mid = Date(timeIntervalSince1970: 2_000_000)
         let recent = Date(timeIntervalSince1970: 3_000_000)
@@ -118,6 +120,7 @@ final class SortOrderTests: XCTestCase {
 
     func testSortGroupsByModifiedDateDescending() {
         viewModel.sortOrder = .modifiedDate
+        viewModel.sortAscending = false
         let old = Date(timeIntervalSince1970: 1_000_000)
         let recent = Date(timeIntervalSince1970: 2_000_000)
 

@@ -43,9 +43,17 @@ struct EntryDetailView: View {
                 }
             }
 
-            if !entry.customFields.isEmpty {
+            if let passkey = entry.passkeyCredential {
+                Section("Passkey") {
+                    FieldRow(label: "Relying Party", value: passkey.relyingParty, icon: "person.badge.key.fill")
+                    FieldRow(label: "Username", value: passkey.username, icon: "person.fill")
+                    FieldRow(label: "Credential ID", value: passkey.credentialID, icon: "key.fill")
+                }
+            }
+
+            if !entry.displayCustomFields.isEmpty {
                 Section("Custom Fields") {
-                    ForEach(entry.customFields.sorted(by: { $0.key < $1.key }), id: \.key) { key, value in
+                    ForEach(entry.displayCustomFields.sorted(by: { $0.key < $1.key }), id: \.key) { key, value in
                         FieldRow(label: key, value: value, icon: "text.justify.left")
                     }
                 }

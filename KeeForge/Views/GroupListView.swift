@@ -134,6 +134,12 @@ struct EntryRow: View {
 
             Spacer()
 
+            if entry.hasPasskey {
+                Image(systemName: "person.badge.key.fill")
+                    .font(.caption)
+                    .foregroundStyle(.purple)
+            }
+
             if entry.totpConfig != nil {
                 Image(systemName: "clock.badge.checkmark")
                     .font(.caption)

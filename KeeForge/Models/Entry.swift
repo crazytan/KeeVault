@@ -55,6 +55,19 @@ struct KPEntry: Identifiable, Sendable {
             .filter { !$0.isEmpty }
     }
 
+    /// Passkey credential parsed from KPEX_PASSKEY_* custom fields, if present.
+    var passkeyCredential: PasskeyCredential? {
+        PasskeyCredential(customFields: customFields)
+    }
+
+    /// Whether this entry contains a passkey credential.
+    var hasPasskey: Bool { passkeyCredential != nil }
+
+    /// Custom fields excluding internal KPEX passkey fields (for display purposes).
+    var displayCustomFields: [String: String] {
+        customFields.filter { !PasskeyCredential.allFieldKeys.contains($0.key) }
+    }
+
     /// System icon name based on KeePass icon ID
     var systemIconName: String {
         switch iconID {

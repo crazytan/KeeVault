@@ -13,20 +13,20 @@ enum CredentialIdentityStoreManager: Sendable {
                 return
             }
 
-            let identities = entries.flatMap(passwordIdentities(for:))
-            let entriesWithIdentities = entries.filter { !passwordIdentities(for: $0).isEmpty }.count
-            let skippedCount = entries.count - entriesWithIdentities
-            if skippedCount > 0 {
-                logger.info("Skipped \(skippedCount) entries with no extractable domain")
-            }
-            guard !identities.isEmpty else {
+            let passwordIds = entries.flatMap(passwordIdentities(for:))
+            let passkeyIds = entries.compactMap(passkeyIdentity(for:))
+            let totalIdentities = passwordIds.count + passkeyIds.count
+            guard totalIdentities > 0 else {
                 logger.info("No credential identities to populate")
                 return
             }
 
             do {
-                try await store.replaceCredentialIdentities(identities)
-                logger.info("Populated identity store with \(identities.count) identities")
+                try await store.replaceCredentialIdentities(passwordIds)
+                if !passkeyIds.isEmpty {
+                    try await store.saveCredentialIdentities(passkeyIds)
+                }
+                logger.info("Populated identity store with \(passwordIds.count) password + \(passkeyIds.count) passkey identities")
             } catch {
                 logger.error("Failed to replace credential identities: \(error.localizedDescription)")
             }
@@ -63,6 +63,23 @@ enum CredentialIdentityStoreManager: Sendable {
                 logger.error("Failed to remove credential identities: \(error.localizedDescription)")
             }
         }
+    }
+
+    // MARK: - Passkey identities
+
+    static func passkeyIdentity(for entry: KPEntry) -> ASPasskeyCredentialIdentity? {
+        guard let passkey = entry.passkeyCredential,
+              let credentialIDData = passkey.credentialIDData,
+              let userHandleData = passkey.userHandleData
+        else { return nil }
+
+        return ASPasskeyCredentialIdentity(
+            relyingPartyIdentifier: passkey.relyingParty,
+            userName: passkey.username,
+            credentialID: credentialIDData,
+            userHandle: userHandleData,
+            recordIdentifier: entry.id.uuidString
+        )
     }
 
     // MARK: - Internal (visible to tests via @testable import)
