@@ -20,6 +20,8 @@
 - Sort direction toggle added to list view toolbar (was only in Settings)
 - Fixed "Choose Different File" button not opening file picker (two `.fileImporter` modifiers on same view)
 - Fixed Face ID auto-triggering immediately after manual lock
+- Fixed cloud drive files (Google Drive, OneDrive, Dropbox) grayed out in document picker
+- Fixed key file picker not opening (consolidated to single file importer)
 - Fixed favicon provider label (Google → DuckDuckGo)
 - Tip Jar shows "not available" instead of infinite spinner when products aren't configured
 - Fixed demo.kdbx TOTP entries (bare base32 → proper `otpauth://` URIs)
