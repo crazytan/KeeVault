@@ -13,9 +13,6 @@ A free, native iOS KeePass password manager built with SwiftUI. Read-only in v1 
 - **Search** — full-text search across all entries
 - **Sorting** — sort by title, created, or modified date; ascending or descending
 - **Favicons** — opt-in website icon fetching via DuckDuckGo with disk cache
-- **Tip Jar** — three tip tiers via StoreKit 2 in the About section
-- **Entry timestamps** — view created and modified dates on every entry
-- **Feedback** — send feedback directly from the Settings screen
 - **Security hardened** — AES-GCM in-memory secret encryption, exponential backoff on failed attempts, screen recording blur overlay, local-only clipboard, decompression bomb protection, constant-time HMAC comparison
 
 ## Requirements

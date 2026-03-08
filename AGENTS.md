@@ -221,17 +221,6 @@ Key file test fixtures: `test-binary.key`, `test-hex.key`, `test-v1.key`, `test-
 - `openAnyEntry()` — navigate groups to find and tap an entry
 - `firstVisibleEntryLabel()` — get title of first visible entry
 
-## v1.4.0 Features
-
-- **Key file support** — binary, hex, XML v1/v2, and arbitrary file key formats via `KeyFileProcessor`
-- **Passkey detection & authentication** — FIDO2/WebAuthn passkeys parsed from KeePassXC `KPEX_PASSKEY_*` fields, ECDSA P-256 assertion signing via `PasskeyCrypto`, AutoFill extension handles `ASPasskeyCredentialRequest`
-- **Tip jar** — StoreKit 2 in-app purchases (3 tiers) in `TipJarView` / `StoreKitManager`
-- **Sort direction** — ascending/descending toggle in settings, sort by title/created/modified date
-- **Entry timestamps** — created and modified dates displayed in entry detail view
-- **Screen recording blur** — `ScreenProtectionService` shows blur overlay when `UIScreen.isCaptured` is true
-- **Exponential backoff** — failed password attempts trigger increasing lockout delays (2s→4s→8s→16s→30s cap)
-- **Feedback button** — "Send Feedback" mailto link in Settings About section
-
 ## CHANGELOG
 
 **Always update `CHANGELOG.md` when committing a feature or bug fix.** Add a bullet to the `## Unreleased` section describing the change. Use past tense for fixes ("Fixed ...") and present tense for features ("Add ..."). Keep entries concise. Do NOT modify entries under released versions (v1.0.0, v1.1.0, etc.).
