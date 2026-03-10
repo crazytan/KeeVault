@@ -1,5 +1,9 @@
 # Changelog
 
+## Unreleased
+
+- Fixed QuickType AutoFill identities being left stale after refreshing the shared database cache while the app is unlocked.
+
 ### TODO (v2 roadmap)
 - [ ] Passkey AutoFill relying party normalization (strip www. prefix)
 - [ ] Passkey creation (Phase 3 — requires KDBX write support)

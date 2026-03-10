@@ -13,6 +13,7 @@ final class DatabaseViewModelTests: XCTestCase {
 
     override func tearDown() {
         DocumentPickerService.clearBookmark()
+        CredentialIdentityStoreManager.populateObserver = nil
         super.tearDown()
     }
 
@@ -79,6 +80,26 @@ final class DatabaseViewModelTests: XCTestCase {
 
         let cachedURL = try XCTUnwrap(SharedVaultStore.loadCachedDatabaseURL())
         XCTAssertEqual(try Data(contentsOf: cachedURL), try Data(contentsOf: url))
+    }
+
+    func testForegroundRefreshRepopulatesCredentialStoreWhenUnlocked() async throws {
+        let vm = DatabaseViewModel()
+        vm.selectFile(try fixtureURL())
+
+        let refreshExpectation = expectation(description: "Credential store repopulated after refresh")
+        var populateCallCount = 0
+        CredentialIdentityStoreManager.populateObserver = { _ in
+            populateCallCount += 1
+            if populateCallCount == 2 {
+                refreshExpectation.fulfill()
+            }
+        }
+
+        await vm.unlock(password: fixturePassword)
+        vm.refreshSharedDatabaseCacheIfPossible()
+
+        await fulfillment(of: [refreshExpectation], timeout: 5)
+        XCTAssertEqual(populateCallCount, 2)
     }
 
     func testUnlockWithWrongPasswordTransitionsToError() async throws {

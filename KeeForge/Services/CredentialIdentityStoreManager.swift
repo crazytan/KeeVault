@@ -4,7 +4,17 @@ import OSLog
 enum CredentialIdentityStoreManager: Sendable {
     private static let logger = Logger(subsystem: "KeeForge", category: "CredentialIdentityStore")
 
+    #if DEBUG
+    @MainActor static var populateObserver: (([KPEntry]) -> Void)?
+    #endif
+
     static func populate(with entries: [KPEntry]) {
+        #if DEBUG
+        Task { @MainActor in
+            populateObserver?(entries)
+        }
+        #endif
+
         Task {
             let store = ASCredentialIdentityStore.shared
             let state = await store.state()

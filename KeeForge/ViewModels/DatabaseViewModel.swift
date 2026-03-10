@@ -321,11 +321,32 @@ final class DatabaseViewModel {
 
     func refreshSharedDatabaseCacheIfPossible() {
         guard let url = effectiveDatabaseURL else { return }
+        let expectedLockCycleID = lockCycleID
+        let compositeKeyForStoreRefresh: Data?
+        if case .unlocked = state,
+           SettingsService.quickAutoFillEnabled,
+           let compositeKey {
+            compositeKeyForStoreRefresh = compositeKey
+        } else {
+            compositeKeyForStoreRefresh = nil
+        }
 
-        Task.detached(priority: .utility) {
+        Task.detached(priority: .utility) { [url, expectedLockCycleID, compositeKeyForStoreRefresh] in
             do {
                 let data = try Self.readSecurityScopedData(from: url)
                 try SharedVaultStore.cacheDatabaseCopy(data, sourceURL: url)
+
+                if let compositeKeyForStoreRefresh {
+                    let refreshedRoot = try KDBXParser.parse(
+                        data: data,
+                        compositeKey: compositeKeyForStoreRefresh,
+                        sessionKey: SymmetricKey(size: .bits256)
+                    )
+                    await self.refreshCredentialStoreIfStillUnlocked(
+                        with: refreshedRoot,
+                        expectedLockCycleID: expectedLockCycleID
+                    )
+                }
             } catch {
                 return
             }
@@ -461,6 +482,12 @@ final class DatabaseViewModel {
                 Self.diagnostic("cacheDatabaseCopy: failed for \(sourceURL.lastPathComponent) '\(error.localizedDescription)'")
             }
         }
+    }
+
+    private func refreshCredentialStoreIfStillUnlocked(with root: KPGroup, expectedLockCycleID: Int) {
+        guard expectedLockCycleID == lockCycleID else { return }
+        guard case .unlocked = state else { return }
+        populateCredentialStoreIfNeeded(root: root)
     }
 
     nonisolated private static func readSecurityScopedData(from url: URL) throws -> Data {
