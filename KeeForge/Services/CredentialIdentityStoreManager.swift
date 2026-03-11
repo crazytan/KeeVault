@@ -88,7 +88,7 @@ enum CredentialIdentityStoreManager: Sendable {
               let userHandleData = passkey.userHandleData
         else { return nil }
 
-        let rpID = normalizedRelyingPartyIdentifier(passkey.relyingParty)
+        let rpID = passkey.relyingParty.trimmingCharacters(in: .whitespacesAndNewlines).lowercased()
         guard !rpID.isEmpty else { return nil }
 
         return ASPasskeyCredentialIdentity(
