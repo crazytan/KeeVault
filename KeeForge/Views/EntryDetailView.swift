@@ -47,7 +47,6 @@ struct EntryDetailView: View {
                 Section("Passkey") {
                     FieldRow(label: "Relying Party", value: passkey.relyingParty, icon: "person.badge.key.fill")
                     FieldRow(label: "Username", value: passkey.username, icon: "person.fill")
-                    FieldRow(label: "Credential ID", value: passkey.credentialID, icon: "key.fill")
                 }
             }
 
