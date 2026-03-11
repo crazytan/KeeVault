@@ -19,7 +19,6 @@ KeeForge/
 │   ├── Entry.swift                # KPEntry model (title, username, password, URLs, TOTP, passkey)
 │   ├── PasskeyCredential.swift    # FIDO2 passkey model parsed from KPEX_PASSKEY_* fields
 │   ├── EncryptedValue.swift       # AES-GCM wrapper for in-memory secret protection
-│   ├── KeyFileProcessor.swift     # Binary, hex, XML v1/v2, arbitrary file key processing
 │   └── TOTPGenerator.swift        # RFC 6238 TOTP generation
 ├── ViewModels/
 │   ├── DatabaseViewModel.swift    # Main VM: unlock, lock, search, sort, state machine, backoff
@@ -42,7 +41,10 @@ KeeForge/
 │   ├── CredentialIdentityStoreManager.swift # QuickType credential store
 │   ├── ClipboardService.swift     # Copy with auto-expiry
 │   ├── DocumentPickerService.swift # File bookmark management
+│   ├── CoordinatedFileReader.swift  # Security-scoped coordinated file access
 │   ├── FaviconService.swift        # Favicon fetch (DuckDuckGo) + disk cache with TTL
+│   ├── KeyFileProcessor.swift     # Binary, hex, XML v1/v2, arbitrary file key processing
+│   ├── ReviewPromptService.swift  # App Store review prompt logic
 │   ├── ScreenProtectionService.swift # Blur overlay when screen is captured/recorded
 │   ├── StoreKitManager.swift      # StoreKit 2 IAP manager (tip jar)
 │   ├── PasskeyCrypto.swift        # ECDSA P-256 assertion signing for passkey auth
@@ -52,7 +54,8 @@ KeeForge/
 └── Resources/
 
 AutoFillExtension/
-└── CredentialProviderViewController.swift  # ASCredentialProviderViewController (password + passkey)
+├── CredentialProviderViewController.swift  # ASCredentialProviderViewController (password + passkey)
+└── AutoFillSearchView.swift               # Search UI for AutoFill credential selection
 
 KeeForgeTests/          # Unit tests
 KeeForgeUITests/        # UI tests (XCUITest)
@@ -207,7 +210,7 @@ xcrun simctl shutdown all && xcrun simctl erase <UDID>
 
 `TestFixtures/demo.kdbx` (password: `password`) — richer demo database with TOTP entries, used for App Store screenshots.
 
-Key file test fixtures: `test-binary.key`, `test-hex.key`, `test-v1.key`, `test-v2.keyx`, `test-arbitrary.key`, `demo-keyfile.kdbx` + `demo-keyfile.key`.
+Key file test fixtures: `test-binary.key`, `test-hex.key`, `test-v1.key`, `test-v2.keyx`, `test-arbitrary.key`, `demo-keyfile.kdbx` + `demo-keyfile.key`. Also `test-v3-backup.kdbx` (KDBX 4.x backup fixture).
 
 **Note:** `test.kdbx` does NOT contain passkey entries or key-file-protected databases — those require separate fixtures (`demo-keyfile.kdbx` for key file testing).
 
