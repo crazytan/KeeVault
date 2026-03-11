@@ -32,10 +32,9 @@ enum CredentialIdentityStoreManager: Sendable {
             }
 
             do {
-                try await store.replaceCredentialIdentities(passwordIds)
-                if !passkeyIds.isEmpty {
-                    try await store.saveCredentialIdentities(passkeyIds)
-                }
+                var allIdentities: [any ASCredentialIdentity] = passwordIds
+                allIdentities.append(contentsOf: passkeyIds)
+                try await store.replaceCredentialIdentities(allIdentities)
                 logger.info("Populated identity store with \(passwordIds.count) password + \(passkeyIds.count) passkey identities")
             } catch {
                 logger.error("Failed to replace credential identities: \(error.localizedDescription)")
