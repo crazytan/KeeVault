@@ -1,21 +1,30 @@
 # Changelog
 
-## Unreleased
-
-- Fixed QuickType AutoFill identities being left stale after refreshing the shared database cache while the app is unlocked.
-- Fixed passkey AutoFill by re-enabling passkey support, registering passkey identities on unlock, and returning WebAuthn assertions with iOS-compatible authenticator flags.
-
 ### TODO (v2 roadmap)
-- [ ] Passkey AutoFill relying party normalization (strip www. prefix)
 - [ ] Passkey creation (Phase 3 — requires KDBX write support)
 - [ ] Editing support (create/modify entries)
 - [ ] Cloud drive integration (WebDAV, Google Drive, OneDrive, Dropbox)
 - [ ] iPad-native layout
 - [ ] Sync / attachments
 
+## v1.5.0 (2026-03-10)
+
+### New Features
+- **Passkey AutoFill** — passkeys stored in KDBX (KeePassXC format) now appear in the iOS QuickType bar and AutoFill sheet. Tap to authenticate with Face ID, just like passwords. Works with any website that supports WebAuthn/FIDO2 passkey sign-in.
+
+### Fixes
+- Fixed passkey assertion failing silently — rewrote crypto to use CryptoKit P-256 directly, set correct WebAuthn backup flags (BE/BS), and registered passkey identities in the credential identity store
+- Fixed passkey identities not appearing in QuickType — password and passkey identities are now saved atomically in a single `replaceCredentialIdentities` call (previously, replacing passwords wiped passkeys)
+- Fixed "Choose Different File" button not opening file picker
+- Fixed Face ID auto-triggering immediately after manual lock
+- Fixed AutoFill for cloud-hosted databases (Google Drive, OneDrive, Dropbox) by caching the selected `.kdbx` in the App Group shared container
+- Fixed QuickType AutoFill identities being left stale after refreshing the shared database cache while unlocked
+- Hidden credential ID from passkey detail view (shows relying party + username only)
+- Fixed flaky CI test timeout for credential store refresh
+
 ## v1.4.1 (2026-03-09)
 
-- Fixed AutoFill for cloud-hosted databases by caching the selected `.kdbx` in the App Group shared container and refreshing it from the main app.
+- Fixed Tip Jar product loading
 
 ## v1.4.0 (2026-03-08)
 
