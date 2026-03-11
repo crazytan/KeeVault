@@ -1,5 +1,6 @@
 import XCTest
 
+@MainActor
 final class SettingsUITests: KeeForgeUITestCase {
 
     private func openSettings() {

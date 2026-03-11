@@ -1,5 +1,6 @@
 import XCTest
 
+@MainActor
 final class AppStoreScreenshots: XCTestCase {
     var app: XCUIApplication!
 

@@ -1,5 +1,6 @@
 import XCTest
 
+@MainActor
 final class ScreenshotTests: KeeForgeUITestCase {
     
     func testCaptureScreenshots() throws {

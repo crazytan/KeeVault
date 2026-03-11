@@ -1,5 +1,6 @@
 import XCTest
 
+@MainActor
 class KeeForgeUITestCase: XCTestCase {
     private static let uiTestDBBase64Env = "UI_TEST_DB_BASE64"
     private static let uiTestDBFilenameEnv = "UI_TEST_DB_FILENAME"

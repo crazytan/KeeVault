@@ -1,5 +1,6 @@
 import XCTest
 
+@MainActor
 final class SearchUITests: KeeForgeUITestCase {
     private func debugSearchHierarchy(_ stage: String, file: StaticString = #filePath, line: UInt = #line) {
         let promptMatchCount = app.descendants(matching: .any).matching(identifier: "Search entries").count

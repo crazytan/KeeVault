@@ -2,6 +2,7 @@ import XCTest
 
 // MARK: - Key file UI controls (uses default test.kdbx)
 
+@MainActor
 final class KeyFileUITests: KeeForgeUITestCase {
 
     private func findKeyFileSelect() -> XCUIElement? {
@@ -47,6 +48,7 @@ final class KeyFileUITests: KeeForgeUITestCase {
 
 // MARK: - Key file unlock end-to-end (uses demo-keyfile.kdbx + demo-keyfile.key)
 
+@MainActor
 final class KeyFileUnlockUITests: KeeForgeUITestCase {
 
     override var databaseFixtureName: String { "demo-keyfile" }

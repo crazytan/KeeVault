@@ -1,5 +1,6 @@
 import XCTest
 
+@MainActor
 final class EntryTimestampUITests: KeeForgeUITestCase {
 
     func testEntryDetailShowsTimestamps() {

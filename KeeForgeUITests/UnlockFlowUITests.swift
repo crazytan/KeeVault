@@ -1,5 +1,6 @@
 import XCTest
 
+@MainActor
 final class UnlockFlowUITests: KeeForgeUITestCase {
     func testUnlockShowsErrorForWrongPassword() {
         unlock(password: "wrong-password")

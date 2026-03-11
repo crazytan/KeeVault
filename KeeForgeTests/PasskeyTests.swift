@@ -265,7 +265,8 @@ final class PasskeyCryptoTests: XCTestCase {
         )
         let identity = CredentialIdentityStoreManager.passkeyIdentity(for: entry)
 
-        XCTAssertEqual(identity?.relyingPartyIdentifier, "example.com")
+        // passkeyIdentity uses raw RP identifier (trim + lowercase only, no URL normalization)
+        XCTAssertEqual(identity?.relyingPartyIdentifier, "https://www.example.com/login")
     }
 
     // MARK: - Helpers
