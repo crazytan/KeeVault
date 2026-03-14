@@ -52,6 +52,13 @@ final class SharedVaultStoreTests: XCTestCase {
         XCTAssertTrue(DocumentPickerService.databasePickerContentTypes.contains(.item))
     }
 
+    func testInvalidDatabaseSelectionAlertUsesFriendlyCopy() {
+        XCTAssertEqual(
+            DocumentPickerService.invalidDatabaseSelectionAlert(),
+            .init(title: "Invalid File", message: "Please select a KeePass .kdbx database.")
+        )
+    }
+
     func testDocumentPickerRecognizesKDBXHeaderWhenProviderURLHasNoExtension() {
         let url = URL(fileURLWithPath: "/tmp/File Provider Storage/vault")
 
@@ -71,6 +78,25 @@ final class SharedVaultStoreTests: XCTestCase {
         }
 
         XCTAssertFalse(isSupported)
+    }
+
+    func testPickerFailureAlertSuppressesUserCancelledError() {
+        let cancelled = NSError(domain: NSCocoaErrorDomain, code: NSUserCancelledError)
+
+        XCTAssertNil(DocumentPickerService.pickerFailureAlert(for: cancelled))
+    }
+
+    func testPickerFailureAlertUsesLocalizedDescription() {
+        let error = NSError(
+            domain: NSCocoaErrorDomain,
+            code: NSFileReadNoSuchFileError,
+            userInfo: [NSLocalizedDescriptionKey: "File provider unavailable."]
+        )
+
+        XCTAssertEqual(
+            DocumentPickerService.pickerFailureAlert(for: error),
+            .init(title: "Couldn’t Open File", message: "File provider unavailable.")
+        )
     }
 
     func testCacheDatabaseCopyWritesLoadableSharedCopy() throws {

@@ -14,6 +14,7 @@
 - Fixed additional Xcode Cloud UI test flakes by reusing the shared document-picker and unlock wait helpers and removing a fixed sort-order sleep
 - Fixed iPad document picker selection from Recents by declaring the `.kdbx` document type and validating provider URLs by file signature
 - Fixed Google Drive `.kdbx` files being grayed out in the database picker by keeping a generic item fallback for cloud providers
+- Show database picker validation failures as alerts on the unlock screen
 
 ## v1.5.0 (2026-03-10)
 

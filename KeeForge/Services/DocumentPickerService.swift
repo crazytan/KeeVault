@@ -2,6 +2,13 @@ import Foundation
 import UniformTypeIdentifiers
 
 enum DocumentPickerService {
+    struct SelectionAlert: Identifiable, Equatable {
+        let title: String
+        let message: String
+
+        var id: String { "\(title)\n\(message)" }
+    }
+
     static let kdbxTypeIdentifier = "com.keevault.kdbx"
     static let databaseContentType = UTType(importedAs: kdbxTypeIdentifier)
     static let databasePickerContentTypes: [UTType] = [databaseContentType, .item]
@@ -41,5 +48,22 @@ enum DocumentPickerService {
 
     static func hasKDBXHeader(_ data: Data) -> Bool {
         data.starts(with: kdbxMagic)
+    }
+
+    static func invalidDatabaseSelectionAlert() -> SelectionAlert {
+        SelectionAlert(
+            title: "Invalid File",
+            message: "Please select a KeePass .kdbx database."
+        )
+    }
+
+    static func pickerFailureAlert(for error: Error) -> SelectionAlert? {
+        let nsError = error as NSError
+        guard nsError.code != NSUserCancelledError else { return nil }
+
+        return SelectionAlert(
+            title: "Couldn’t Open File",
+            message: nsError.localizedDescription
+        )
     }
 }
