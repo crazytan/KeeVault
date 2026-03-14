@@ -9,10 +9,6 @@
 
 ## Unreleased
 
-- Fixed Xcode Cloud test failures by adding missing `@MainActor` isolation to UI tests and aligning passkey test expectations with raw relying party identifiers
-- Fixed three flaky UI tests for Xcode Cloud by removing fixed unlock sleeps, waiting for the key file document picker more defensively, and scrolling Settings content on smaller simulators
-- Fixed additional Xcode Cloud UI test flakes by reusing the shared document-picker and unlock wait helpers and removing a fixed sort-order sleep
-- Fixed iPad document picker selection from Recents by declaring the `.kdbx` document type and validating provider URLs by file signature
 - Fixed Google Drive `.kdbx` files being grayed out in the database picker by keeping a generic item fallback for cloud providers
 - Show database picker validation failures as alerts on the unlock screen
 
@@ -20,20 +16,19 @@
 
 ### New Features
 - **Passkey AutoFill** — passkeys stored in KDBX (KeePassXC format) now appear in the iOS QuickType bar and AutoFill sheet. Tap to authenticate with Face ID, just like passwords. Works with any website that supports WebAuthn/FIDO2 passkey sign-in.
+- Fixed Tip Jar product loading
 
 ### Fixes
-- Fixed passkey assertion failing silently — rewrote crypto to use CryptoKit P-256 directly, set correct WebAuthn backup flags (BE/BS), and registered passkey identities in the credential identity store
-- Fixed passkey identities not appearing in QuickType — password and passkey identities are now saved atomically in a single `replaceCredentialIdentities` call (previously, replacing passwords wiped passkeys)
 - Fixed "Choose Different File" button not opening file picker
 - Fixed Face ID auto-triggering immediately after manual lock
 - Fixed AutoFill for cloud-hosted databases (Google Drive, OneDrive, Dropbox) by caching the selected `.kdbx` in the App Group shared container
 - Fixed QuickType AutoFill identities being left stale after refreshing the shared database cache while unlocked
 - Hidden credential ID from passkey detail view (shows relying party + username only)
-- Fixed flaky CI test timeout for credential store refresh
 
 ## v1.4.1 (2026-03-09)
 
-- Fixed Tip Jar product loading
+Rejected
+
 
 ## v1.4.0 (2026-03-08)
 
@@ -43,7 +38,6 @@
 - **Feedback button** — links to GitHub Issues from the About section
 - **Entry timestamps** — created and modified dates shown in entry detail view
 - **Sort direction** — ascending/descending toggle for all sort orders
-- **Passkey support** — detect and authenticate with passkeys stored in KeePassXC format (`KPEX_PASSKEY_*` custom fields). AutoFill extension provides passkey credentials to Safari and apps. Passkey badge on entries, detail view shows relying party + username. *(Disabled behind feature flag for v1.4.0 — will be re-enabled in a future release)*
 
 ### Security
 - Exponential backoff after failed password attempts (2s→4s→8s→16s→30s cap)
