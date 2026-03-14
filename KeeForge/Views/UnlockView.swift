@@ -174,9 +174,9 @@ struct UnlockView: View {
     private var pickerContentTypes: [UTType] {
         switch activePicker {
         case .keyFile:
-            [.item]
+            DocumentPickerService.keyFilePickerContentTypes
         case .database, .none:
-            [DocumentPickerService.databaseContentType]
+            DocumentPickerService.databasePickerContentTypes
         }
     }
 

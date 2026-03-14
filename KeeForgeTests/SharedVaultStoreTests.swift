@@ -47,6 +47,11 @@ final class SharedVaultStoreTests: XCTestCase {
         XCTAssertFalse(didReadHeader)
     }
 
+    func testDatabasePickerContentTypesIncludeKDBXAndGenericItemFallback() {
+        XCTAssertTrue(DocumentPickerService.databasePickerContentTypes.contains(DocumentPickerService.databaseContentType))
+        XCTAssertTrue(DocumentPickerService.databasePickerContentTypes.contains(.item))
+    }
+
     func testDocumentPickerRecognizesKDBXHeaderWhenProviderURLHasNoExtension() {
         let url = URL(fileURLWithPath: "/tmp/File Provider Storage/vault")
 

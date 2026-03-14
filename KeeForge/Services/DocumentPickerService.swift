@@ -4,6 +4,8 @@ import UniformTypeIdentifiers
 enum DocumentPickerService {
     static let kdbxTypeIdentifier = "com.keevault.kdbx"
     static let databaseContentType = UTType(importedAs: kdbxTypeIdentifier)
+    static let databasePickerContentTypes: [UTType] = [databaseContentType, .item]
+    static let keyFilePickerContentTypes: [UTType] = [.item]
     private static let kdbxMagic = Data([0x03, 0xD9, 0xA2, 0x9A, 0x67, 0xFB, 0x4B, 0xB5])
 
     static func saveBookmark(for url: URL) throws {
