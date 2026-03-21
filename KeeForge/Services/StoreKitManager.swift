@@ -22,7 +22,21 @@ final class StoreKitManager {
         "com.keevault.app.tip.big",
     ]
 
-    private init() {}
+    private var updatesTask: Task<Void, Never>?
+
+    private init() {
+        updatesTask = listenForTransactions()
+    }
+
+    private func listenForTransactions() -> Task<Void, Never> {
+        Task.detached {
+            for await result in Transaction.updates {
+                if case .verified(let transaction) = result {
+                    await transaction.finish()
+                }
+            }
+        }
+    }
 
     func loadProducts() async {
         do {
