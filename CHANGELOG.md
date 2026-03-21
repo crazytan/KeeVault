@@ -9,10 +9,6 @@
 
 ## Unreleased
 
-- Fixed Google Drive `.kdbx` files being grayed out in the database picker by keeping a generic item fallback for cloud providers
-- Show database picker validation failures as alerts on the unlock screen
-- Listen for `Transaction.updates` at launch to ensure StoreKit transactions are always finished
-
 ## v1.5.0 (2026-03-10)
 
 ### New Features
@@ -25,6 +21,9 @@
 - Fixed AutoFill for cloud-hosted databases (Google Drive, OneDrive, Dropbox) by caching the selected `.kdbx` in the App Group shared container
 - Fixed QuickType AutoFill identities being left stale after refreshing the shared database cache while unlocked
 - Hidden credential ID from passkey detail view (shows relying party + username only)
+- Fixed Google Drive `.kdbx` files being grayed out in the database picker by keeping a generic item fallback for cloud providers
+- Show database picker validation failures as alerts on the unlock screen
+- Listen for `Transaction.updates` at launch to ensure StoreKit transactions are always finished
 
 ## v1.4.1 (2026-03-09)
 
